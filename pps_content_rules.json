@@ -1,0 +1,59 @@
+{
+  "common_terms": {
+    "trading_terms": [
+      "Spread",
+      "Slippage",
+      "Leverage",
+      "Stop-loss",
+      "Position sizing",
+      "Breakout trading",
+      "Range trading",
+      "Technical analysis",
+      "Fundamental analysis",
+      "Risk-reward ratio"
+    ],
+    "market_terms": [
+      "Volatility",
+      "Price action",
+      "Support and resistance levels",
+      "Trendlines",
+      "Overbought and oversold conditions"
+    ],
+    "compliance_terms": [
+      "Regulatory guidelines",
+      "Risk disclaimer",
+      "Educational purposes only",
+      "Financial advice limitations",
+      "CFD trading risks"
+    ]
+  },
+  "tools_used": {
+    "proprietary_tools": [
+      "Autochartist",
+      "MetaTrader 4 and 5",
+      "cTrader"
+    ]
+  },
+  "rules": {
+    "tone_and_voice": [
+      "Maintain an authoritative and educational tone.",
+      "Use clear and concise explanations.",
+      "Avoid sensationalism or exaggeration.",
+      "Use neutral, data-driven language; avoid speculative phrases."
+    ],
+    "content_guidelines": [
+      "Do not provide specific price predictions or trading advice.",
+      "Always include disclaimers about the risks of trading.",
+      "Focus on evergreen content that remains relevant over time.",
+      "Reference proprietary tools and resources where appropriate.",
+      "Include a market-driven hook in introductions.",
+      "Conclude with a focus on risk management and informed decisions."
+    ],
+    "compliance_guidelines": [
+      "Avoid financial advice or direct trading recommendations.",
+      "Adhere to regulatory compliance and risk disclosure standards.",
+      "Ensure content is educational and unbiased.",
+      "Always include a disclaimer stating that CFD trading involves significant risks."
+    ]
+  }
+}
