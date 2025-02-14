@@ -1,0 +1,58 @@
+{
+  "style": {
+    "type": "Professional",
+    "key_elements": [
+      "Data-driven analysis",
+      "Clear and concise explanations",
+      "Step-by-step breakdowns",
+      "Use of technical and fundamental analysis frameworks"
+    ]
+  },
+  "brand": {
+    "name": "Pepperstone",
+    "voice": "Educational, compliance-focused, and trader-empowering",
+    "core_focus": [
+      "Market analysis",
+      "Trading education",
+      "Risk management"
+    ],
+    "tools": [
+      "Autochartist",
+      "MetaTrader",
+      "Proprietary analytics tools"
+    ]
+  },
+  "tone": {
+    "primary": "Authoritative and informative",
+    "secondary": "Supportive and engaging",
+    "guidelines": [
+      "Avoid sensationalism",
+      "Maintain an objective and balanced perspective",
+      "Use simple language where appropriate to explain complex ideas"
+    ]
+  },
+  "structure": {
+    "framework": [
+      {
+        "section": "Opening",
+        "description": "Compelling hook introducing the topic, aligned with market trends or evergreen relevance."
+      },
+      {
+        "section": "Analysis",
+        "description": "Detailed, data-backed insights using technical and fundamental frameworks."
+      },
+      {
+        "section": "Education",
+        "description": "Explain trading concepts or strategies with examples and actionable takeaways."
+      },
+      {
+        "section": "Compliance",
+        "description": "Include disclaimers, avoid specific trading advice, and align with regulatory requirements."
+      },
+      {
+        "section": "Conclusion",
+        "description": "Summarize key points and reinforce the importance of risk management and informed decision-making."
+      }
+    ]
+  }
+}
