@@ -10,8 +10,6 @@ from typing import Tuple, Dict, List, Union
 from dateutil.relativedelta import relativedelta
 import re
 
-# Load environment variables
-load_dotenv()
 # Define required API keys and their environment variable names
 REQUIRED_ENV_VARS = {
     'OPENAI_API_KEY': None,
@@ -22,6 +20,16 @@ REQUIRED_ENV_VARS = {
     'PERPLEXITY_API_KEY': None,  
     'PERPLEXITY_API_URL': None  
 }
+
+# Load secrets from Streamlit instead of .env
+if 'OPENAI_API_KEY' in st.secrets:
+    REQUIRED_ENV_VARS['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
+    REQUIRED_ENV_VARS['CLAUDE_API_KEY'] = st.secrets['CLAUDE_API_KEY']
+    REQUIRED_ENV_VARS['DEEPSEEK_API_KEY'] = st.secrets['DEEPSEEK_API_KEY']
+    REQUIRED_ENV_VARS['GEMINI_API_KEY'] = st.secrets['GEMINI_API_KEY']
+    REQUIRED_ENV_VARS['PERPLEXITY_API_KEY'] = st.secrets['PERPLEXITY_API_KEY']
+    REQUIRED_ENV_VARS['DEEPSEEK_API_URL'] = st.secrets['DEEPSEEK_API_URL']
+    REQUIRED_ENV_VARS['PERPLEXITY_API_URL'] = st.secrets['PERPLEXITY_API_URL']
 
 
 # Define available models and their configurations
