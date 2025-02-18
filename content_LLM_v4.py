@@ -10,6 +10,8 @@ from typing import Tuple, Dict, List, Union
 from dateutil.relativedelta import relativedelta
 import re
 
+# Load environment variables
+load_dotenv()
 # Define required API keys and their environment variable names
 REQUIRED_ENV_VARS = {
     'OPENAI_API_KEY': None,
@@ -20,16 +22,6 @@ REQUIRED_ENV_VARS = {
     'PERPLEXITY_API_KEY': None,  
     'PERPLEXITY_API_URL': None  
 }
-
-# Load secrets from Streamlit instead of .env
-if 'OPENAI_API_KEY' in st.secrets:
-    REQUIRED_ENV_VARS['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
-    REQUIRED_ENV_VARS['CLAUDE_API_KEY'] = st.secrets['CLAUDE_API_KEY']
-    REQUIRED_ENV_VARS['DEEPSEEK_API_KEY'] = st.secrets['DEEPSEEK_API_KEY']
-    REQUIRED_ENV_VARS['GEMINI_API_KEY'] = st.secrets['GEMINI_API_KEY']
-    REQUIRED_ENV_VARS['PERPLEXITY_API_KEY'] = st.secrets['PERPLEXITY_API_KEY']
-    REQUIRED_ENV_VARS['DEEPSEEK_API_URL'] = st.secrets['DEEPSEEK_API_URL']
-    REQUIRED_ENV_VARS['PERPLEXITY_API_URL'] = st.secrets['PERPLEXITY_API_URL']
 
 
 # Define available models and their configurations
@@ -271,7 +263,7 @@ def get_major_market_movers() -> list:
 
 @st.cache_data(ttl=3600)
 def fetch_market_context(topic: str) -> Tuple[str, bool]:
-    """Fetch relevant market data with current timestamp."""
+    """Fetch relevant market data using yesterday's closing prices."""
     ticker_map = {
         "gold": "GC=F",
         "oil": "CL=F", 
@@ -285,23 +277,27 @@ def fetch_market_context(topic: str) -> Tuple[str, bool]:
     }
     
     market_context = []
-    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    # Get yesterday's date
+    yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
     
     for keyword, ticker in ticker_map.items():
         if keyword in topic.lower():
             try:
                 stock = yf.Ticker(ticker)
-                history = stock.history(period="1mo")
-                latest_data = history.tail(3)
-                market_context.append(
-                    f"Latest {keyword.capitalize()} data ({ticker}) as of {current_time}:\n"
-                    f"{latest_data.to_string()}\n"
-                )
+                # Get yesterday's closing data
+                history = stock.history(start=yesterday, end=datetime.now().strftime('%Y-%m-%d'))
+                if not history.empty:
+                    closing_data = history.iloc[-1]
+                    market_context.append(
+                        f"Latest {keyword.capitalize()} closing price ({ticker}): "
+                        f"**{closing_data['Close']:.2f}** as of {yesterday}\n"
+                    )
             except Exception as e:
                 print(f"Error fetching data for {ticker}: {e}")
                 continue
     
     return "\n".join(market_context) if market_context else "", bool(market_context)
+
 
 def get_relevant_examples(topic: str, learning_context: dict) -> str:
     """Get relevant examples based on topic keywords."""
@@ -758,7 +754,7 @@ def format_content(content: str, is_short_form: bool = False) -> str:
     
     return content.strip()
 
-def generate_content(topic: str, market_data: str, context: str, content_type: str, max_length: int = 800, focus_area: str = "") -> str:
+def generate_content(topic: str, market_data: str, context: str, content_type: str, max_length: int = 800, focus_area: str = "", target_language: str = "en") -> str:
     """Generate content using the selected model."""
     try:
         # Determine if generating short-form content
@@ -768,12 +764,21 @@ def generate_content(topic: str, market_data: str, context: str, content_type: s
         selected_model = st.session_state.get('current_model')
         is_perplexity = "perplexity" in selected_model.lower()
 
+        # Content structure guidance
+        content_structure = """
+Content Structure Requirements:
+1. First paragraph ONLY: Include key metrics, prices, and numerical data
+2. Subsequent paragraphs: Focus on qualitative analysis and market implications
+3. Minimize numerical references after the first paragraph
+4. Emphasize market sentiment, trends, and strategic insights
+"""
+
         # Current date context
         current_date_context = f"""
 IMPORTANT - CURRENT DATE CONTEXT:
 - Current Date: {CURRENT_DATE.strftime('%B %d, %Y')}
 - All market analysis must be from this current perspective
-- Any price levels must be qualified with "as of {CURRENT_DATE.strftime('%B %d, %Y')}"
+- Any price levels must be qualified with "as of yesterday's close {(CURRENT_DATE - timedelta(days=1)).strftime('%B %d, %Y')}"
 - Reference relevant events
 - Ensure all timeframes are relative to {CURRENT_DATE.strftime('%B %Y')}
 
@@ -783,8 +788,10 @@ Format Requirements:
 3. Use double line breaks between paragraphs
 4. Use proper bullet points (•) for lists
 5. Preserve all formatting and line breaks
+6. Include closing prices from yesterday, not current prices
 """
-        # Load necessary context based on content type
+
+    # Load necessary context based on content type
         if not is_short_form:
             style_guide = st.session_state['style_guide']
             content_rules = st.session_state['content_rules']
@@ -795,6 +802,18 @@ Format Requirements:
             news_info = verify_news_accuracy(topic, os.getenv("NEWS_API_KEY"))
         else:
             news_info = {'error': 'Using Perplexity for real-time data'}
+
+        # Language-specific adjustments
+        language_context = ""
+        if target_language != "en":
+            language_context = f"""
+Language Requirements:
+1. Generate content directly in {SUPPORTED_LANGUAGES[target_language]}
+2. Keep technical terms, currency pairs, and market terminology in English
+3. Maintain natural flow in {SUPPORTED_LANGUAGES[target_language]}
+4. Use appropriate language style and tone for {SUPPORTED_LANGUAGES[target_language]} readers
+5. Format numbers according to {SUPPORTED_LANGUAGES[target_language]} conventions
+"""
 
         # Prepare focus area emphasis
         focus_emphasis = ""
@@ -812,7 +831,11 @@ Special Focus Requirements:
 
         # Prepare news context
         if is_perplexity:
-            news_context = "Use your web search capability to find and analyze current market conditions and news."
+            news_context = """Use your web search capability to find and analyze:
+1. Yesterday's closing prices and key metrics (ONLY in first paragraph)
+2. Current market conditions and broader trends
+3. Market sentiment and expert analysis
+4. Breaking news and significant developments"""
         elif 'error' in news_info:
             news_context = f"Focus on current market conditions and technical analysis as of {CURRENT_DATE.strftime('%B %d, %Y')}"
         else:
@@ -830,15 +853,16 @@ Special Focus Requirements:
                             
         # Create the appropriate prompt based on content type
         if is_short_form:
-            # Special prompt for short-form content
             perplexity_addition = """
 Additional Requirements for Web Search:
-1. Use real-time market data from your web search
-2. Include latest price movements and market sentiment
-3. Reference any breaking news or developments""" if is_perplexity else ""
+1. Use yesterday's closing prices for any price references
+2. Focus on key market implications and sentiment
+3. Reference significant developments and trends""" if is_perplexity else ""
 
             prompt = f"""
 {current_date_context}
+{language_context if target_language != "en" else ""}
+{content_structure}
 
 Generate a complete and concise {max_length}-word market update about {topic}.
 
@@ -846,13 +870,13 @@ Requirements:
 1. MUST be exactly {max_length} words
 2. MUST be a complete thought/analysis
 3. MUST end with a clear market implication or actionable insight
-4. Include ONE specific price level with current date
+4. Include ONE specific price level (yesterday's close only)
 5. Keep the message focused and impactful
 6. Bold all key numbers, dates, and metrics using **text** format
 {perplexity_addition}
 
 Format:
-- Key market fact with specific data point
+- Key market fact with specific data point (yesterday's close)
 - Brief supporting context
 - Clear market implication
 
@@ -860,10 +884,10 @@ Current Market Context:
 {news_context}
 
 Market Data:
-{market_data if market_data and not is_perplexity else 'Use current market conditions'}
+{market_data if market_data and not is_perplexity else 'Use yesterday\'s closing prices'}
 
 Example Format:
-"**Bitcoin** breaks above **$50,000** (as of **February 14, 2025**) on ETF inflow surge. Institutional demand drives **15%** weekly gain with strong volume support. Watch **$52,000** resistance for potential breakout signal."
+"**Bitcoin** closed at **$50,000** (as of **February 14, 2025**) amid ETF inflow surge. Institutional demand and strong volume support signal positive momentum. Watch **$52,000** resistance for potential breakout signal."
 
 Focus: {focus_emphasis if focus_emphasis else 'Key market drivers and implications'}
 
@@ -873,12 +897,14 @@ Note: Message must be complete and end with clear takeaway."""
             perplexity_addition = """
 Additional Research Requirements:
 1. Use web search to find current market examples
-2. Include latest developments and trends
-3. Reference recent real-world applications
-4. Incorporate current market statistics""" if is_perplexity else ""
+2. Focus on conceptual understanding over numerical data
+3. Reference recent applications and trends
+4. Include relevant case studies""" if is_perplexity else ""
 
             prompt = f"""
 {current_date_context}
+{language_context if target_language != "en" else ""}
+{content_structure}
 
 Generate educational content about {topic} for traders and investors.
 
@@ -910,14 +936,16 @@ Good Examples:
         else:  # market_analysis
             perplexity_addition = """
 Real-time Analysis Requirements:
-1. Present all information directly without explaining your search process
-2. Use real-time market data from your web search 
-3. Include latest price movements and market sentiment
-4. Reference any breaking news or developments
-5. Do not include any meta-commentary about how you found the information""" if is_perplexity else ""
+1. First paragraph ONLY: Include yesterday's closing prices and key metrics
+2. Subsequent paragraphs: Focus on analysis, trends, and implications
+3. Include latest market sentiment and expert analysis
+4. Reference significant developments and trends
+5. Emphasize strategic insights over numerical data""" if is_perplexity else ""
 
             prompt = f"""
 {current_date_context}
+{language_context if target_language != "en" else ""}
+{content_structure}
 
 Generate sophisticated market analysis about {topic}.
 
@@ -925,15 +953,15 @@ Current Market Context:
 {news_context}
 
 Technical Market Data:
-{market_data if market_data and not is_perplexity else 'Use current market conditions'}
+{market_data if market_data and not is_perplexity else 'Use yesterday\'s closing prices'}
 
 {focus_emphasis}
 
 Content Requirements:
-1. Start with the most significant market-moving events and their impact
-2. Include analysis of how major global events are affecting markets
-3. Consider technological developments if relevant
-4. Provide specific data points and price movements where applicable
+1. Begin with key metrics and yesterday's closing prices in first paragraph ONLY
+2. Focus subsequent paragraphs on qualitative analysis and market implications
+3. Include analysis of major market drivers and trends
+4. Consider broader market context and correlations
 5. Target length: {max_length} words
 6. Use proper paragraph breaks and formatting
 {perplexity_addition}
@@ -947,13 +975,18 @@ Content Rules:
 Good Examples:
 {good_examples}"""
 
-# Set appropriate system role
-        if is_perplexity:
+        # Set appropriate system role
+        if target_language != "en":
+            system_role = (
+                f"You are a native {SUPPORTED_LANGUAGES[target_language]} speaking market analyst with expertise in financial markets. "
+                f"Generate all content directly in {SUPPORTED_LANGUAGES[target_language]}, keeping technical terms in English. "
+                f"You are writing this content on {CURRENT_DATE.strftime('%B %d, %Y')}. Use this as your reference point."
+            )
+        elif is_perplexity:
             system_role = (
                 "You are a market analyst with web search capabilities. Provide your analysis directly without explaining your search or thinking process. "
-                "Do not include phrases like 'Let me search' or 'Based on my search'. "
-                "Do not explain how you found the information. Simply present the analysis and data directly. "
-                "Use real-time data and current market information in your analysis. "
+                "Focus on analysis and implications rather than just numerical data. "
+                "Use yesterday's closing prices for any price references. "
                 f"You are writing this content on {CURRENT_DATE.strftime('%B %d, %Y')}. Use this as your reference point."
             )
         else:
@@ -971,10 +1004,8 @@ Good Examples:
             {"role": "user", "content": prompt}
         ]
         
-        # Get model info
+        # Get model info and make API request
         model_info = AVAILABLE_MODELS[selected_model]
-        
-        # Adjust token limit based on content type
         max_tokens = min(max_length * (6 if is_short_form else 4), model_info['max_tokens'])
         
         with st.spinner(f"🤖 Generating with {selected_model}..."):
@@ -986,31 +1017,23 @@ Good Examples:
                 )
                 
                 if content:
-                    # Process the content through the formatter
                     content = format_content(content, is_short_form)
-                    
-                    # For short content, ensure it's complete
                     if is_short_form:
-                        # Split into sentences and ensure completion
                         sentences = content.split('.')
                         complete_content = []
                         word_count = 0
-                        
                         for sentence in sentences:
                             if not sentence.strip():
                                 continue
-                            
                             sentence_words = len(sentence.split())
                             if word_count + sentence_words <= max_length:
                                 complete_content.append(sentence.strip())
                                 word_count += sentence_words
                             else:
                                 break
-                        
                         content = '. '.join(complete_content)
                         if not content.endswith('.'):
                             content += '.'
-                
                 return content
                 
             except Exception as e:
@@ -1020,79 +1043,8 @@ Good Examples:
     except Exception as e:
         st.error(f"Generation error: {str(e)}")
         print(f"Detailed error: {str(e)}")
-        return f"Error occurred: {str(e)}"
-
-def translate_content(content: str, target_language: str) -> str:
-    """Translate content using available LLM models."""
-    if not content:
-        return "No content to translate"
-
-    # Translation prompt with guidelines
-    translation_prompt = f"""
-Translate the following content into {SUPPORTED_LANGUAGES[target_language]}.
-
-Translation Requirements:
-1. Preserve all trading terms and technical indicators in English:
-   - Currency pairs (e.g., USD/JPY)
-   - Technical indicators (RSI, MACD, etc.)
-   - Chart patterns (bullish flag, etc.)
-   - Numbers and percentages
-   - Timeframes (1H, 4H, 1D)
-   - Special tokens (<extra_id_X>)
-
-2. Maintain formatting:
-   - Keep paragraph breaks
-   - Preserve bullet points
-   - Keep special characters
-   - Maintain bold/italic markers (**)
-
-3. Translate naturally while keeping financial terms accurate.
-
-Content to translate:
-{content}
-
-Please provide a natural {SUPPORTED_LANGUAGES[target_language]} translation that preserves all technical terms and formatting."""
-
-    # Set up messages for the API request
-    messages = [
-        {
-            "role": "system",
-            "content": f"You are an expert financial translator specializing in {SUPPORTED_LANGUAGES[target_language]}."
-        },
-        {
-            "role": "user",
-            "content": translation_prompt
-        }
-    ]
-
-    try:
-        # Use the current selected model
-        selected_model = st.session_state.get('current_model')
-        if not selected_model:
-            raise ValueError("No model selected for translation")
-
-        model_info = AVAILABLE_MODELS[selected_model]
-        max_tokens = min(len(content) * 4, model_info['max_tokens'])
-
-        # Use the same API request function as content generation
-        with st.spinner(f"Translating to {SUPPORTED_LANGUAGES[target_language]}..."):
-            translated_content = make_api_request(
-                messages=messages,
-                model_name=selected_model,
-                max_tokens=max_tokens
-            )
-
-            if translated_content:
-                # Clean up any doubled spaces but preserve special tokens
-                translated_content = re.sub(r'(?<!extra_id_)\s+', ' ', translated_content)
-                return translated_content.strip()
-            else:
-                raise ValueError("Empty translation received")
-
-    except Exception as e:
-        st.error(f"Translation error: {str(e)}")
-        return f"Translation failed: {str(e)}"
-
+        return f"Error occurred: {str(e)}"    
+    
 def main():
     """Main application function."""
     st.title("Market Content Generator")
@@ -1132,183 +1084,137 @@ def main():
     else:
         st.error("No models available. Please check your API keys.")
         st.stop()
-
-    # Create tabs for content generation and translation
-    tab1, tab2 = st.tabs(["📝 Generate Content", "🌐 Translate"])
-
-    # Content Generation Tab
-
         
-    with tab1:
+    # Content Generation Section
+    st.markdown("## Generate Content")
+    
+    # Add recommendation message
+    with st.expander("ℹ️ Model Recommendations", expanded=True):
+        st.markdown("""
+        **Recommended Models by Content Type:**
+        - **Short-form Content**: Use market analysis models for concise, impactful updates
+        - **Market Analysis**: Perplexity and DeepSeek models are preferred for real-time market insights
+        """)
+
+    # Content Type and Language Selection
+    col1, col2 = st.columns(2)
+    
+    with col1:
         content_type = st.radio(
             "Select Content Type:",
             ["Market Analysis", "Educational Content"],
             help="Choose the type of content you want to generate"
         )
-        
-        # Add recommendation message
-        with st.expander("ℹ️ Model Recommendations", expanded=True):
-            st.markdown("""
-            **Recommended Models by Content Type:**
-            - **Short-form Content**: Use market analysis models for concise, impactful updates
-            - **Market Analysis**: Perplexity and DeepSeek models are preferred for real-time market insights
-            """)
-
-        col1, col2 = st.columns(2)
-
-        with col1:
-            topic = st.text_input(
-                "Topic:",
-                placeholder="Enter market analysis topic...",
-                help="Enter any market-related topic for analysis"
-            )
-
-        with col2:
-            focus_area = st.text_input(
-                "Focus Area (Optional):",
-                placeholder="E.g., technical analysis, fundamentals, risks...",
-                help="Specify what aspects to emphasize in the content"
-            )
-
-        content_type = "market_analysis" if content_type == "Market Analysis" else "educational"
-
-        # Add toggle for short-form content
-        is_short_form = st.checkbox(
-            "Enable short-form content (tweets/captions)",
-            value=False,
-            help="Toggle for tweet-length content generation"
+    
+    with col2:
+        content_language = st.selectbox(
+            "Content Language:",
+            options=["English"] + list(SUPPORTED_LANGUAGES.values()),
+            help="Generate content directly in selected language"
         )
 
-        # Set slider parameters based on content type
-        if is_short_form:
-            max_length = st.slider(
-                "Word Count",
-                min_value=20,
-                max_value=100,
-                value=30,
-                step=5,
-                help="20-50 words recommended for tweets, up to 100 for captions"
-            )
-            if max_length <= 50:
-                st.info("📱 Generating social media content (tweet/caption length)")
-        else:
-            max_length = st.slider(
-                "Word Count",
-                min_value=300,
-                max_value=2000,
-                value=800,
-                step=100,
-                help="300+ words recommended for full articles"
-            )
+    # Convert display language to code
+    target_language = "en"
+    for code, lang in SUPPORTED_LANGUAGES.items():
+        if lang == content_language:
+            target_language = code
 
-        if st.button("Generate Content", type="primary") and topic.strip():
-            with st.spinner("🔄 Analyzing markets and preparing content..."):
-                context = get_relevant_examples(topic, st.session_state['learning_context'])
-                market_data, has_market_data = fetch_market_context(topic)
+    # Topic and Focus Area
+    col3, col4 = st.columns(2)
 
-                content = generate_content(
-                    topic=topic,
-                    market_data=market_data,
-                    context=context,
-                    content_type=content_type,
-                    max_length=max_length,
-                    focus_area=focus_area
+    with col3:
+        topic = st.text_input(
+            "Topic:",
+            placeholder="Enter market analysis topic...",
+            help="Enter any market-related topic for analysis"
+        )
+
+    with col4:
+        focus_area = st.text_input(
+            "Focus Area (Optional):",
+            placeholder="E.g., technical analysis, fundamentals, risks...",
+            help="Specify what aspects to emphasize in the content"
+        )
+    
+    content_type = "market_analysis" if content_type == "Market Analysis" else "educational"
+
+    # Content Length Settings
+    is_short_form = st.checkbox(
+        "Enable short-form content (tweets/captions)",
+        value=False,
+        help="Toggle for tweet-length content generation"
+    )
+
+    # Set content length based on type
+    if is_short_form:
+        max_length = st.slider(
+            "Word Count",
+            min_value=20,
+            max_value=100,
+            value=30,
+            step=5,
+            help="20-50 words recommended for tweets, up to 100 for captions"
+        )
+        if max_length <= 50:
+            st.info("📱 Generating social media content (tweet/caption length)")
+    else:
+        max_length = st.slider(
+            "Word Count",
+            min_value=300,
+            max_value=2000,
+            value=800,
+            step=100,
+            help="300+ words recommended for full articles"
+        )
+
+    # Generate button and content generation
+    if st.button("Generate Content", type="primary") and topic.strip():
+        with st.spinner("🔄 Analyzing markets and preparing content..."):
+            context = get_relevant_examples(topic, st.session_state['learning_context'])
+            market_data, has_market_data = fetch_market_context(topic)
+
+            content = generate_content(
+                topic=topic,
+                market_data=market_data,
+                context=context,
+                content_type=content_type,
+                max_length=max_length,
+                focus_area=focus_area,
+                target_language=target_language
+            )
+    
+        if content:
+                # Validate and update dates in content
+                content = update_content_dates(content)
+
+                # Validate market data currency
+                market_data_current = bool(market_data and
+                                     CURRENT_DATE.strftime('%Y-%m-%d') in market_data)
+
+                if not market_data_current and has_market_data:
+                    st.warning("⚠️ Market data is from yesterday's close. Verify if significant changes occurred today.")
+
+                # Store in session state
+                st.session_state['generated_content'] = content
+
+                # Display which API was used
+                api_used = st.session_state.get('current_api', 'Unknown')
+                st.info(f"📢 Content generated using {api_used} API")
+
+                # Display the content
+                st.markdown("### Generated Content:")
+                st.markdown(content)
+
+                # Download option
+                file_type = "tweet" if max_length <= 50 else "market_analysis"
+                language_suffix = f"_{target_language}" if target_language != "en" else ""
+                
+                st.download_button(
+                    "📥 Download Content",
+                    data=content,
+                    file_name=f"{file_type}{language_suffix}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt",
+                    mime="text/plain"
                 )
 
-                if content:
-                    # Validate and update dates in content
-                    content = update_content_dates(content)
-
-                    # Validate market data currency
-                    market_data_current = bool(market_data and
-                                         CURRENT_DATE.strftime('%Y-%m-%d') in market_data)
-
-                    if not market_data_current and has_market_data:
-                        st.warning("⚠️ Market data may not be current. Please verify the latest figures.")
-
-                    # Store in session state
-                    st.session_state['generated_content'] = content
-
-                    # Display which API was used
-                    api_used = st.session_state.get('current_api', 'Unknown')
-                    st.info(f"📢 Content generated using {api_used} API")
-
-                    # Display the content
-                    st.markdown("### Generated Content:")
-                    st.markdown(content)
-
-                    # Download options
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        file_type = "tweet" if max_length <= 50 else "market_analysis"
-                        st.download_button(
-                            "📥 Download Content",
-                            data=content,
-                            file_name=f"{file_type}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt",
-                            mime="text/plain"
-                        )
-                    with col2:
-                        st.info("Switch to the Translation tab to translate this content")
-
-    # Translation Tab
-    
-    with tab2:
-        st.subheader("Content Translation")
-
-        # Option to paste custom content
-        use_custom = st.checkbox(
-            "Use custom content",
-            help="Check this to translate your own content instead of previously generated content"
-        )
-
-        if use_custom:
-            content_to_translate = st.text_area(
-                "Enter content to translate:",
-                height=200,
-                placeholder="Paste your content here..."
-            )
-        else:
-            content_to_translate = st.session_state.get('generated_content', None)
-            if content_to_translate and isinstance(content_to_translate, str):
-                st.markdown("**Content to Translate:**")
-                st.markdown(content_to_translate)
-            else:
-                st.warning("🔍 No content available. Please generate content first or use custom content.")
-                content_to_translate = ""
-
-        # Language selection
-        target_language = st.selectbox(
-            "Select target language:",
-            options=list(SUPPORTED_LANGUAGES.keys()),
-            format_func=lambda x: SUPPORTED_LANGUAGES[x]
-        )
-
-        if st.button("Translate", type="primary") and content_to_translate:
-            try:
-                translated_content = translate_content(content_to_translate, target_language)
-
-                if translated_content and isinstance(translated_content, str):
-                    # Store translation in session state
-                    st.session_state['translated_content'] = translated_content
-
-                    # Display translation
-                    st.markdown(f"### {SUPPORTED_LANGUAGES[target_language]} Translation:")
-                    st.markdown(translated_content)
-
-                    # Download option
-                    download_translation = translated_content.encode('utf-8')
-                    st.download_button(
-                        "📥 Download Translation",
-                        data=download_translation,
-                        file_name=f"translated_{target_language}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt",
-                        mime="text/plain"
-                    )
-            except Exception as e:
-                st.error(f"Translation error: {str(e)}")
-                
-        elif st.button("Translate"):
-            st.error("⚠️ Please provide content to translate.")
-            
-            
 if __name__ == "__main__":
     main()
