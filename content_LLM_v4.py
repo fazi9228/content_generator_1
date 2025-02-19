@@ -20,7 +20,8 @@ REQUIRED_ENV_VARS = {
     'GEMINI_API_KEY': None,
     'DEEPSEEK_API_URL': None,
     'PERPLEXITY_API_KEY': None,  
-    'PERPLEXITY_API_URL': None  
+    'PERPLEXITY_API_URL': None,
+    'QWEN_API_KEY': None   
 }
 
 
@@ -82,6 +83,22 @@ AVAILABLE_MODELS = {
         "supports_streaming": True,
         "requires_key": "PERPLEXITY_API_KEY"
     },
+    "Qwen Plus": {
+        "id": "qwen-plus",
+        "provider": "qwen",
+        "api_url": "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+        "max_tokens": 4096,
+        "supports_streaming": True,
+        "requires_key": "QWEN_API_KEY"
+    },
+    "Qwen Turbo": {
+        "id": "qwen-turbo",
+        "provider": "qwen",
+        "api_url": "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+        "max_tokens": 4096,
+        "supports_streaming": True,
+        "requires_key": "QWEN_API_KEY"
+    }
 }
 
 
@@ -124,8 +141,12 @@ def get_available_models():
     for model_name, model_info in AVAILABLE_MODELS.items():
         required_key = model_info['requires_key']
         
-        # Special handling for DeepSeek models which need URL too
-        if model_info['provider'] == 'deepseek':
+        # Special handling for DeepSeek,Qwen & Perplexity models which need URL too
+        if model_info['provider'] == 'qwen':
+            if REQUIRED_ENV_VARS['QWEN_API_KEY']:
+                available_models[model_name] = model_info
+        
+        elif model_info['provider'] == 'deepseek':
             if (REQUIRED_ENV_VARS['DEEPSEEK_API_KEY'] and 
                 REQUIRED_ENV_VARS['DEEPSEEK_API_URL']):
                 # Update the API URL from env var
@@ -643,6 +664,25 @@ def make_api_request(messages: List[dict], model_name: str, max_tokens: int, max
                 }
                 headers = {"Content-Type": "application/json"}
                 url = f"{model_info['api_url']}:generateContent?key={REQUIRED_ENV_VARS['GEMINI_API_KEY']}"
+                
+            elif provider == "qwen":
+                from openai import OpenAI
+                client = OpenAI(
+                    api_key=REQUIRED_ENV_VARS['QWEN_API_KEY'],
+                    base_url=model_info['api_url']
+                )
+                try:
+                    completion = client.chat.completions.create(
+                        model=model_info['id'],
+                        messages=messages,
+                        max_tokens=max_tokens,
+                        temperature=0.7
+                    )
+                    content = completion.choices[0].message.content
+                    st.session_state['current_api'] = model_name
+                    return content
+                except Exception as e:
+                    raise Exception(f"Qwen API error: {str(e)}")
             
             else:
                 raise ValueError(f"Unsupported provider: {provider}")
