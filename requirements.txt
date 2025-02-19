@@ -3,3 +3,4 @@ python-dotenv
 requests
 yfinance
 python-dateutil
+openai
