@@ -282,42 +282,47 @@ def get_major_market_movers() -> list:
     
     return all_articles
 
-@st.cache_data(ttl=3600)
+def get_market_prices(topic: str) -> str:
+    """Get current market prices using Perplexity API."""
+    try:
+        messages = [
+            {"role": "system", "content": "You are a financial data provider. Return only the exact official closing price data with date."},
+            {"role": "user", "content": f"What was yesterday's official closing price for {topic}? Return ONLY the price and date in this format: 'Closed at [PRICE] on [DATE]'"}
+        ]
+        
+        # Use Perplexity for price check
+        price_data = make_api_request(
+            messages=messages,
+            model_name="Perplexity sonar-pro",
+            max_tokens=100
+        )
+        
+        return price_data
+    except Exception as e:
+        print(f"Error getting market prices: {e}")
+        return ""
+
 def fetch_market_context(topic: str) -> Tuple[str, bool]:
-    """Fetch relevant market data using yesterday's closing prices."""
-    ticker_map = {
-        "gold": "GC=F",
-        "oil": "CL=F", 
-        "bitcoin": "BTC-USD",
-        "ethereum": "ETH-USD",
-        "forex": "EURUSD=X",
-        "silver": "SI=F",
-        "stocks": "^GSPC",
-        "market": "^GSPC",
-        "trading": "^VIX"
-    }
-    
+    """Fetch market data using Perplexity for prices."""
     market_context = []
-    # Get yesterday's date
-    yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
     
-    for keyword, ticker in ticker_map.items():
-        if keyword in topic.lower():
-            try:
-                stock = yf.Ticker(ticker)
-                # Get yesterday's closing data
-                history = stock.history(start=yesterday, end=datetime.now().strftime('%Y-%m-%d'))
-                if not history.empty:
-                    closing_data = history.iloc[-1]
-                    market_context.append(
-                        f"Latest {keyword.capitalize()} closing price ({ticker}): "
-                        f"**{closing_data['Close']:.2f}** as of {yesterday}\n"
-                    )
-            except Exception as e:
-                print(f"Error fetching data for {ticker}: {e}")
-                continue
-    
-    return "\n".join(market_context) if market_context else "", bool(market_context)
+    try:
+        # Get price data from Perplexity
+        price_data = get_market_prices(topic)
+        
+        if price_data:
+            market_context.append(price_data)
+        
+        # If using Perplexity for final content generation, we can skip this
+        # to avoid duplicate API calls
+        if not "perplexity" in st.session_state.get('current_model', '').lower():
+            market_context.append("\nMarket data verified from financial sources.")
+            
+        return "\n".join(market_context), bool(market_context)
+        
+    except Exception as e:
+        print(f"Error in fetch_market_context: {e}")
+        return "", False
 
 
 def get_relevant_examples(topic: str, learning_context: dict) -> str:
@@ -762,41 +767,26 @@ def make_api_request(messages: List[dict], model_name: str, max_tokens: int, max
     raise Exception("Max retries reached without successful response")
 
 
-def format_content(content: str, is_short_form: bool = False) -> str:
-    """Format content to ensure consistent styling and line breaks."""
-    if not content:
-        return content
-        
-    # Replace any existing multiple line breaks with a placeholder
-    content = re.sub(r'\n\s*\n', '__DOUBLE_BREAK__', content)
-    content = re.sub(r'\n', '__SINGLE_BREAK__', content)
-    content = re.sub(r'\s+', ' ', content)
-    content = content.replace('__DOUBLE_BREAK__', '\n\n')
-    content = content.replace('__SINGLE_BREAK__', '\n')
-    
-    # Bold numbers and currencies
-    numbers_pattern = r'(\d+\.?\d*%?(?:\s*(?:USD|EUR|GBP|JPY|points?|pips?|[A-Z]{3})){0,1})'
-    content = re.sub(numbers_pattern, lambda m: f"**{m.group(1)}**" if '**' not in m.group(1) else m.group(1), content)
-    
-    # Bold dates - handling each part separately to avoid group reference errors
-    months = r'(January|February|March|April|May|June|July|August|September|October|November|December)'
-    date_pattern = f"{months}\\s+\\d{{1,2}},?\\s+\\d{{4}}"
-    content = re.sub(date_pattern, lambda m: f"**{m.group(0)}**" if '**' not in m.group(0) else m.group(0), content)
-    
-    # Ensure proper list formatting
-    content = re.sub(r'(?m)^[•●]\s*', '\n• ', content)  # Handle different bullet types
-    content = re.sub(r'(?m)^(\d+)\.\s*', lambda m: f"\n{m.group(1)}. ", content)
-    
-    if is_short_form:
-        content = content.replace('\n\n', ' ')
-        content = content.replace('\n', ' ')
-        content = re.sub(r'\s+', ' ', content)
-    
-    return content.strip()
-
 def generate_content(topic: str, market_data: str, context: str, content_type: str, max_length: int = 800, focus_area: str = "", target_language: str = "en") -> str:
     """Generate content using the selected model."""
     try:
+        # Get accurate price first using Perplexity if topic contains market terms
+        if any(term in topic.lower() for term in ['nasdaq', 'dow', 'index', 'market']):
+            price_messages = [
+                {"role": "system", "content": "You are a financial data provider. Return only the exact closing price."},
+                {"role": "user", "content": f"What was yesterday's official closing price for {topic}? Return ONLY price and date."}
+            ]
+            try:
+                price_data = make_api_request(
+                    messages=price_messages,
+                    model_name="Perplexity sonar-pro",
+                    max_tokens=100
+                )
+                if price_data:
+                    market_data = price_data
+            except Exception as e:
+                print(f"Price check error: {e}")
+        
         # Determine if generating short-form content
         is_short_form = max_length <= 100
         
@@ -973,6 +963,35 @@ Content Rules:
 Good Examples:
 {good_examples}"""
 
+        elif content_type == "research_note":
+            prompt = f"""
+{current_date_context}
+
+Generate a research note about {topic} in the following format:
+
+1. Start with key highlights summarizing the most important points
+2. Break down analysis into clear sections with bullet points
+3. Focus on factual developments and market implications
+4. Avoid any stock recommendations or price targets
+5. Include:
+   - Industry trends and developments
+   - Company strategic moves and partnerships
+   - Market impact and implications
+   - Future outlook and key points to watch
+
+Current Market Context:
+{news_context}
+
+Format Requirements:
+1. Use bullet points (•) for all main points
+2. Keep sentences clear and concise
+3. Organize content into logical sections
+4. Bold key company names and significant metrics
+5. Target length: {max_length} words
+
+{focus_emphasis if focus_emphasis else ''}
+"""
+
         else:  # market_analysis
             perplexity_addition = """
 Real-time Analysis Requirements:
@@ -1084,6 +1103,86 @@ Good Examples:
         st.error(f"Generation error: {str(e)}")
         print(f"Detailed error: {str(e)}")
         return f"Error occurred: {str(e)}"    
+   
+def format_content(content: str, is_short_form: bool = False) -> str:
+    """Format content to ensure consistent styling and line breaks."""
+    if not content:
+        return content
+        
+    # Replace any existing multiple line breaks with a placeholder
+    content = re.sub(r'\n\s*\n', '__DOUBLE_BREAK__', content)
+    content = re.sub(r'\n', '__SINGLE_BREAK__', content)
+    content = re.sub(r'\s+', ' ', content)
+    content = content.replace('__DOUBLE_BREAK__', '\n\n')
+    content = content.replace('__SINGLE_BREAK__', '\n')
+    
+    # Bold numbers and currencies
+    numbers_pattern = r'(\d+\.?\d*%?(?:\s*(?:USD|EUR|GBP|JPY|points?|pips?|[A-Z]{3})){0,1})'
+    content = re.sub(numbers_pattern, lambda m: f"**{m.group(1)}**" if '**' not in m.group(1) else m.group(1), content)
+    
+    # Bold dates - handling each part separately to avoid group reference errors
+    months = r'(January|February|March|April|May|June|July|August|September|October|November|December)'
+    date_pattern = f"{months}\\s+\\d{{1,2}},?\\s+\\d{{4}}"
+    content = re.sub(date_pattern, lambda m: f"**{m.group(0)}**" if '**' not in m.group(0) else m.group(0), content)
+    
+    # Ensure proper list formatting
+    content = re.sub(r'(?m)^[•●]\s*', '\n• ', content)  # Handle different bullet types
+    content = re.sub(r'(?m)^(\d+)\.\s*', lambda m: f"\n{m.group(1)}. ", content)
+    
+    if is_short_form:
+        content = content.replace('\n\n', ' ')
+        content = content.replace('\n', ' ')
+        content = re.sub(r'\s+', ' ', content)
+    
+    return content.strip()
+
+
+def format_research_note(content: str, topic: str, date: str) -> str:
+    """Format content specifically for research note style."""
+    formatted_content = f"""Flashnote
+{date}
+
+{topic}
+{'=' * len(topic)}
+
+Key Highlights
+{'-' * 15}
+"""
+
+    # Process the main content
+    try:
+        # Split content into sections if new sections are denoted by double newlines
+        sections = content.split('\n\n')
+        
+        # Format and add each section
+        for i, section in enumerate(sections):
+            if section.strip():
+                # Format section content
+                formatted_section = ""
+                
+                # Process each line in the section
+                lines = section.strip().split('\n')
+                for line in lines:
+                    line = line.strip()
+                    if line:
+                        # Keep existing bullet points or add new ones
+                        if line.startswith('•'):
+                            formatted_section += f"{line}\n"
+                        else:
+                            formatted_section += f"• {line}\n"
+                
+                # Add formatted section
+                formatted_content += f"\n{formatted_section}"
+        
+        # Add market implications section at the end if not present
+        if "Market Implications" not in formatted_content:
+            formatted_content += f"\nMarket Implications\n{'-' * 20}\n"
+            
+    except Exception as e:
+        print(f"Error formatting research note: {str(e)}")
+        return content  # Return original content if formatting fails
+
+    return formatted_content
     
 def main():
     """Main application function."""
@@ -1142,7 +1241,7 @@ def main():
     with col1:
         content_type = st.radio(
             "Select Content Type:",
-            ["Market Analysis", "Educational Content"],
+            ["Market Analysis", "Educational Content", "Research Note"],
             help="Choose the type of content you want to generate"
         )
     
@@ -1176,7 +1275,12 @@ def main():
             help="Specify what aspects to emphasize in the content"
         )
     
-    content_type = "market_analysis" if content_type == "Market Analysis" else "educational"
+    if content_type == "Market Analysis":
+        content_type = "market_analysis"
+    elif content_type == "Educational Content":
+        content_type = "educational"
+    elif content_type == "Research Note":
+        content_type = "research_note"
 
     # Content Length Settings
     is_short_form = st.checkbox(
@@ -1245,16 +1349,29 @@ def main():
                 st.markdown("### Generated Content:")
                 st.markdown(content)
 
-                # Download option
-                file_type = "tweet" if max_length <= 50 else "market_analysis"
-                language_suffix = f"_{target_language}" if target_language != "en" else ""
-                
-                st.download_button(
-                    "📥 Download Content",
-                    data=content,
-                    file_name=f"{file_type}{language_suffix}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt",
-                    mime="text/plain"
-                )
+                #Download button
+                if content:
+                    if content_type == "research_note":
+                        download_content = format_research_note(
+                            content=content,
+                            topic=topic,
+                            date=CURRENT_DATE.strftime('%d %B %Y')
+                        )
+                        file_type = "flashnote"
+                    else:
+                        download_content = content
+                        file_type = "tweet" if max_length <= 50 else "market_analysis"
+                    
+                    # Add language suffix if not English
+                    language_suffix = f"_{target_language}" if target_language != "en" else ""
+                    
+                    # Download button
+                    st.download_button(
+                        "📥 Download Content",
+                        data=download_content,
+                        file_name=f"{file_type}{language_suffix}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt",
+                        mime="text/plain"
+                    )
 
 if __name__ == "__main__":
     main()
