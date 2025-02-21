@@ -9,7 +9,7 @@ from openai import OpenAI
 
 # This safely accesses the API key from Streamlit's secrets management
 if "openai" in st.secrets:
-    client = OpenAI(api_key=st.secrets["openai"]["openai_api_key"])
+    client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 else:
     st.error("OpenAI API key not found in Streamlit secrets. Please configure it in the Streamlit Cloud dashboard.")
     st.stop()
