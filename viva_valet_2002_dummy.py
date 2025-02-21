@@ -7,11 +7,24 @@ from typing import List, Dict, Optional
 from dotenv import load_dotenv
 from openai import OpenAI
 
-# This safely accesses the API key from Streamlit's secrets management
-if "openai" in st.secrets:
-    client = OpenAI(api_key=st.secrets["openai"]["api_key"])
-else:
-    st.error("OpenAI API key not found in Streamlit secrets. Please configure it in the Streamlit Cloud dashboard.")
+# Configure OpenAI client - Add this at the top of your file
+try:
+    from openai import OpenAI
+    
+    # Try to get API key from Streamlit secrets first (for cloud deployment)
+    if "OPENAI_API_KEY" in st.secrets:
+        client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+    else:
+        # Local development fallback using dotenv
+        from dotenv import load_dotenv
+        load_dotenv()
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            st.error("OpenAI API key not found. Please add it to .env file or Streamlit secrets.")
+            st.stop()
+        client = OpenAI(api_key=api_key)
+except Exception as e:
+    st.error(f"Error initializing OpenAI client: {str(e)}")
     st.stop()
 
 class BookingAssistant:
