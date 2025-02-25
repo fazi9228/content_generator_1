@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 from typing import Tuple, Dict, List, Union
 from dateutil.relativedelta import relativedelta
 import re
+#from trading_view import TradingViewAnalysis
 
 # Load environment variables
 load_dotenv()
@@ -21,7 +22,8 @@ REQUIRED_ENV_VARS = {
     'DEEPSEEK_API_URL': None,
     'PERPLEXITY_API_KEY': None,  
     'PERPLEXITY_API_URL': None,
-    'QWEN_API_KEY': None   
+    'QWEN_API_KEY': None,
+    'GROK_API_KEY': None   
 }
 
 
@@ -83,6 +85,14 @@ AVAILABLE_MODELS = {
         "supports_streaming": True,
         "requires_key": "PERPLEXITY_API_KEY"
     },
+    "Perplexity r1 1776": {
+        "id": "r1-1776",
+        "provider": "perplexity",
+        "api_url": None,  # Will be filled from env var
+        "max_tokens": 4096,
+        "supports_streaming": True,
+        "requires_key": "PERPLEXITY_API_KEY"
+    },
     "Qwen Plus": {
         "id": "qwen-plus",
         "provider": "qwen",
@@ -98,6 +108,14 @@ AVAILABLE_MODELS = {
         "max_tokens": 4096,
         "supports_streaming": True,
         "requires_key": "QWEN_API_KEY"
+    },
+     "Grok-2": {
+        "id": "grok-2-1212",
+        "provider": "grok",
+        "api_url": "https://api.x.ai/v1/chat/completions",  # Update with actual API endpoint
+        "max_tokens": 4096,
+        "supports_streaming": True,
+        "requires_key": "GROK_API_KEY"
     }
 }
 
@@ -688,7 +706,40 @@ def make_api_request(messages: List[dict], model_name: str, max_tokens: int, max
                     return content
                 except Exception as e:
                     raise Exception(f"Qwen API error: {str(e)}")
-            
+                
+            elif provider == "grok":
+                payload = {
+                    "model": model_info['id'],
+                    "messages": messages,
+                    "max_tokens": max_tokens,
+                    "temperature": 0.7
+                }
+                headers = {
+                    "Authorization": f"Bearer {REQUIRED_ENV_VARS['GROK_API_KEY']}",
+                    "Content-Type": "application/json"
+                }
+                url = model_info['api_url']
+                
+                response = requests.post(url, json=payload, headers=headers, timeout=60)
+                
+                if response.status_code != 200:
+                    error_data = response.json()
+                    error_message = error_data.get('error', {}).get('message', 'Unknown error')
+                    raise Exception(f"Grok API error: {error_message}")
+                
+                response_data = response.json()
+                
+                if not response_data.get('choices'):
+                    raise ValueError("No choices in Grok response")
+                    
+                content = response_data['choices'][0]['message']['content']
+                
+                if not content:
+                    raise ValueError("Empty content in Grok response")
+                
+                st.session_state['current_api'] = model_name
+                return content
+                        
             else:
                 raise ValueError(f"Unsupported provider: {provider}")
 
@@ -771,7 +822,7 @@ def generate_content(topic: str, market_data: str, context: str, content_type: s
     """Generate content using the selected model."""
     try:
         # Get accurate price first using Perplexity if topic contains market terms
-        if any(term in topic.lower() for term in ['nasdaq', 'dow', 'index', 'market']):
+        if content_type in ["market_analysis", "research_note"]:
             price_messages = [
                 {"role": "system", "content": "You are a financial data provider. Return only the exact closing price."},
                 {"role": "user", "content": f"What was yesterday's official closing price for {topic}? Return ONLY price and date."}
@@ -1224,6 +1275,9 @@ def main():
         st.error("No models available. Please check your API keys.")
         st.stop()
         
+     # Initialize TradingView analysis
+    #trading_view = TradingViewAnalysis()
+        
     # Content Generation Section
     st.markdown("## Generate Content")
     
@@ -1348,6 +1402,7 @@ def main():
                 # Display the content
                 st.markdown("### Generated Content:")
                 st.markdown(content)
+                
 
                 #Download button
                 if content:
