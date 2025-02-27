@@ -4,3 +4,4 @@ requests
 yfinance
 python-dateutil
 openai
+anthropic
