@@ -46,7 +46,6 @@ def check_password():
     else:
         # Password correct.
         return True
-    
 
 # Now check password and show app only if correct
 if not check_password():
@@ -194,56 +193,129 @@ def split_into_sentences(text):
     sentences = re.split(r'(?<=[.!?])\s+', text)
     return [s.strip() for s in sentences if s.strip()]
 
+@st.cache_data
+def load_translation_prompt():
+    """
+    Load the translation prompt template from a file.
+    Throws an error if the file is not found.
+    
+    Returns:
+        str: Content of the translation prompt template
+    """
+    try:
+        # Try to load from the current directory
+        with open("translation_prompt.md", "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        # Instead of using a fallback, raise an error
+        st.error("Critical Error: translation_prompt.md file not found!")
+        st.stop()  # Stop the application
+        return None
+
 def load_translation_examples_json(target_language):
     """
-    Load translation examples from JSON file for a specific target language.
-    
-    Args:
-        target_language (str): The target language to filter examples by
-        
-    Returns:
-        list: List of example pairs (source, translation)
+    Load translation examples from the custom structured JSON file for a specific target language.
     """
     try:
         import json
         import os
         
-        # Check if file exists
+        # Check if file exists - print current working directory for debugging
         json_file = "translation_examples.json"
+        current_dir = os.getcwd()
+        print(f"Current working directory: {current_dir}")
+        print(f"Looking for file: {os.path.join(current_dir, json_file)}")
+        
         if not os.path.exists(json_file):
             print(f"Translation examples file not found: {json_file}")
+            # Try to list files in the current directory to help debug
+            try:
+                files = os.listdir(current_dir)
+                print(f"Files in current directory: {files}")
+            except Exception as list_err:
+                print(f"Error listing directory: {str(list_err)}")
             return []
-            
+        
+        print(f"JSON file found: {json_file}")
+        
         # Load JSON file
         with open(json_file, "r", encoding="utf-8") as f:
-            all_examples = json.load(f)
+            try:
+                data = json.load(f)
+                print("JSON loaded successfully")
+                print(f"JSON structure contains keys: {list(data.keys())}")
+            except Exception as json_err:
+                print(f"Error parsing JSON: {str(json_err)}")
+                return []
         
-        # Simplify the target language name for matching
-        target_lang_simplified = target_language.lower().replace('(', '').replace(')', '').split()[0]
+        # Get language code
+        language_code = None
+        for code, lang in data.get("languageMap", {}).items():
+            if target_language.lower() in lang.lower():
+                language_code = code
+                break
         
-        # Filter examples for the current target language
-        language_examples = []
-        for example in all_examples:
-            example_lang = example.get("language", "").lower()
-            if target_lang_simplified in example_lang:
-                language_examples.append({
-                    "source": example.get("source", ""),
-                    "translation": example.get("translation", "")
-                })
+        if not language_code:
+            print(f"Could not find language code for {target_language}")
+            return []
+            
+        # Extract examples from the commonPhrases
+        examples = []
         
-        print(f"Found {len(language_examples)} examples for {target_language}")
+        # Add examples from commonPhrases
+        for phrase_key, phrase_data in data.get("commonPhrases", {}).items():
+            if "original" in phrase_data and "translations" in phrase_data:
+                original = phrase_data["original"]
+                if language_code in phrase_data["translations"]:
+                    translation = phrase_data["translations"][language_code]
+                    examples.append({
+                        "source": original,
+                        "translation": translation
+                    })
         
-        # Limit to 5 examples to avoid overwhelming the prompt
-        return language_examples[:5]
+        # Add examples from emailTemplates
+        for template_key, template_data in data.get("emailTemplates", {}).items():
+            # Extract subject
+            if "subject" in template_data:
+                subject = template_data["subject"]
+                if "original" in subject and "translations" in subject and language_code in subject["translations"]:
+                    examples.append({
+                        "source": subject["original"],
+                        "translation": subject["translations"][language_code]
+                    })
+            
+            # Extract from body sections
+            if "body" in template_data:
+                for section_key, section_data in template_data["body"].items():
+                    if "original" in section_data and "translations" in section_data and language_code in section_data["translations"]:
+                        examples.append({
+                            "source": section_data["original"],
+                            "translation": section_data["translations"][language_code]
+                        })
+            
+            # Extract CTA
+            if "cta" in template_data:
+                cta = template_data["cta"]
+                if "original" in cta and "translations" in cta and language_code in cta["translations"]:
+                    examples.append({
+                        "source": cta["original"],
+                        "translation": cta["translations"][language_code]
+                    })
+        
+        print(f"Found {len(examples)} examples for {target_language}")
+        
+        # Limit to 5 diverse examples to avoid overwhelming the prompt
+        return examples[:5]
         
     except Exception as e:
         print(f"Error loading translation examples from JSON: {str(e)}")
         return []
 
+# Replace the load_translation_examples function to only use JSON
 def load_translation_examples(target_language):
     """
-    Load translation examples from either JSON or Excel file for a specific target language.
-    Tries JSON first, falls back to Excel if JSON file is not found.
+    Load translation examples for a specific target language.
+    Only uses JSON file, no Excel fallback.
     
     Args:
         target_language (str): The target language to filter examples by
@@ -251,66 +323,7 @@ def load_translation_examples(target_language):
     Returns:
         list: List of example pairs (source, translation)
     """
-    import os
-    
-    # First try to load from JSON (preferred method)
-    if os.path.exists("translation_examples.json"):
-        return load_translation_examples_json(target_language)
-    
-    # Fall back to Excel if JSON is not available
-    try:
-        # Check if file exists
-        if not os.path.exists("translation_emails.xlsx"):
-            print("Translation examples file not found")
-            return []
-            
-        # Load Excel file
-        import pandas as pd
-        df = pd.read_excel("translation_emails.xlsx")
-        
-        # Standardize column names
-        df.columns = [col.lower().strip() for col in df.columns]
-        
-        # Try different possible column combinations
-        source_cols = ['source', 'english', 'original', 'source text']
-        target_cols = ['translation', 'translated', target_language.lower(), 'target text']
-        
-        # Find the actual column names in the file
-        source_col = next((col for col in source_cols if col in df.columns), None)
-        target_col = next((col for col in target_cols if col in df.columns), None)
-        
-        # If we can't find the columns, try to use the first two columns
-        if source_col is None or target_col is None:
-            if len(df.columns) >= 2:
-                source_col = df.columns[0]
-                target_col = df.columns[1]
-            else:
-                print("Could not identify source and target columns in examples file")
-                return []
-        
-        # Filter examples if there's a language column
-        lang_col = next((col for col in df.columns if 'language' in col.lower()), None)
-        if lang_col:
-            # Try to match language (with flexibility for format differences)
-            target_lang_simplified = target_language.lower().replace('(', '').replace(')', '').split()[0]
-            df = df[df[lang_col].str.lower().str.contains(target_lang_simplified, na=False)]
-        
-        # Extract example pairs, limiting to prevent prompt size issues
-        examples = []
-        for _, row in df.iterrows():
-            if pd.notna(row[source_col]) and pd.notna(row[target_col]):
-                examples.append({
-                    "source": str(row[source_col]).strip(),
-                    "translation": str(row[target_col]).strip()
-                })
-        
-        # Limit to 3-5 examples to avoid overwhelming the prompt
-        return examples[:5]
-        
-    except Exception as e:
-        print(f"Error loading translation examples: {str(e)}")
-        return []
-
+    return load_translation_examples_json(target_language)
 
 def get_download_link(text, filename, link_text):
     """
@@ -364,145 +377,6 @@ def extract_translation(text):
     # If all else fails, return the original text but warn in the log
     print("Could not extract just translation, returning full model output")
     return text
-
-# Load environment variables - ONLY from .env file
-env_vars = load_env_variables()
-claude_api_key = env_vars.get('CLAUDE_API_KEY')
-openai_api_key = env_vars.get('OPENAI_API_KEY')
-
-# Skip Streamlit secrets loading entirely during local development
-# This avoids the "No secrets found" warning
-
-# Set API keys directly in session state - no user input required
-if claude_api_key:
-    st.session_state.claude_api_key = claude_api_key
-if openai_api_key:
-    st.session_state.openai_api_key = openai_api_key
-
-# Sidebar for settings
-with st.sidebar:
-    st.header("Settings")
-    
-    # API Keys status - only display status, no input fields
-    st.subheader("API Status")
-    
-    # Check if keys are already set
-    claude_key_set = hasattr(st.session_state, 'claude_api_key') and st.session_state.claude_api_key
-    openai_key_set = hasattr(st.session_state, 'openai_api_key') and st.session_state.openai_api_key
-    
-    # Show status for the API keys
-    st.write("Claude API: " + ("✅ Available" if claude_key_set else "❌ Not available"))
-    st.write("OpenAI API: " + ("✅ Available" if openai_key_set else "❌ Not available"))
-    
-    if not claude_key_set and not openai_key_set:
-        st.warning("No API keys found. Please add them to your .env file.")
-    
-    st.divider()
-    
-    # Add help information
-    st.info("""
-    **Content Types:**
-    - Market Analysis: Financial market reports, trends, technical market data and forecasts
-    - Educational Content: Tutorials, guides, and educational materials
-    - Email/Post: Short communications, announcements, social media posts
-    """)
-    
-    # Add information about translation model with learning emoji
-    st.success("📝 This translation model has been trained as per good examples from previously translated material in Pepperstone, also using the best practices for financial markets content translation.")
-
-# Main content area
-col1, col2 = st.columns([1, 1])
-
-with col1:
-    st.markdown('<p class="sub-header"> Source </p>', unsafe_allow_html=True)
-    #st.markdown('<span style="font-size: 0.8em; color: #666;">Please enter text in English</span>', unsafe_allow_html=True)
-    source_text = st.text_area(
-        "Please enter source text in english!",
-        height=300,
-        placeholder="Enter your English text here (up to 3000 words)..."
-    )
-    
-    # Change from selectbox to multiselect for multiple languages
-    target_languages = st.multiselect(
-        "Select Target Language(s)",
-        options=["Chinese (Simplified)", "Chinese (Traditional)", "Thai", "Vietnamese", "Spanish", "Korean", "Hindi"],
-        default=["Chinese (Simplified)"]
-    )
-    
-    # Warning if too many languages selected
-    if len(target_languages) > 3:
-        st.warning("Translating to multiple languages will take longer. Consider translating to fewer languages for faster results.")
-    
-    content_type = st.selectbox(
-    "Content Type",
-    options=["Market Analysis", "Educational Content", "Email/Post"],
-    index=0
-    )
-
-    # Only show models that have available API keys
-    available_models = []
-    
-    # Only show models that have available API keys
-    available_models = []
-    if claude_key_set:
-        available_models.append("Claude 3.7 Sonnet")
-    if openai_key_set:
-        available_models.append("GPT-4o")
-    
-    if available_models:
-        model_option = st.radio(
-            "Select Translation Model",
-            options=available_models,
-            horizontal=True
-        )
-    else:
-        st.error("No translation models available. Please add API keys to your .env file.")
-        model_option = None
-    
-    translate_button = st.button("Translate")
-    
-    if translate_button and not target_languages:
-        st.markdown('<div class="status-message warning">Please choose at least one language to translate to.</div>', unsafe_allow_html=True)
-    
-    if translate_button and not source_text:
-        st.markdown('<div class="status-message warning">Please enter text to translate.</div>', unsafe_allow_html=True)
-        
-    if not available_models:
-        st.markdown('<div class="status-message warning">No translation models available. Check your .env file.</div>', unsafe_allow_html=True)
-
-@st.cache_data
-def load_translation_prompt():
-    """
-    Load the translation prompt template from a file.
-    First tries the current directory, then checks for embedded resources.
-    """
-    try:
-        # Try to load from the current directory
-        with open("translation_prompt.md", "r", encoding="utf-8") as f:
-            return f.read()
-    except FileNotFoundError:
-        # If unavailable, return a basic embedded prompt as fallback
-        return """# TRCEI Template for Language Translator
-
-## Task
-Translate the given text into [Target Language], ensuring the translation feels natural and conversational. Prioritize relatability over excessive formality, and use direct English terms where they are commonly understood.
-
-## Role
-You are a professional linguist and native speaker of [Target Language] with expertise in creating culturally appropriate translations.
-
-## Context
-The translated content is for [specific audience type: casual readers/business professionals/technical experts/students/etc.]. It should feel fluent, easy to understand, and culturally appropriate without over-complicating the language.
-
-## Instructions
-1. Prefer commonly understood English terms over unnecessarily complex translations.
-2. Avoid excessive formality unless required by the context.
-3. Maintain a conversational tone that feels fluent and approachable.
-4. Keep the sentences concise and easy to read.
-5. Preserve formatting including headings, bullet points, and paragraph breaks.
-6. Preserve all financial terms, ticker symbols, and numerical values in their original form.
-7. For financial market content, understand and translate the underlying concepts not just the words (e.g., "rates softened" means "rates decreased").
-8. Understand financial idioms and market terminology in their proper context.
-"""
 
 # Function to translate text with Claude API
 def translate_with_claude(text, target_language, content_type, api_key):
@@ -648,6 +522,153 @@ For each financial term or market idiom, translate based on the underlying finan
     except Exception as e:
         st.error(f"OpenAI API setup error: {str(e)}")
         return None
+    
+# Load environment variables - ONLY from .env file
+env_vars = load_env_variables()
+claude_api_key = env_vars.get('CLAUDE_API_KEY')
+openai_api_key = env_vars.get('OPENAI_API_KEY')
+
+# Set API keys directly in session state - no user input required
+if claude_api_key:
+    st.session_state.claude_api_key = claude_api_key
+if openai_api_key:
+    st.session_state.openai_api_key = openai_api_key
+
+# Check if keys are already set
+claude_key_set = hasattr(st.session_state, 'claude_api_key') and st.session_state.claude_api_key
+openai_key_set = hasattr(st.session_state, 'openai_api_key') and st.session_state.openai_api_key
+
+# Check prompt and examples status before adding to sidebar
+prompt_loaded = False
+prompt_length = 0
+examples_loaded = False
+example_count = 0
+examples = []
+
+# Check if prompt is loaded
+try:
+    prompt_content = load_translation_prompt()
+    if prompt_content:
+        prompt_loaded = True
+        prompt_length = len(prompt_content.split('\n'))
+except Exception as e:
+    prompt_loaded = False
+    print(f"Error loading prompt: {str(e)}")
+
+# Check if examples are loaded
+try:
+    # Check one example language to see if any examples exist
+    examples = load_translation_examples("Chinese (Simplified)")
+    if examples and len(examples) > 0:
+        examples_loaded = True
+        example_count = len(examples)
+except Exception as e:
+    examples_loaded = False
+    print(f"Error loading examples: {str(e)}")
+
+# Sidebar for settings
+with st.sidebar:
+    st.header("Settings")
+    
+    # API Keys status - only display status, no input fields
+    st.subheader("API Status")
+    
+    # Show status for the API keys
+    st.write("Claude API: " + ("✅ Available" if claude_key_set else "❌ Not available"))
+    st.write("OpenAI API: " + ("✅ Available" if openai_key_set else "❌ Not available"))
+    
+    if not claude_key_set and not openai_key_set:
+        st.warning("No API keys found. Please add them to your .env file.")
+    
+    st.divider()
+    
+    # Add help information
+    st.info("""
+    **Content Types:**
+    - Market Analysis: Financial market reports, trends, technical market data and forecasts
+    - Educational Content: Tutorials, guides, and educational materials
+    - Email/Post: Short communications, announcements, social media posts
+    """)
+    
+    # Add information about translation model with learning emoji
+    st.success("📝 This translation model has been trained as per good examples from previously translated material in Pepperstone, also using the best practices for financial markets content translation.")
+
+    st.divider()
+    st.subheader("Resources Status")
+    
+    # Show prompt status
+    if prompt_loaded:
+        st.write("✅ Translation prompt loaded (" + str(prompt_length) + " lines)")
+    else:
+        st.write("❌ Translation prompt not found!")
+    
+    # Show examples status
+    if examples_loaded:
+        st.write("✅ Translation examples available")
+        with st.expander("View sample examples"):
+            st.write(f"Found {example_count} examples for Chinese (Simplified)")
+            # Optionally show a sample
+            if len(examples) > 0:
+                st.write("Sample source: " + examples[0]['source'][:50] + "...")
+                st.write("Sample translation: " + examples[0]['translation'][:50] + "...")
+    else:
+        st.write("❌ Translation examples not found!")
+
+# Main content area
+col1, col2 = st.columns([1, 1])
+
+with col1:
+    st.markdown('<p class="sub-header"> Source </p>', unsafe_allow_html=True)
+    source_text = st.text_area(
+        "Please enter source text in english!",
+        height=300,
+        placeholder="Enter your English text here (up to 3000 words)..."
+    )
+    
+    # Change from selectbox to multiselect for multiple languages
+    target_languages = st.multiselect(
+        "Select Target Language(s)",
+        options=["Chinese (Simplified)", "Chinese (Traditional)", "Thai", "Vietnamese", "Spanish", "Korean", "Hindi"],
+        default=["Chinese (Simplified)"]
+    )
+    
+    # Warning if too many languages selected
+    if len(target_languages) > 3:
+        st.warning("Translating to multiple languages will take longer. Consider translating to fewer languages for faster results.")
+    
+    content_type = st.selectbox(
+        "Content Type",
+        options=["Market Analysis", "Educational Content", "Email/Post"],
+        index=0
+    )
+
+    # Only show models that have available API keys
+    available_models = []
+    if claude_key_set:
+        available_models.append("Claude 3.7 Sonnet")
+    if openai_key_set:
+        available_models.append("GPT-4o")
+    
+    if available_models:
+        model_option = st.radio(
+            "Select Translation Model",
+            options=available_models,
+            horizontal=True
+        )
+    else:
+        st.error("No translation models available. Please add API keys to your .env file.")
+        model_option = None
+    
+    translate_button = st.button("Translate")
+    
+    if translate_button and not target_languages:
+        st.markdown('<div class="status-message warning">Please choose at least one language to translate to.</div>', unsafe_allow_html=True)
+    
+    if translate_button and not source_text:
+        st.markdown('<div class="status-message warning">Please enter text to translate.</div>', unsafe_allow_html=True)
+        
+    if not available_models:
+        st.markdown('<div class="status-message warning">No translation models available. Check your .env file.</div>', unsafe_allow_html=True)
 
 # Initialize session state for translations if it doesn't exist
 if 'translations' not in st.session_state:
@@ -708,7 +729,7 @@ if translate_button and source_text and target_languages and model_option:
         # Set the first language as default selection if not already set
         if 'selected_language' not in st.session_state and st.session_state.translations:
             st.session_state.selected_language = list(st.session_state.translations.keys())[0]
-
+            
 # Display translations (either from current run or previous run in session state)
 if st.session_state.translation_done and st.session_state.translations:
     with col2:
@@ -779,7 +800,3 @@ if st.sidebar.checkbox("Show Debug Info", value=False):
         if 'openai_error' in st.session_state:
             st.write("Last OpenAI API Error:")
             st.code(st.session_state.get('openai_error', 'None'))
-            
-else:
-    # Password protection screen
-    st.stop()
