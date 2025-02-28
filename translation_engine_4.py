@@ -1,15 +1,16 @@
 import streamlit as st
 import os
 import json
-import anthropic
 import requests
 from io import BytesIO
 import base64
 import re
 from openai import OpenAI
 import pandas as pd
+import fitz  # PyMuPDF
 import zipfile
 import io
+from dotenv import load_dotenv
 
 # Set page configuration
 st.set_page_config(
@@ -18,34 +19,45 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+import os
+import streamlit as st
+
 def check_password():
-    """Returns `True` if the user had the correct password."""
+    from dotenv import load_dotenv
+    load_dotenv()
+
+    # Retrieve the password from the environment variable
+    correct_password = os.environ.get("TRANSLATION_APP_PASSWORD")
+    
+    # Handle missing environment variable
+    if not correct_password:
+        st.error("🚨 TRANSLATION_APP_PASSWORD environment variable is not set. Please set it in your `.env` file.")
+        return False
 
     def password_entered():
-        """Checks whether a password entered by the user is correct."""
-        if st.session_state["password"] == "translator_pps":  # Your custom password
+        """
+        Checks whether a password entered by the user is correct.
+        """
+        entered_password = st.session_state.get("password")
+        if entered_password == correct_password:
             st.session_state["password_correct"] = True
-            del st.session_state["password"]  # don't store password
+            del st.session_state["password"]  # Don't store the password
         else:
             st.session_state["password_correct"] = False
 
-    if "password_correct" not in st.session_state:
-        # First run, show input for password.
+    # First run or incorrect password
+    if "password_correct" not in st.session_state or not st.session_state["password_correct"]:
         st.text_input(
             "Password", type="password", on_change=password_entered, key="password"
         )
-        st.write("Please enter the password to access the Translation Engine.")
+        if "password_correct" in st.session_state and not st.session_state["password_correct"]:
+            st.error("😕 Password incorrect. Please try again.")
+        else:
+            st.write("Please enter the password to access the Translation Engine.")
         return False
-    elif not st.session_state["password_correct"]:
-        # Password incorrect, show input + error.
-        st.text_input(
-            "Password", type="password", on_change=password_entered, key="password"
-        )
-        st.error("😕 Password incorrect")
-        return False
-    else:
-        # Password correct.
-        return True
+
+    # Password correct
+    return True
 
 # Now check password and show app only if correct
 if not check_password():
@@ -160,7 +172,6 @@ def load_env_variables():
         dict: Dictionary of loaded environment variables
     """
     env_vars = {
-        'CLAUDE_API_KEY': None,
         'OPENAI_API_KEY': None
     }
     
@@ -168,7 +179,6 @@ def load_env_variables():
         from dotenv import load_dotenv
         # Silent loading without print statements
         load_dotenv()
-        env_vars['CLAUDE_API_KEY'] = os.getenv('CLAUDE_API_KEY')
         env_vars['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
     except ImportError:
         # Silent failure - don't print anything
@@ -378,71 +388,8 @@ def extract_translation(text):
     print("Could not extract just translation, returning full model output")
     return text
 
-# Function to translate text with Claude API
-def translate_with_claude(text, target_language, content_type, api_key):
-    try:
-        client = anthropic.Anthropic(api_key=api_key)
-        
-        # Get the prompt template and customize it
-        prompt_template = load_translation_prompt()
-        if not prompt_template:
-            return None
-            
-        prompt = prompt_template.replace("[Target Language]", target_language)
-        prompt = prompt.replace("[specific audience type: casual readers/business professionals/technical experts/students/etc.]", 
-                              f"readers of {content_type}")
-        
-        # Load examples for the target language
-        examples = load_translation_examples(target_language)
-
-        # Add examples to the prompt if available
-        if examples:
-            prompt += "\n\n## Translation Examples:\n"
-            for i, example in enumerate(examples, 1):
-                prompt += f"\n### Example {i}:\n"
-                prompt += f"Source: \n```\n{example['source']}\n```\n\n"
-                prompt += f"Translation: \n```\n{example['translation']}\n```\n"
-
-        # Add the text to translate (only once)
-        prompt += f"\n\nText to translate:\n```\n{text}\n```"
-        
-        # Prepare the system prompt with enhanced financial understanding
-        system_prompt = f"""You are an expert translator specializing in {target_language} with deep knowledge of financial markets and terminology.
-
-Follow these translation guidelines carefully:
-1. Provide ONLY the translated text without any commentary, explanations, or metadata
-2. Do not include words like "translation:" or "translated text:" or any other labels
-3. Just respond with the pure translated text
-4. Preserve all financial terms, ticker symbols, and numerical values in their original form
-5. Understand financial market terminology and idioms - translate the MEANING not just the words
-6. For market concepts like "softening" (prices easing/declining gradually), "hawkish" (favoring higher interest rates), "dovish" (favoring lower rates), etc., use the appropriate financial market terminology in the target language
-
-Examples of market phrases to understand (not translate literally):
-- "Tariffs have softened" → means tariff rates have been reduced/eased
-- "The market is witnessing a correction" → means prices are falling after a period of increase
-- "The central bank has adopted a hawkish stance" → means they are likely to raise interest rates
-- "Bears have control of the market" → means sellers are driving prices down
-- "Liquidity is drying up" → means less money is available for trading
-
-For each financial term or market idiom, translate based on the underlying financial concept, not the literal words."""
-        
-        response = client.messages.create(
-            model="claude-3-7-sonnet-20250219",
-            system=system_prompt,
-            max_tokens=4000,
-            messages=[
-                {"role": "user", "content": prompt}
-            ]
-        )
-        
-        return response.content[0].text
-    except Exception as e:
-        st.error(f"Claude API Error: {str(e)}")
-        return None
-    
-    
-# Function to translate text with OpenAI GPT-4o API
-def translate_with_gpt4o(text, target_language, content_type, api_key):
+# Function to translate text with advanced AI
+def translate_text(text, target_language, content_type, tone, api_key):
     try:
         # Initialize the OpenAI client
         client = OpenAI(api_key=api_key)
@@ -453,8 +400,25 @@ def translate_with_gpt4o(text, target_language, content_type, api_key):
             return None
             
         prompt = prompt_template.replace("[Target Language]", target_language)
-        prompt = prompt.replace("[specific audience type: casual readers/business professionals/technical experts/students/etc.]", 
-                              f"readers of {content_type}")
+        
+        # Adjust audience type based on tone and content type
+        audience_type = ""
+        if tone == "Technical/Formal":
+            if content_type == "Market Analysis":
+                audience_type = "financial professionals and market analysts"
+            elif content_type == "Educational Content":
+                audience_type = "specialized professionals seeking detailed information"
+            else:
+                audience_type = "business professionals"
+        else:  # Natural/Conversational
+            if content_type == "Market Analysis":
+                audience_type = "investors and traders seeking clear market information"
+            elif content_type == "Educational Content":
+                audience_type = "learners seeking approachable financial knowledge"
+            else:
+                audience_type = "general readers interested in financial topics"
+        
+        prompt = prompt.replace("[specific audience type: casual readers/business professionals/technical experts/students/etc.]", audience_type)
         
         # Load examples for the target language
         examples = load_translation_examples(target_language)
@@ -470,7 +434,7 @@ def translate_with_gpt4o(text, target_language, content_type, api_key):
         # Add the text to translate (only once)
         prompt += f"\n\nText to translate:\n```\n{text}\n```"
         
-        # Prepare the system message with enhanced financial understanding
+        # Prepare the system message with enhanced financial understanding and tone consideration
         system_message = f"""You are an expert translator specializing in {target_language} with deep knowledge of financial markets and terminology.
 
 Follow these translation guidelines carefully:
@@ -488,7 +452,22 @@ Examples of market phrases to understand (not translate literally):
 - "Bears have control of the market" → means sellers are driving prices down
 - "Liquidity is drying up" → means less money is available for trading
 
-For each financial term or market idiom, translate based on the underlying financial concept, not the literal words."""
+For each financial term or market idiom, translate based on the underlying financial concept, not the literal words.
+
+TONE INSTRUCTIONS:
+Use a{' more technical and formal' if tone == 'Technical/Formal' else ' more natural and conversational'} tone in your translation.
+{
+    '- Use precise financial terminology and maintain formality throughout' if tone == 'Technical/Formal' else 
+    '- Prioritize readability and natural expression over excessive formality'
+}
+{
+    '- Focus on accuracy and professional financial communication conventions' if tone == 'Technical/Formal' else 
+    '- Make the content approachable while maintaining accuracy of financial concepts'
+}
+{
+    '- Use more industry-specific terminology where appropriate' if tone == 'Technical/Formal' else 
+    '- Explain financial concepts in simpler terms when possible'
+}"""
         
         # Create messages array for the API
         messages = [
@@ -499,7 +478,7 @@ For each financial term or market idiom, translate based on the underlying finan
         # Make the API request using the OpenAI client
         try:
             completion = client.chat.completions.create(
-                model="gpt-4o",
+                model="gpt-4o",  # Model specified in code but hidden from user
                 messages=messages,
                 max_tokens=4000
             )
@@ -509,33 +488,29 @@ For each financial term or market idiom, translate based on the underlying finan
                 content = completion.choices[0].message.content
                 return content
             else:
-                st.error("Empty response from OpenAI API")
+                st.error("Empty response from translation API")
                 return None
                 
         except Exception as api_error:
             error_message = str(api_error)
-            st.error(f"OpenAI API error: {error_message}")
+            st.error(f"Translation API error: {error_message}")
             # Print detailed error for debugging
-            print(f"Detailed OpenAI API error: {error_message}")
+            print(f"Detailed API error: {error_message}")
             return None
             
     except Exception as e:
-        st.error(f"OpenAI API setup error: {str(e)}")
+        st.error(f"Translation API setup error: {str(e)}")
         return None
     
 # Load environment variables - ONLY from .env file
 env_vars = load_env_variables()
-claude_api_key = env_vars.get('CLAUDE_API_KEY')
 openai_api_key = env_vars.get('OPENAI_API_KEY')
 
-# Set API keys directly in session state - no user input required
-if claude_api_key:
-    st.session_state.claude_api_key = claude_api_key
+# Set API key directly in session state - no user input required
 if openai_api_key:
     st.session_state.openai_api_key = openai_api_key
 
-# Check if keys are already set
-claude_key_set = hasattr(st.session_state, 'claude_api_key') and st.session_state.claude_api_key
+# Check if key is already set
 openai_key_set = hasattr(st.session_state, 'openai_api_key') and st.session_state.openai_api_key
 
 # Check prompt and examples status before adding to sidebar
@@ -573,12 +548,11 @@ with st.sidebar:
     # API Keys status - only display status, no input fields
     st.subheader("API Status")
     
-    # Show status for the API keys
-    st.write("Claude API: " + ("✅ Available" if claude_key_set else "❌ Not available"))
-    st.write("OpenAI API: " + ("✅ Available" if openai_key_set else "❌ Not available"))
+    # Show status for the API key without mentioning which one
+    st.write("Translation API: " + ("✅ Available" if openai_key_set else "❌ Not available"))
     
-    if not claude_key_set and not openai_key_set:
-        st.warning("No API keys found. Please add them to your .env file.")
+    if not openai_key_set:
+        st.warning("Translation API key not found. Please add it to your .env file.")
     
     st.divider()
     
@@ -590,8 +564,8 @@ with st.sidebar:
     - Email/Post: Short communications, announcements, social media posts
     """)
     
-    # Add information about translation model with learning emoji
-    st.success("📝 This translation model has been trained as per good examples from previously translated material in Pepperstone, also using the best practices for financial markets content translation.")
+    # Add information about translation capabilities with learning emoji
+    st.success("📝 This translation engine has been trained with good examples from previously translated material in Pepperstone, using best practices for financial markets content translation.")
 
     st.divider()
     st.subheader("Resources Status")
@@ -619,11 +593,69 @@ col1, col2 = st.columns([1, 1])
 
 with col1:
     st.markdown('<p class="sub-header"> Source </p>', unsafe_allow_html=True)
-    source_text = st.text_area(
-        "Please enter source text in english!",
-        height=300,
-        placeholder="Enter your English text here (up to 3000 words)..."
-    )
+    
+    # Add tabs for text input and file upload
+    input_tab1, input_tab2 = st.tabs(["Enter Text", "Upload File"])
+    
+    with input_tab1:
+        source_text = st.text_area(
+            "Please enter source text in english!",
+            height=300,
+            placeholder="Enter your English text here (up to 3000 words)..."
+        )
+    
+    with input_tab2:
+        uploaded_file = st.file_uploader("Upload a file (.txt, .csv, .pdf)", type=["txt", "csv", "pdf"])
+        
+        if uploaded_file is not None:
+            try:
+                # Handle different file types
+                file_extension = uploaded_file.name.split('.')[-1].lower()
+                
+                if file_extension == 'txt':
+                    # Process text file as before
+                    stringio = BytesIO(uploaded_file.getvalue().decode("utf-8").encode("utf-8"))
+                    file_text = stringio.read().decode("utf-8")
+                    
+                elif file_extension == 'csv':
+                    # Process CSV file
+                    df = pd.read_csv(uploaded_file)
+                    # Option to select columns
+                    if not df.empty:
+                        selected_column = st.selectbox("Select column to translate:", df.columns.tolist())
+                        file_text = "\n\n".join(df[selected_column].astype(str).tolist())
+                    else:
+                        st.warning("The CSV file appears to be empty.")
+                        file_text = ""
+                        
+                elif file_extension == 'pdf':
+                    # Process PDF file
+                    pdf_bytes = uploaded_file.getvalue()
+                    pdf_document = fitz.open(stream=pdf_bytes, filetype="pdf")
+                    file_text = ""
+                    for page_num in range(len(pdf_document)):
+                        page = pdf_document[page_num]
+                        file_text += page.get_text()
+                    pdf_document.close()
+                
+                st.success(f"File uploaded successfully: {uploaded_file.name}")
+                
+                # Display preview and confirm
+                if len(file_text) > 500:
+                    st.write("Preview of file content:")
+                    st.text(file_text[:500] + "...")
+                else:
+                    st.write("File content:")
+                    st.text(file_text)
+                    
+                use_file = st.checkbox("Use this file for translation", value=True)
+                if use_file:
+                    source_text = file_text
+                    st.info("File content will be used for translation")
+                    
+            except Exception as e:
+                st.error(f"Error processing file: {str(e)}")
+                st.info("Please ensure the file is properly formatted and try again.")
     
     # Change from selectbox to multiselect for multiple languages
     target_languages = st.multiselect(
@@ -642,33 +674,49 @@ with col1:
         index=0
     )
 
-    # Only show models that have available API keys
-    available_models = []
-    if claude_key_set:
-        available_models.append("Claude 3.7 Sonnet")
-    if openai_key_set:
-        available_models.append("GPT-4o")
+    # Add tone selection
+    tone = st.radio(
+        "Translation Tone",
+        options=["Natural/Conversational", "Technical/Formal"],
+        horizontal=True,
+        help="Natural: more readable, everyday language. Technical: more precise financial terminology."
+    )
     
-    if available_models:
-        model_option = st.radio(
-            "Select Translation Model",
-            options=available_models,
-            horizontal=True
-        )
-    else:
-        st.error("No translation models available. Please add API keys to your .env file.")
-        model_option = None
+    # Add a help expandable section for tone guide
+    with st.expander("Translation Tone Guide"):
+        st.markdown("""
+        ### Natural/Conversational Tone
+        - More approachable, everyday language
+        - Explains financial concepts in clearer terms
+        - Suitable for general readers and retail investors
+        
+        **Example:**  
+        "The Federal Reserve's hawkish stance triggered a correction..."  
+        ↓ *Natural Translation (Chinese)*  
+        "美联储的强硬政策立场引发了股票市场的回调，随着市场流动性减少，卖方开始主导市场走势。"
+        
+        ### Technical/Formal Tone
+        - Uses precise financial terminology
+        - Maintains professional language conventions
+        - Ideal for market analysis and professional content
+        
+        **Example:**  
+        "The Federal Reserve's hawkish stance triggered a correction..."  
+        ↓ *Technical Translation (Chinese)*  
+        "美联储鹰派立场引发股市调整，随着流动性枯竭，空头掌控市场。"
+        """)
     
+    # Translation button - no mention of specific model
     translate_button = st.button("Translate")
     
     if translate_button and not target_languages:
         st.markdown('<div class="status-message warning">Please choose at least one language to translate to.</div>', unsafe_allow_html=True)
     
     if translate_button and not source_text:
-        st.markdown('<div class="status-message warning">Please enter text to translate.</div>', unsafe_allow_html=True)
+        st.markdown('<div class="status-message warning">Please enter text or upload a file to translate.</div>', unsafe_allow_html=True)
         
-    if not available_models:
-        st.markdown('<div class="status-message warning">No translation models available. Check your .env file.</div>', unsafe_allow_html=True)
+    if not openai_key_set:
+        st.markdown('<div class="status-message warning">Translation API key not available. Check your .env file.</div>', unsafe_allow_html=True)
 
 # Initialize session state for translations if it doesn't exist
 if 'translations' not in st.session_state:
@@ -676,8 +724,8 @@ if 'translations' not in st.session_state:
 if 'translation_done' not in st.session_state:
     st.session_state.translation_done = False
 
-# Modified translation process for multiple languages
-if translate_button and source_text and target_languages and model_option:
+# Translation process for multiple languages
+if translate_button and source_text and target_languages and openai_key_set:
     # Reset translations when starting new translation
     st.session_state.translations = {}
     st.session_state.translation_done = False
@@ -688,24 +736,18 @@ if translate_button and source_text and target_languages and model_option:
     
     # Translate to each selected language
     for i, target_language in enumerate(target_languages):
-        with st.spinner(f"Translating to {target_language} using {model_option}... ({i+1}/{total_languages})"):
+        with st.spinner(f"Translating to {target_language}... ({i+1}/{total_languages})"):
             model_output = None
             
             try:
-                if model_option == "Claude 3.7 Sonnet":
-                    model_output = translate_with_claude(
-                        source_text, 
-                        target_language, 
-                        content_type, 
-                        st.session_state.claude_api_key
-                    )
-                else:  # GPT-4o
-                    model_output = translate_with_gpt4o(
-                        source_text, 
-                        target_language, 
-                        content_type, 
-                        st.session_state.openai_api_key
-                    )
+                # Use AI for translation
+                model_output = translate_text(
+                    source_text, 
+                    target_language, 
+                    content_type,
+                    tone,
+                    st.session_state.openai_api_key
+                )
                     
                 # Extract just the translation from model output
                 if model_output:
@@ -794,9 +836,8 @@ if st.session_state.translation_done and st.session_state.translations:
 if st.sidebar.checkbox("Show Debug Info", value=False):
     with st.sidebar.expander("Debug Information"):
         st.write("API Keys:")
-        st.write(f"- Claude API Key: {'Set' if claude_key_set else 'Not set'}")
-        st.write(f"- OpenAI API Key: {'Set' if openai_key_set else 'Not set'}")
+        st.write(f"- Translation API Key: {'Set' if openai_key_set else 'Not set'}")
         
         if 'openai_error' in st.session_state:
-            st.write("Last OpenAI API Error:")
+            st.write("Last API Error:")
             st.code(st.session_state.get('openai_error', 'None'))
