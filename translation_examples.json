@@ -1,0 +1,280 @@
+{
+  "languageMap": {
+      "en": "English",
+      "th": "Thai",
+      "zhs": "Chinese (Simplified)",
+      "zht": "Chinese (Traditional)",
+      "vn": "Vietnamese",
+      "es": "Spanish",
+      "ptbr": "Portuguese (Brazil)",
+      "ar": "Arabic",
+      "de": "German",
+      "it": "Italian",
+      "fr": "French",
+      "ko": "Korean",
+      "hi": "Hindi"
+  },
+  "commonPhrases": {
+      "teamSignature": {
+          "original": "The Pepperstone Team",
+          "translations": {
+              "en": "The Pepperstone Team",
+              "th": "ทีม Pepperstone",
+              "zhs": "Pepperstone团队",
+              "zht": "Pepperstone團隊",
+              "vn": "Đội ngũ Pepperstone",
+              "es": "Equipo Pepperstone",
+              "ptbr": "Equipe Pepperstone",
+              "ar": "فريق Pepperstone",
+              "de": "Das Pepperstone-Team",
+              "it": "Il team di Pepperstone",
+              "fr": "L'équipe Pepperstone"
+          }
+      },
+      "regards": {
+          "original": "Kind regards,",
+          "translations": {
+              "en": "Kind regards,",
+              "th": "ด้วยความนับถือ,",
+              "zhs": "感谢，",
+              "zht": "此致，",
+              "vn": "Trân trọng,",
+              "es": "Atentamente,",
+              "ptbr": "Atenciosamente,",
+              "ar": "مع أطيب التحيات،",
+              "de": "Mit freundlichen Grüßen,",
+              "it": "Cordiali saluti,",
+              "fr": "Cordialement,"
+          }
+      },
+      "helpTitle": {
+          "original": "We're here to help",
+          "translations": {
+              "en": "We're here to help",
+              "th": "เราพร้อมช่วยเหลือ",
+              "zhs": "我们随时为您提供帮助",
+              "zht": "我們隨時為您提供幫助",
+              "vn": "Chúng tôi ở đây để giúp đỡ",
+              "es": "Estamos aquí para ayudar",
+              "ptbr": "Estamos aqui para ajudar",
+              "ar": "نحن هنا للمساعدة",
+              "de": "Wir sind hier, um zu helfen",
+              "it": "Siamo qui per aiutarti",
+              "fr": "Nous sommes là pour vous aider"
+          }
+      },
+      "helpText": {
+          "original": "If there's anything you need, please don't hesitate to contact us.",
+          "translations": {
+              "en": "If there's anything you need, please don't hesitate to contact us.",
+              "th": "หากคุณต้องการความช่วยเหลือใด ๆ โปรดอย่าลังเลที่จะติดต่อเรา",
+              "zhs": "如果您需要任何帮助，请随时联系我们。",
+              "zht": "如果您需要任何幫助，請隨時聯繫我們。",
+              "vn": "Nếu bạn cần bất cứ điều gì, đừng ngần ngại liên hệ với chúng tôi.",
+              "es": "Si necesitas algo, no dudes en contactarnos.",
+              "ptbr": "Se precisar de qualquer coisa, não hesite em nos contatar.",
+              "ar": "إذا كنت بحاجة إلى أي شيء، فلا تتردد في الاتصال بنا.",
+              "de": "Wenn Sie etwas benötigen, zögern Sie bitte nicht uns zu kontaktieren.",
+              "it": "Se hai bisogno di qualsiasi cosa, non esitare a contattarci."
+          }
+      }
+  },
+  "emailTemplates": {
+      "SCB Onboarding - REsit Quiz Rem": {
+          "subject": {
+              "original": "You can resit the Suitability Quiz today!",
+              "translations": {
+                  "en": "You can resit the Suitability Quiz today!",
+                  "th": "คุณสามารถทำแบบทดสอบความเหมาะสมใหม่ได้วันนี้!",
+                  "zhs": "您今天可以重新参加适合性测验！",
+                  "zht": "您今天可以重新參加適合性測驗！",
+                  "vn": "Bạn có thể làm lại Bài kiểm tra độ phù hợp hôm nay!",
+                  "es": "¡Puedes volver a hacer el Cuestionario de Idoneidad hoy!",
+                  "ptbr": "Você pode refazer o Questionário de Adequação hoje!",
+                  "ar": "يمكنك إعادة اختبار الملاءمة اليوم!",
+                  "de": "Sie können das Eignungsquiz heute erneut ablegen!",
+                  "it": "Puoi rifare il Quiz di Idoneità oggi!"
+              }
+          },
+          "preheader": {
+              "original": "{{firstname}} you can resit the Quiz today",
+              "translations": {
+                  "en": "{{firstname}} you can resit the Quiz today",
+                  "th": "{{firstname}} คุณสามารถทำแบบทดสอบใหม่ได้วันนี้",
+                  "zhs": "{{firstname}} 您今天可以重新参加测验。",
+                  "zht": "{{firstname}} 您今天可以重新參加測驗",
+                  "vn": "{{firstname}} bạn có thể làm lại bài kiểm tra hôm nay",
+                  "es": "{{firstname}} puedes volver a hacer el Cuestionario hoy",
+                  "ptbr": "{{firstname}} você pode refazer o Questionário hoje",
+                  "ar": "{{firstname}} يمكنك إعادة الاختبار اليوم",
+                  "de": "{{firstname}} Sie können das Quiz heute erneut ablegen",
+                  "it": "{{firstname}} puoi rifare il Quiz oggi"
+              }
+          },
+          "body": {
+              "greeting": {
+                  "original": "Hi {{{firstname}},",
+                  "translations": {
+                      "en": "Hi {{{firstname}},",
+                      "th": "สวัสดี {{firstname}},",
+                      "zhs": "您好 {{firstname}},",
+                      "zht": "您好 {{firstname}},",
+                      "vn": "Kính gửi {{firstname}},",
+                      "es": "Hola {{firstname}},",
+                      "ptbr": "Olá {{firstname}},",
+                      "ar": "مرحبًا {{firstname}},",
+                      "de": "Hallo {{firstname}},",
+                      "it": "Ciao {{firstname}},"
+                  }
+              },
+              "paragraph1": {
+                  "original": "We're pleased to inform you that you can now resit your Suitability Quiz today.",
+                  "translations": {
+                      "en": "We're pleased to inform you that you can now resit your Suitability Quiz today.",
+                      "th": "เรายินดีที่จะแจ้งให้คุณทราบว่าคุณสามารถทำแบบทดสอบความเหมาะสมใหม่ได้วันนี้",
+                      "zhs": "我们很高兴通知您，您现在可以在今天重新参加适应性测验。",
+                      "zht": "我们很高兴通知您，您现在可以在今天重新参加適合性測驗。",
+                      "vn": "Chúng tôi rất vui mừng thông báo rằng bạn có thể làm lại Bài kiểm tra độ phù hợp hôm nay.",
+                      "es": "Nos complace informarte que ahora puedes volver a hacer tu Cuestionario de Idoneidad hoy.",
+                      "ptbr": "Temos o prazer de informar que você pode refazer o seu Questionário de Adequação hoje.",
+                      "ar": "يسعدنا إبلاغك بأنه يمكنك الآن إعادة اختبار الملاءمة اليوم.",
+                      "de": "Wir freuen uns, Ihnen mitteilen zu können, dass Sie Ihr Eignungsquiz heute erneut ablegen können.",
+                      "it": "Siamo lieti di informarti che ora puoi rifare il tuo Quiz di Idoneità oggi."
+                  }
+              }
+          },
+          "cta": {
+              "original": "Resit Quiz",
+              "translations": {
+                  "en": "Resit Quiz",
+                  "th": "ทำแบบทดสอบใหม่",
+                  "zhs": "重新参加测验",
+                  "zht": "重新參加測驗",
+                  "vn": "Làm lại Bài kiểm tra",
+                  "es": "Volver a hacer el Cuestionario",
+                  "ptbr": "Refazer Questionário",
+                  "ar": "إعادة الاختبار",
+                  "de": "Quiz erneut ablegen",
+                  "it": "Rifare il Quiz"
+              }
+          }
+      },
+      "PayID third party rejection": {
+          "subject": {
+              "original": "Your funding request could not be processed",
+              "translations": {
+                  "en": "Your funding request could not be processed",
+                  "th": "รายการฝากเงินทุนของคุณไม่สามารถดำเนินการได้",
+                  "zhs": "您的入金请求无法处理",
+                  "zht": "您的入金请求无法处理",
+                  "vn": "Yêu cầu cấp vốn của bạn không thể xử lý",
+                  "es": "Su solicitud de financiación no pudo ser procesada",
+                  "ptbr": "Sua solicitação de financiamento não pôde ser processada",
+                  "ar": "تعذر معالجة طلب التمويل الخاص بك",
+                  "de": "Ihre Einzahlungsanfrage konnte nicht bearbeitet werden",
+                  "it": "La tua richiesta di finanziamento non può essere elaborata",
+                  "fr": "Votre demande de financement n'a pas pu être traitée"
+              }
+          }
+      },
+      "Paypal 3015": {
+          "subject": {
+              "original": "Let's fix this: issue with your PayPal account",
+              "translations": {
+                  "en": "Let's fix this: issue with your PayPal account",
+                  "th": "เราพร้อมช่วยเหลือ คำแนะนำเกี่ยวกับบัญชี PayPal ของคุณ",
+                  "zhs": "让我们来帮您解决这个问题：您的PayPal账户存在问题",
+                  "zht": "讓我們來幫您解決這個問題：您的PayPal帳戶存在問題",
+                  "vn": "Hãy khắc phục: vấn đề về tài khoản PayPal của bạn",
+                  "es": "Arreglemos esto: problema con tu cuenta de PayPal",
+                  "ptbr": "Vamos corrigir isso: problema com sua conta PayPal",
+                  "ar": "دعونا نصلح هذا: مشكلة في حساب PayPal الخاص بك",
+                  "de": "Lassen Sie uns das beheben: Problem mit Ihrem PayPal-Konto",
+                  "it": "Lassen Sie uns das beheben: Problem mit Ihrem PayPal-Konto",
+                  "fr": "Réparons cela : problème avec votre compte PayPal"
+              }
+          },
+          "body": {
+              "headline": {
+                  "original": "Let's fix this.",
+                  "translations": {
+                      "en": "Let's fix this.",
+                      "th": "เราพร้อมช่วยเหลือ",
+                      "zhs": "让我们来帮您解决这个问题。",
+                      "zht": "讓我們來幫您解決這個問題。",
+                      "vn": "Hãy khắc phục.",
+                      "es": "Arreglemos esto."
+                  }
+              }
+          }
+      },
+      "Labgroup User Created": {
+          "subject": {
+              "original": "Secure Client Area User Created",
+              "translations": {
+                  "en": "Secure Client Area User Created",
+                  "th": "สร้างผู้ใช้ในพื้นที่ลูกค้าที่ปลอดภัย",
+                  "zhs": "已创建安全客户端区域用户",
+                  "zht": "已創建安全客戶端區域用戶",
+                  "vn": "Đã tạo người dùng Khu vực Khách hàng An toàn",
+                  "es": "Usuario del Área de Clientes Segura Creado",
+                  "ptbr": "Usuário da Área Segura do Cliente Criado",
+                  "ar": "تم إنشاء مستخدم منطقة العميل الآمنة",
+                  "de": "Benutzer für sicheren Kundenbereich erstellt",
+                  "it": "Utente dell'Area Clienti Sicura Creato",
+                  "fr": "Utilisateur de l'Espace Client Sécurisé Créé"
+              }
+          },
+          "body": {
+              "title": {
+                  "original": "My Account User Created",
+                  "translations": {
+                      "en": "My Accont User Created",
+                      "th": "สร้างผู้ใช้ 'บัญชีของฉัน'",
+                      "zhs": "已创建我的账户'用户",
+                      "zht": "已創建 我的帳戶 用戶",
+                      "vn": "Đã tạo người dùng Tài khoản của tôi'",
+                      "es": "Usuario de Mi Cuenta' Creado",
+                      "ptbr": "Usuário de Minha Conta' Criado",
+                      "ar": "تم إنشاء مستخدم حسابي'",
+                      "de": "Benutzer für Mein Konto' erstellt",
+                      "it": "Utente di Il Mio Conto' Creato",
+                      "fr": "Utilisateur de 'Mon Compte' Créé"
+                  }
+              },
+              "greeting": {
+                  "original": "Hi {[firstname]},",
+                  "translations": {
+                      "en": "Hi {[firstname]},",
+                      "th": "สวัสดี {{firstname}},",
+                      "zhs": "您好 {{firstname}},",
+                      "zht": "您好 {{firstname}},",
+                      "vn": "Chào {{firstname}},",
+                      "es": "Hola {{firstname}},",
+                      "ptbr": "Olá {{firstname}},",
+                      "ar": "مرحبًا {{firstname}},",
+                      "de": "Hallo {{firstname}},",
+                      "it": "Ciao {{firstname}},",
+                      "fr": "Bonjour {{firstname}},"
+                  }
+              }
+          },
+          "cta": {
+              "original": "Login to My Account'",
+              "translations": {
+                  "en": "Login to My Account'",
+                  "th": "เข้าสู่ระบบ 'บัญชีของฉัน'",
+                  "zhs": "登录 我的账户",
+                  "zht": "登錄 我的帳戶",
+                  "vn": "Đăng nhập vào 'Tài khoản của tôi'",
+                  "es": "Iniciar sesión en 'Mi Cuenta'",
+                  "ptbr": "Faça login em 'Minha Conta'",
+                  "ar": "تسجيل الدخول إلى 'حسابي'",
+                  "de": "Melden Sie sich bei 'Mein Konto' an",
+                  "it": "Accedi a 'Il Mio Conto'",
+                  "fr": "Connectez-vous à 'Mon Compte'"
+              }
+          }
+      }
+  }
+}
