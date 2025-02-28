@@ -12,6 +12,7 @@ The translated content is for [specific audience type: casual readers/business p
 ## Language-Specific Guidance
 
 ### Chinese (Simplified & Traditional)
+- **Financial Terminology**: Use "入金" (not "存款") for "deposit" in trading/investment contexts. Use "出金" for "withdrawal".
 - **Formality**: Default to a semi-formal tone for business content, using "您" for formal contexts and "你" for casual contexts.
 - **Simplified vs. Traditional**: Ensure proper character usage for the specific variant requested - don't mix simplified and traditional characters.
 - **Technical Terms**: Use common English tech terms (like APP, email, etc.) where they are commonly understood in Chinese contexts.
@@ -65,6 +66,18 @@ The translated content is for [specific audience type: casual readers/business p
 "即刻进行注册以开始使用我司之投资平台。"
 
 **Why it's bad:** Uses unnecessarily formal and outdated language like "我司之" instead of the more common "我们的". The overall tone is stiff and feels like a government document rather than a user-friendly platform.
+
+**Good Example for Financial Analysis Headlines:**
+**Original:**
+"Crunching the Numbers - The Gains in US Equity Explained by Moves in 'Overnight' Trade."
+#### Good Example (Chinese Simplified - Technical Content):
+"數據分析－美國股票收益可歸因於「隔夜」交易的變動。"
+**Why it's good:**  Uses natural financial terminology with "可歸因於" (can be attributed to) which flows well. The translation maintains the analytical tone of the original while being readable and natural.
+#### Bad Example 1 (Chinese Simplified - Overly Formal)
+"Crunching the Numbers - The Gains in US Equity Explained by Moves in 'Overnight' Trade."
+#### Bad Example
+"數據分析：美國股市的漲幅由「隔夜」交易的變動所解釋"
+**Why it's bad:** Uses a more literal translation with "所解釋" for "explained by" which creates an awkward expression in Chinese financial writing contexts. The term "漲幅" is less precise than "收益" in this context, altering the intended meaning slightly.
 
 ### Good Examples for Thai
 
