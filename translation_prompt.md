@@ -79,6 +79,21 @@ The translated content is for [specific audience type: casual readers/business p
 "數據分析：美國股市的漲幅由「隔夜」交易的變動所解釋"
 **Why it's bad:** Uses a more literal translation with "所解釋" for "explained by" which creates an awkward expression in Chinese financial writing contexts. The term "漲幅" is less precise than "收益" in this context, altering the intended meaning slightly.
 
+**Original text**:
+"A shared obsession" | "Welcome to a better way to trade" | "Or replicate the strategies of expert traders with our copy trading offering."
+**Good Examples**
+"共同的热忱" | "欢迎开启更卓越的交易方式" | "或使用我们的跟单交易功能，轻松复制专家交易者的策略。"
+**Why they're good**:
+"热忱" conveys a deeper, more passionate commitment, making it more suitable than "热情", which is more generic.
+"开启更卓越的交易方式" (open a more excellent way to trade) sounds more refined and aspirational compared to "体验更好的交易方式" (experience a better way to trade).
+"跟单交易功能" makes it clear that copy trading is a feature, and "轻松复制" adds a sense of ease and convenience.
+**Bad Examples**
+"共同的热情" | "欢迎体验更好的交易方式" | "或使用我们的跟单交易复制专家交易者的策略。"
+**Why they're bad**:
+"热情" lacks the depth and intensity of commitment implied in "obsession."
+"体验更好的交易方式" is too direct and lacks aspirational appeal, making it less engaging for branding.
+The lack of "功能" (feature) in the last sentence makes it unclear that copy trading is a service feature, and the structure feels less natural.
+
 ### Good Examples for Thai
 
 #### Good Example 1 (Thai - Financial Content):
