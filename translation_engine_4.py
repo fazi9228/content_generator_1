@@ -230,7 +230,7 @@ def load_translation_examples_json(target_language):
         import json
         import os
         
-        # Check if file exists - print current working directory for debugging
+        # Check if file exists
         json_file = "translation_examples.json"
         current_dir = os.getcwd()
         print(f"Current working directory: {current_dir}")
@@ -238,29 +238,19 @@ def load_translation_examples_json(target_language):
         
         if not os.path.exists(json_file):
             print(f"Translation examples file not found: {json_file}")
-            # Try to list files in the current directory to help debug
-            try:
-                files = os.listdir(current_dir)
-                print(f"Files in current directory: {files}")
-            except Exception as list_err:
-                print(f"Error listing directory: {str(list_err)}")
             return []
         
         print(f"JSON file found: {json_file}")
         
         # Load JSON file
         with open(json_file, "r", encoding="utf-8") as f:
-            try:
-                data = json.load(f)
-                print("JSON loaded successfully")
-                print(f"JSON structure contains keys: {list(data.keys())}")
-            except Exception as json_err:
-                print(f"Error parsing JSON: {str(json_err)}")
-                return []
+            data = json.load(f)
+            print("JSON loaded successfully")
+            print(f"JSON structure contains keys: {list(data.keys())}")
         
-        # Get language code
+        # Get language code for target language
         language_code = None
-        for code, lang in data.get("languageMap", {}).items():
+        for code, lang in data.get('languageMap', {}).items():
             if target_language.lower() in lang.lower():
                 language_code = code
                 break
@@ -268,59 +258,40 @@ def load_translation_examples_json(target_language):
         if not language_code:
             print(f"Could not find language code for {target_language}")
             return []
-            
-        # Extract examples from the commonPhrases
+        
+        # Extract examples
         examples = []
         
-        # Add examples from commonPhrases
-        for phrase_key, phrase_data in data.get("commonPhrases", {}).items():
-            if "original" in phrase_data and "translations" in phrase_data:
-                original = phrase_data["original"]
-                if language_code in phrase_data["translations"]:
-                    translation = phrase_data["translations"][language_code]
+        # Process email templates to extract examples
+        for template_name, template_data in data.get('emailTemplates', {}).items():
+            for section_name, section_data in template_data.items():
+                # Skip if not in the right format
+                if not isinstance(section_data, dict) or 'translations' not in section_data:
+                    continue
+                
+                # Get the original text and translation
+                if 'original' in section_data and language_code in section_data['translations']:
+                    original = section_data['original']
+                    translation = section_data['translations'][language_code]
+                    
+                    # Add to examples list
                     examples.append({
-                        "source": original,
-                        "translation": translation
-                    })
-        
-        # Add examples from emailTemplates
-        for template_key, template_data in data.get("emailTemplates", {}).items():
-            # Extract subject
-            if "subject" in template_data:
-                subject = template_data["subject"]
-                if "original" in subject and "translations" in subject and language_code in subject["translations"]:
-                    examples.append({
-                        "source": subject["original"],
-                        "translation": subject["translations"][language_code]
-                    })
-            
-            # Extract from body sections
-            if "body" in template_data:
-                for section_key, section_data in template_data["body"].items():
-                    if "original" in section_data and "translations" in section_data and language_code in section_data["translations"]:
-                        examples.append({
-                            "source": section_data["original"],
-                            "translation": section_data["translations"][language_code]
-                        })
-            
-            # Extract CTA
-            if "cta" in template_data:
-                cta = template_data["cta"]
-                if "original" in cta and "translations" in cta and language_code in cta["translations"]:
-                    examples.append({
-                        "source": cta["original"],
-                        "translation": cta["translations"][language_code]
+                        'source': original,
+                        'translation': translation
                     })
         
         print(f"Found {len(examples)} examples for {target_language}")
         
-        # Limit to 5 diverse examples to avoid overwhelming the prompt
+        # Limit to 5 diverse examples
         return examples[:5]
         
     except Exception as e:
         print(f"Error loading translation examples from JSON: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return []
-
+    
+    
 # Replace the load_translation_examples function to only use JSON
 def load_translation_examples(target_language):
     """
