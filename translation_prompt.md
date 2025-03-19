@@ -33,17 +33,17 @@ The translated content is for [specific audience type: casual readers/business p
 - **Regional Variation**: Use neutral Latin American Spanish vocabulary avoiding region-specific terms unless specified.
 - **Gendered Language**: For gender-neutral contexts, consider using inclusive language techniques like "usuario/a" or neutral options like "quien use el servicio" where appropriate.
 
-### Korean
-- **Formality**: Korean has strict formality levels. Use the polite formal level (합니다/습니다 style) for business content, and casual form (해요/아요 style) for more casual content.
-- **Honorifics**: Use appropriate honorific suffixes like '-님' when referring to the reader in formal contexts.
-- **Technical Terms**: Keep English technical terms as is and use Korean particles appropriately (e.g., "마켓에서" instead of translating "market" to "시장").
-- **Financial Terms**: Do not translate established financial terms, instrument names, or ticker symbols (e.g., keep "EURUSD", "S&P 500", "Bitcoin" as is).
+### Portuguese (Brazil)
+- **Formality**: Use "você" for standard business communications and "tu" only if targeting regions where it's common. For formal business content, use "o senhor"/"a senhora".
+- **Brazilian Terminology**: Use Brazilian Portuguese terms rather than European Portuguese (e.g., "celular" instead of "telemóvel").
+- **Financial Terms**: Maintain established financial market terms like "trade", "broker", "bullish/bearish" as they are commonly used in Brazilian financial contexts.
+- **English Loanwords**: In tech and finance, many English terms are adopted directly in Brazilian Portuguese - preserve these when they are the standard usage (e.g., "marketing", "trader", "setup").
 
-### Hindi
-- **Formality**: Use appropriate levels of respect through pronouns (आप vs तुम vs तू) based on context - prefer आप for formal business communications.
-- **Technical Terms**: Retain English technical terms in their original form where they are commonly used.
-- **Financial Terms**: Keep financial terms, ticker symbols, and instrument names in English (e.g., "USD/INR", "Nifty", "Bitcoin").
-- **Script Mixing**: For technical/business terms, it's acceptable to mix Latin script with Devanagari when the English term is more recognizable.
+### Italian
+- **Formality**: Use the formal "Lei" (capitalized) for business and professional communications, and the informal "tu" only for very casual contexts.
+- **Financial Terminology**: For established financial terms, use Italian equivalents where they exist (e.g., "mercato rialzista" for "bullish market") but keep English terms where they are commonly used in Italian financial contexts.
+- **Technical Terms**: Many English tech and finance terms are used directly in Italian - preserve these when they are the standard (e.g., "trading", "trend", "broker").
+- **Sentence Structure**: Italian often uses longer, more complex sentences than English - restructure for natural flow rather than keeping the exact English sentence breaks.
 
 ## Examples
 
@@ -78,21 +78,6 @@ The translated content is for [specific audience type: casual readers/business p
 #### Bad Example
 "數據分析：美國股市的漲幅由「隔夜」交易的變動所解釋"
 **Why it's bad:** Uses a more literal translation with "所解釋" for "explained by" which creates an awkward expression in Chinese financial writing contexts. The term "漲幅" is less precise than "收益" in this context, altering the intended meaning slightly.
-
-**Original text**:
-"A shared obsession" | "Welcome to a better way to trade" | "Or replicate the strategies of expert traders with our copy trading offering."
-**Good Examples**
-"共同的热忱" | "欢迎开启更卓越的交易方式" | "或使用我们的跟单交易功能，轻松复制专家交易者的策略。"
-**Why they're good**:
-"热忱" conveys a deeper, more passionate commitment, making it more suitable than "热情", which is more generic.
-"开启更卓越的交易方式" (open a more excellent way to trade) sounds more refined and aspirational compared to "体验更好的交易方式" (experience a better way to trade).
-"跟单交易功能" makes it clear that copy trading is a feature, and "轻松复制" adds a sense of ease and convenience.
-**Bad Examples**
-"共同的热情" | "欢迎体验更好的交易方式" | "或使用我们的跟单交易复制专家交易者的策略。"
-**Why they're bad**:
-"热情" lacks the depth and intensity of commitment implied in "obsession."
-"体验更好的交易方式" is too direct and lacks aspirational appeal, making it less engaging for branding.
-The lack of "功能" (feature) in the last sentence makes it unclear that copy trading is a service feature, and the structure feels less natural.
 
 ### Good Examples for Thai
 
@@ -170,45 +155,81 @@ The lack of "功能" (feature) in the last sentence makes it unclear that copy t
 
 **Why it's bad:** Unnecessarily expands "USD/VND" into full words when the abbreviation is standard in Vietnamese financial contexts. A better translation would keep "tỷ giá USD/VND" which is more concise and consistent with industry usage.
 
-### Good Examples for Hindi
+### Good Examples for Portuguese (Brazil)
 
-#### Good Example 1 (Hindi - Financial Content):
+#### Good Example 1 (Portuguese Brazil - Financial Content):
 **Original:**
-"The NIFTY 50 index closed at 22,055 points yesterday, showing a 2% increase compared to last week."
+"The S&P 500 index closed at 4,500 points, showing a 3% increase compared to last week."
 
 **Natural Translation:**
-"NIFTY 50 इंडेक्स कल 22,055 अंकों पर बंद हुआ, जो पिछले हफ्ते की तुलना में 2% की वृद्धि दर्शाता है।"
+"O índice S&P 500 fechou em 4.500 pontos, apresentando um aumento de 3% em relação à semana passada."
 
-**Why it's good:** Keeps the financial term "NIFTY 50" and numerical values in their original form. Uses natural Hindi phrasing while maintaining technical accuracy.
+**Why it's good:** Keeps the financial term "S&P 500" as is. Uses natural Brazilian Portuguese financial terminology and correct decimal separator (period instead of comma for thousands).
 
-#### Bad Example 1 (Hindi - Unnecessarily Complex):
+#### Good Example 2 (Portuguese Brazil - Trading Content):
 **Original:**
-"Technical analysis shows resistance at the 22,500 level for the Nifty index."
-
-**Overly Complex Translation:**
-"तकनीकी विश्लेषण दर्शाता है कि निफ्टी सूचकांक के लिए प्रतिरोध स्तर बाईस हज़ार पाँच सौ अंक पर है।"
-
-**Why it's bad:** Unnecessarily translates "Nifty" to "निफ्टी" and writes out the number in words rather than keeping the more readable numerals. The translation is technically correct but less readable than using the established terms.
-
-### Good Examples for Korean
-
-#### Good Example 1 (Korean - Market Analysis):
-**Original:**
-"EUR/USD fell 0.5% after the Federal Reserve announced rate hikes."
+"Set up a stop loss to protect your positions against market volatility."
 
 **Natural Translation:**
-"연방준비제도(Fed)에서 금리 인상을 발표한 후 EUR/USD가 0.5% 하락했습니다."
+"Configure um stop loss para proteger suas posições contra a volatilidade do mercado."
 
-**Why it's good:** Keeps the currency pair "EUR/USD" in its original form. Includes a helpful Korean name for the Federal Reserve while keeping the common abbreviation "Fed" in parentheses. Uses formal business style with 습니다 ending.
+**Why it's good:** Preserves the financial term "stop loss" which is commonly used in Brazilian trading contexts rather than translating it. Uses natural Brazilian Portuguese phrasing for the rest of the sentence.
 
-#### Bad Example 1 (Korean - Overly Translated):
+#### Bad Example 1 (Portuguese Brazil - Overly Translated):
 **Original:**
-"Bitcoin (BTC) reached $60,000, breaking the previous resistance level."
+"The bullish trend in commodities continued this quarter."
 
-**Overly Translated Version:**
-"비트코인(비티씨)이 육만 달러에 도달하여 이전 저항 수준을 돌파했습니다."
+**Overly Translated:**
+"A tendência de alta nos produtos básicos continuou neste trimestre."
 
-**Why it's bad:** Unnecessarily transliterates "BTC" to "비티씨" and converts the number to Korean number words. Financial audiences would prefer seeing "Bitcoin (BTC)" and "$60,000" in their original forms.
+**Why it's bad:** While technically correct, the translation "produtos básicos" for "commodities" is less common in Brazilian financial contexts than simply using "commodities." Brazilian traders and investors would typically use "mercado de commodities" instead.
+
+#### Bad Example 2 (Portuguese Brazil - European Portuguese):
+**Original:**
+"Download our mobile app to monitor your investments."
+
+**European Portuguese Translation:**
+"Descarregue a nossa aplicação móvel para monitorizar os seus investimentos."
+
+**Why it's bad:** Uses European Portuguese terms like "descarregue" and "aplicação" instead of the Brazilian terms "baixe" and "aplicativo/app" which would be more natural for a Brazilian audience.
+
+### Good Examples for Italian
+
+#### Good Example 1 (Italian - Financial Content):
+**Original:**
+"The FTSE MIB index closed at 27,500 points, showing a 2.5% increase from last week."
+
+**Natural Translation:**
+"L'indice FTSE MIB ha chiuso a 27.500 punti, registrando un aumento del 2,5% rispetto alla settimana scorsa."
+
+**Why it's good:** Keeps the financial term "FTSE MIB" unchanged. Uses natural Italian financial terminology and correct decimal and thousands separators (period for thousands, comma for decimals - opposite of English).
+
+#### Good Example 2 (Italian - Trading Content):
+**Original:**
+"Our platform offers commission-free trading for major forex pairs."
+
+**Natural Translation:**
+"La nostra piattaforma offre trading senza commissioni per le principali coppie forex."
+
+**Why it's good:** Preserves the English terms "trading" and "forex" which are commonly used in Italian financial contexts. Uses natural Italian phrasing for the rest of the sentence.
+
+#### Bad Example 1 (Italian - Overly Translated):
+**Original:**
+"The bearish trend in cryptocurrencies continued this month."
+
+**Overly Translated:**
+"La tendenza al ribasso nelle criptovalute è continuata questo mese."
+
+**Why it's bad:** While technically correct, in Italian financial contexts, it's common to use the English term "trend bearish" rather than "tendenza al ribasso" which sounds more formal and less natural to Italian traders.
+
+#### Bad Example 2 (Italian - Overly Formal):
+**Original:**
+"Check your account balance before placing an order."
+
+**Overly Formal Translation:**
+"Si prega di verificare il saldo del Suo conto prima di effettuare un ordine."
+
+**Why it's bad:** The translation uses an impersonal construction "Si prega di" which is unnecessarily formal for a simple instruction. A more direct "Verifichi il saldo del Suo conto" would be more appropriate for business communication.
 
 ## Instructions
 
