@@ -1,280 +1,1573 @@
 {
   "languageMap": {
-      "en": "English",
-      "th": "Thai",
-      "zhs": "Chinese (Simplified)",
-      "zht": "Chinese (Traditional)",
-      "vn": "Vietnamese",
-      "es": "Spanish",
-      "ptbr": "Portuguese (Brazil)",
-      "ar": "Arabic",
-      "de": "German",
-      "it": "Italian",
-      "fr": "French",
-      "ko": "Korean",
-      "hi": "Hindi"
-  },
-  "commonPhrases": {
-      "teamSignature": {
-          "original": "The Pepperstone Team",
-          "translations": {
-              "en": "The Pepperstone Team",
-              "th": "ทีม Pepperstone",
-              "zhs": "Pepperstone团队",
-              "zht": "Pepperstone團隊",
-              "vn": "Đội ngũ Pepperstone",
-              "es": "Equipo Pepperstone",
-              "ptbr": "Equipe Pepperstone",
-              "ar": "فريق Pepperstone",
-              "de": "Das Pepperstone-Team",
-              "it": "Il team di Pepperstone",
-              "fr": "L'équipe Pepperstone"
-          }
-      },
-      "regards": {
-          "original": "Kind regards,",
-          "translations": {
-              "en": "Kind regards,",
-              "th": "ด้วยความนับถือ,",
-              "zhs": "感谢，",
-              "zht": "此致，",
-              "vn": "Trân trọng,",
-              "es": "Atentamente,",
-              "ptbr": "Atenciosamente,",
-              "ar": "مع أطيب التحيات،",
-              "de": "Mit freundlichen Grüßen,",
-              "it": "Cordiali saluti,",
-              "fr": "Cordialement,"
-          }
-      },
-      "helpTitle": {
-          "original": "We're here to help",
-          "translations": {
-              "en": "We're here to help",
-              "th": "เราพร้อมช่วยเหลือ",
-              "zhs": "我们随时为您提供帮助",
-              "zht": "我們隨時為您提供幫助",
-              "vn": "Chúng tôi ở đây để giúp đỡ",
-              "es": "Estamos aquí para ayudar",
-              "ptbr": "Estamos aqui para ajudar",
-              "ar": "نحن هنا للمساعدة",
-              "de": "Wir sind hier, um zu helfen",
-              "it": "Siamo qui per aiutarti",
-              "fr": "Nous sommes là pour vous aider"
-          }
-      },
-      "helpText": {
-          "original": "If there's anything you need, please don't hesitate to contact us.",
-          "translations": {
-              "en": "If there's anything you need, please don't hesitate to contact us.",
-              "th": "หากคุณต้องการความช่วยเหลือใด ๆ โปรดอย่าลังเลที่จะติดต่อเรา",
-              "zhs": "如果您需要任何帮助，请随时联系我们。",
-              "zht": "如果您需要任何幫助，請隨時聯繫我們。",
-              "vn": "Nếu bạn cần bất cứ điều gì, đừng ngần ngại liên hệ với chúng tôi.",
-              "es": "Si necesitas algo, no dudes en contactarnos.",
-              "ptbr": "Se precisar de qualquer coisa, não hesite em nos contatar.",
-              "ar": "إذا كنت بحاجة إلى أي شيء، فلا تتردد في الاتصال بنا.",
-              "de": "Wenn Sie etwas benötigen, zögern Sie bitte nicht uns zu kontaktieren.",
-              "it": "Se hai bisogno di qualsiasi cosa, non esitare a contattarci."
-          }
-      }
+    "en": "English",
+    "th": "Thai",
+    "zhs": "Chinese (Simplified)",
+    "zht": "Chinese (Traditional)",
+    "vn": "Vietnamese",
+    "es": "Spanish",
+    "ptbr": "Portuguese (Brazil)",
+    "ar": "Arabic",
+    "de": "German",
+    "it": "Italian",
+    "fr": "French"
   },
   "emailTemplates": {
-      "SCB Onboarding - REsit Quiz Rem": {
-          "subject": {
-              "original": "You can resit the Suitability Quiz today!",
-              "translations": {
-                  "en": "You can resit the Suitability Quiz today!",
-                  "th": "คุณสามารถทำแบบทดสอบความเหมาะสมใหม่ได้วันนี้!",
-                  "zhs": "您今天可以重新参加适合性测验！",
-                  "zht": "您今天可以重新參加適合性測驗！",
-                  "vn": "Bạn có thể làm lại Bài kiểm tra độ phù hợp hôm nay!",
-                  "es": "¡Puedes volver a hacer el Cuestionario de Idoneidad hoy!",
-                  "ptbr": "Você pode refazer o Questionário de Adequação hoje!",
-                  "ar": "يمكنك إعادة اختبار الملاءمة اليوم!",
-                  "de": "Sie können das Eignungsquiz heute erneut ablegen!",
-                  "it": "Puoi rifare il Quiz di Idoneità oggi!"
-              }
-          },
-          "preheader": {
-              "original": "{{firstname}} you can resit the Quiz today",
-              "translations": {
-                  "en": "{{firstname}} you can resit the Quiz today",
-                  "th": "{{firstname}} คุณสามารถทำแบบทดสอบใหม่ได้วันนี้",
-                  "zhs": "{{firstname}} 您今天可以重新参加测验。",
-                  "zht": "{{firstname}} 您今天可以重新參加測驗",
-                  "vn": "{{firstname}} bạn có thể làm lại bài kiểm tra hôm nay",
-                  "es": "{{firstname}} puedes volver a hacer el Cuestionario hoy",
-                  "ptbr": "{{firstname}} você pode refazer o Questionário hoje",
-                  "ar": "{{firstname}} يمكنك إعادة الاختبار اليوم",
-                  "de": "{{firstname}} Sie können das Quiz heute erneut ablegen",
-                  "it": "{{firstname}} puoi rifare il Quiz oggi"
-              }
-          },
-          "body": {
-              "greeting": {
-                  "original": "Hi {{{firstname}},",
-                  "translations": {
-                      "en": "Hi {{{firstname}},",
-                      "th": "สวัสดี {{firstname}},",
-                      "zhs": "您好 {{firstname}},",
-                      "zht": "您好 {{firstname}},",
-                      "vn": "Kính gửi {{firstname}},",
-                      "es": "Hola {{firstname}},",
-                      "ptbr": "Olá {{firstname}},",
-                      "ar": "مرحبًا {{firstname}},",
-                      "de": "Hallo {{firstname}},",
-                      "it": "Ciao {{firstname}},"
-                  }
-              },
-              "paragraph1": {
-                  "original": "We're pleased to inform you that you can now resit your Suitability Quiz today.",
-                  "translations": {
-                      "en": "We're pleased to inform you that you can now resit your Suitability Quiz today.",
-                      "th": "เรายินดีที่จะแจ้งให้คุณทราบว่าคุณสามารถทำแบบทดสอบความเหมาะสมใหม่ได้วันนี้",
-                      "zhs": "我们很高兴通知您，您现在可以在今天重新参加适应性测验。",
-                      "zht": "我们很高兴通知您，您现在可以在今天重新参加適合性測驗。",
-                      "vn": "Chúng tôi rất vui mừng thông báo rằng bạn có thể làm lại Bài kiểm tra độ phù hợp hôm nay.",
-                      "es": "Nos complace informarte que ahora puedes volver a hacer tu Cuestionario de Idoneidad hoy.",
-                      "ptbr": "Temos o prazer de informar que você pode refazer o seu Questionário de Adequação hoje.",
-                      "ar": "يسعدنا إبلاغك بأنه يمكنك الآن إعادة اختبار الملاءمة اليوم.",
-                      "de": "Wir freuen uns, Ihnen mitteilen zu können, dass Sie Ihr Eignungsquiz heute erneut ablegen können.",
-                      "it": "Siamo lieti di informarti che ora puoi rifare il tuo Quiz di Idoneità oggi."
-                  }
-              }
-          },
-          "cta": {
-              "original": "Resit Quiz",
-              "translations": {
-                  "en": "Resit Quiz",
-                  "th": "ทำแบบทดสอบใหม่",
-                  "zhs": "重新参加测验",
-                  "zht": "重新參加測驗",
-                  "vn": "Làm lại Bài kiểm tra",
-                  "es": "Volver a hacer el Cuestionario",
-                  "ptbr": "Refazer Questionário",
-                  "ar": "إعادة الاختبار",
-                  "de": "Quiz erneut ablegen",
-                  "it": "Rifare il Quiz"
-              }
-          }
+    "Back Office No ID": {
+      "Body": {
+        "original": "You’re one step away from activating your account",
+        "translations": {
+          "en": "You’re one step away from activating your account",
+          "th": "อีกเพียงขั้นตอนเดียว บัญชีของคุณก็จะพร้อมใช้งานแล้ว",
+          "zhs": "您只需一步即可激活您的账户",
+          "zht": "您只需一步即可激活您的帳戶",
+          "vn": "Bạn chỉ còn một bước nữa để kích hoạt tài khoản của mình",
+          "es": "Estás a un paso de activar tu cuenta",
+          "ptbr": "Você está a um passo de ativar sua conta",
+          "ar": "أنت على بعد خطوة واحدة من تفعيل حسابك",
+          "de": "Sie sind nur noch einen Schritt davon entfernt, Ihr Konto zu aktivieren",
+          "it": "Sei a un passo dall'attivare il tuo account",
+          "fr": "Vous êtes à un pas d'activer votre compte"
+        }
       },
-      "PayID third party rejection": {
-          "subject": {
-              "original": "Your funding request could not be processed",
-              "translations": {
-                  "en": "Your funding request could not be processed",
-                  "th": "รายการฝากเงินทุนของคุณไม่สามารถดำเนินการได้",
-                  "zhs": "您的入金请求无法处理",
-                  "zht": "您的入金请求无法处理",
-                  "vn": "Yêu cầu cấp vốn của bạn không thể xử lý",
-                  "es": "Su solicitud de financiación no pudo ser procesada",
-                  "ptbr": "Sua solicitação de financiamento não pôde ser processada",
-                  "ar": "تعذر معالجة طلب التمويل الخاص بك",
-                  "de": "Ihre Einzahlungsanfrage konnte nicht bearbeitet werden",
-                  "it": "La tua richiesta di finanziamento non può essere elaborata",
-                  "fr": "Votre demande de financement n'a pas pu être traitée"
-              }
-          }
+      "CTA": {
+        "original": "Upload your ID documents",
+        "translations": {
+          "en": "Upload your ID documents",
+          "th": "อัปโหลดเอกสารประจำตัวของคุณ",
+          "zhs": "上传您的身份证件",
+          "zht": "上傳您的身份證件",
+          "vn": "Tải lên giấy tờ tùy thân của bạn",
+          "es": "Sube tus documentos de identificación",
+          "ptbr": "Carregar seus documentos de identificação",
+          "ar": "تحميل مستندات الهوية الخاصة بك",
+          "de": "Laden Sie Ihre Ausweisdokumente hoch",
+          "it": "Carica i tuoi documenti di identità",
+          "fr": "Téléchargez vos documents d'identité"
+        }
       },
-      "Paypal 3015": {
-          "subject": {
-              "original": "Let's fix this: issue with your PayPal account",
-              "translations": {
-                  "en": "Let's fix this: issue with your PayPal account",
-                  "th": "เราพร้อมช่วยเหลือ คำแนะนำเกี่ยวกับบัญชี PayPal ของคุณ",
-                  "zhs": "让我们来帮您解决这个问题：您的PayPal账户存在问题",
-                  "zht": "讓我們來幫您解決這個問題：您的PayPal帳戶存在問題",
-                  "vn": "Hãy khắc phục: vấn đề về tài khoản PayPal của bạn",
-                  "es": "Arreglemos esto: problema con tu cuenta de PayPal",
-                  "ptbr": "Vamos corrigir isso: problema com sua conta PayPal",
-                  "ar": "دعونا نصلح هذا: مشكلة في حساب PayPal الخاص بك",
-                  "de": "Lassen Sie uns das beheben: Problem mit Ihrem PayPal-Konto",
-                  "it": "Lassen Sie uns das beheben: Problem mit Ihrem PayPal-Konto",
-                  "fr": "Réparons cela : problème avec votre compte PayPal"
-              }
-          },
-          "body": {
-              "headline": {
-                  "original": "Let's fix this.",
-                  "translations": {
-                      "en": "Let's fix this.",
-                      "th": "เราพร้อมช่วยเหลือ",
-                      "zhs": "让我们来帮您解决这个问题。",
-                      "zht": "讓我們來幫您解決這個問題。",
-                      "vn": "Hãy khắc phục.",
-                      "es": "Arreglemos esto."
-                  }
-              }
-          }
+      "Preheader": {
+        "original": "Please provide your ID documents",
+        "translations": {
+          "en": "Please provide your ID documents",
+          "th": "โปรดส่งเอกสารประจำตัวของคุณ",
+          "zhs": "请提供您的身份证件",
+          "zht": "請提供您的身份證件",
+          "vn": "Vui lòng cung cấp giấy tờ tùy thân của bạn",
+          "es": "Por favor, proporciona tus documentos de identificación",
+          "ptbr": "Por favor, forneça seus documentos de identificação",
+          "ar": "يرجى تقديم مستندات الهوية الخاصة بك",
+          "de": "Bitte stellen Sie Ihre Ausweisdokumente bereit",
+          "it": "Per favore, fornisci i tuoi documenti di identità",
+          "fr": "Veuillez fournir vos documents d'identité"
+        }
       },
-      "Labgroup User Created": {
-          "subject": {
-              "original": "Secure Client Area User Created",
-              "translations": {
-                  "en": "Secure Client Area User Created",
-                  "th": "สร้างผู้ใช้ในพื้นที่ลูกค้าที่ปลอดภัย",
-                  "zhs": "已创建安全客户端区域用户",
-                  "zht": "已創建安全客戶端區域用戶",
-                  "vn": "Đã tạo người dùng Khu vực Khách hàng An toàn",
-                  "es": "Usuario del Área de Clientes Segura Creado",
-                  "ptbr": "Usuário da Área Segura do Cliente Criado",
-                  "ar": "تم إنشاء مستخدم منطقة العميل الآمنة",
-                  "de": "Benutzer für sicheren Kundenbereich erstellt",
-                  "it": "Utente dell'Area Clienti Sicura Creato",
-                  "fr": "Utilisateur de l'Espace Client Sécurisé Créé"
-              }
-          },
-          "body": {
-              "title": {
-                  "original": "My Account User Created",
-                  "translations": {
-                      "en": "My Accont User Created",
-                      "th": "สร้างผู้ใช้ 'บัญชีของฉัน'",
-                      "zhs": "已创建我的账户'用户",
-                      "zht": "已創建 我的帳戶 用戶",
-                      "vn": "Đã tạo người dùng Tài khoản của tôi'",
-                      "es": "Usuario de Mi Cuenta' Creado",
-                      "ptbr": "Usuário de Minha Conta' Criado",
-                      "ar": "تم إنشاء مستخدم حسابي'",
-                      "de": "Benutzer für Mein Konto' erstellt",
-                      "it": "Utente di Il Mio Conto' Creato",
-                      "fr": "Utilisateur de 'Mon Compte' Créé"
-                  }
-              },
-              "greeting": {
-                  "original": "Hi {[firstname]},",
-                  "translations": {
-                      "en": "Hi {[firstname]},",
-                      "th": "สวัสดี {{firstname}},",
-                      "zhs": "您好 {{firstname}},",
-                      "zht": "您好 {{firstname}},",
-                      "vn": "Chào {{firstname}},",
-                      "es": "Hola {{firstname}},",
-                      "ptbr": "Olá {{firstname}},",
-                      "ar": "مرحبًا {{firstname}},",
-                      "de": "Hallo {{firstname}},",
-                      "it": "Ciao {{firstname}},",
-                      "fr": "Bonjour {{firstname}},"
-                  }
-              }
-          },
-          "cta": {
-              "original": "Login to My Account'",
-              "translations": {
-                  "en": "Login to My Account'",
-                  "th": "เข้าสู่ระบบ 'บัญชีของฉัน'",
-                  "zhs": "登录 我的账户",
-                  "zht": "登錄 我的帳戶",
-                  "vn": "Đăng nhập vào 'Tài khoản của tôi'",
-                  "es": "Iniciar sesión en 'Mi Cuenta'",
-                  "ptbr": "Faça login em 'Minha Conta'",
-                  "ar": "تسجيل الدخول إلى 'حسابي'",
-                  "de": "Melden Sie sich bei 'Mein Konto' an",
-                  "it": "Accedi a 'Il Mio Conto'",
-                  "fr": "Connectez-vous à 'Mon Compte'"
-              }
-          }
+      "Subject": {
+        "original": "You’re one step away from activating your account",
+        "translations": {
+          "en": "You’re one step away from activating your account",
+          "th": "อีกเพียงขั้นตอนเดียว บัญชีของคุณก็จะพร้อมใช้งานแล้ว",
+          "zhs": "您只需一步即可激活您的账户",
+          "zht": "您只需一步即可激活您的帳戶",
+          "vn": "Bạn chỉ còn một bước nữa để kích hoạt tài khoản của mình",
+          "es": "Estás a un paso de activar tu cuenta",
+          "ptbr": "Você está a um passo de ativar sua conta",
+          "ar": "أنت على بعد خطوة واحدة من تفعيل حسابك",
+          "de": "Sie sind nur noch einen Schritt davon entfernt, Ihr Konto zu aktivieren",
+          "it": "Sei a un passo dall'attivare il tuo account",
+          "fr": "Vous êtes à un pas d'activer votre compte"
+        }
       }
+    },
+    "Bank Wire - Invalid account det": {
+      "Body": {
+        "original": "Let's fix this.",
+        "translations": {
+          "en": "Let's fix this.",
+          "th": "ข้อผิดพลาดที่ต้องแก้ไข",
+          "zhs": "让我们来帮您解决这个问题。",
+          "zht": "讓我們來幫您解決這個問題。",
+          "vn": "Hãy khắc phục.",
+          "es": "Arreglemos esto.",
+          "ptbr": "Vamos corrigir isso.",
+          "ar": "دعونا نصلح هذا.",
+          "de": "Lassen Sie uns das beheben.",
+          "it": "Risolveremo questo problema.",
+          "fr": "Réparons cela."
+        }
+      },
+      "CTA": {
+        "original": "Resubmit withdrawal",
+        "translations": {
+          "en": "Resubmit withdrawal",
+          "th": "ส่งคำขอถอนเงินใหม่",
+          "zhs": "重新提交提款请求",
+          "zht": "重新提交提款請求",
+          "vn": "Gửi yêu cầu rút tiền mới",
+          "es": "Volver a enviar solicitud de retiro",
+          "ptbr": "Reenviar solicitação de saque",
+          "ar": "إعادة تقديم طلب السحب",
+          "de": "Auszahlungsanfrage erneut senden",
+          "it": "Invia nuovamente la richiesta di prelievo",
+          "fr": "Soumettre à nouveau la demande de retrait"
+        }
+      },
+      "Preheader": {
+        "original": "Let’s fix this.",
+        "translations": {
+          "en": "Let’s fix this.",
+          "th": "เราพบข้อผิดพลาดที่ต้องแก้ไข",
+          "zhs": "让我们来帮您解决这个问题。",
+          "zht": "讓我們來幫您解決這個問題。",
+          "vn": "Hãy khắc phục.",
+          "es": "Arreglemos esto.",
+          "ptbr": "Vamos corrigir isso.",
+          "ar": "دعونا نصلح هذا.",
+          "de": "Lassen Sie uns das beheben.",
+          "it": "Risolveremo questo problema.",
+          "fr": "Réparons cela."
+        }
+      },
+      "Subject": {
+        "original": "Let’s fix this: invalid details",
+        "translations": {
+          "en": "Let’s fix this: invalid details",
+          "th": "ข้อผิดพลาดที่ต้องแก้ไข: รายละเอียดบัญชีที่ไม่ถูกต้อง",
+          "zhs": "让我们来帮您解决这个问题：无效的账户信息",
+          "zht": "讓我們來幫您解決這個問題：無效的賬戶信息",
+          "vn": "Hãy khắc phục: Chi tiết không chính xác.",
+          "es": "Arreglemos esto: detalles inválidos",
+          "ptbr": "Vamos corrigir isso: detalhes inválidos",
+          "ar": "دعونا نصلح هذا: تفاصيل غير صالحة",
+          "de": "Lassen Sie uns das beheben: ungültige Details",
+          "it": "Risolveremo questo problema: dettagli non validi",
+          "fr": "Réparons cela : détails invalides"
+        }
+      }
+    },
+    "Bank wire - Invalid Account Nam": {
+      "Body": {
+        "original": "Let's fix this.",
+        "translations": {
+          "en": "Let's fix this.",
+          "th": "ข้อผิดพลาดที่ต้องแก้ไข",
+          "zhs": "让我们来帮您解决这个问题。",
+          "zht": "讓我們來幫您解決這個問題。",
+          "vn": "Hãy khắc phục.",
+          "es": "Arreglemos esto.",
+          "ptbr": "Vamos corrigir isso.",
+          "ar": "دعونا نصلح هذا.",
+          "de": "Lassen Sie uns das beheben.",
+          "it": "Risolveremo questo problema.",
+          "fr": "Réparons cela."
+        }
+      },
+      "CTA": {
+        "original": "Resubmit withdrawal",
+        "translations": {
+          "en": "Resubmit withdrawal",
+          "th": "ส่งคำขอถอนเงินใหม่",
+          "zhs": "重新提交提款请求",
+          "zht": "重新提交提款請求",
+          "vn": "Gửi lại yêu cầu rút tiền",
+          "es": "Volver a enviar solicitud de retiro",
+          "ptbr": "Reenviar solicitação de saque",
+          "ar": "إعادة تقديم طلب السحب",
+          "de": "Auszahlungsanfrage erneut senden",
+          "it": "Invia nuovamente la richiesta di prelievo",
+          "fr": "Soumettre à nouveau la demande de retrait"
+        }
+      },
+      "Preheader": {
+        "original": "Let’s fix this.",
+        "translations": {
+          "en": "Let’s fix this.",
+          "th": "ข้อผิดพลาดที่ต้องแก้ไข",
+          "zhs": "让我们来帮您解决这个问题。",
+          "zht": "讓我們來幫您解決這個問題。",
+          "vn": "Hãy khắc phục.",
+          "es": "Arreglemos esto.",
+          "ptbr": "Vamos corrigir isso.",
+          "ar": "دعونا نصلح هذا.",
+          "de": "Lassen Sie uns das beheben.",
+          "it": "Risolveremo questo problema.",
+          "fr": "Réparons cela."
+        }
+      },
+      "Subject": {
+        "original": "Let’s fix this: invalid account name",
+        "translations": {
+          "en": "Let’s fix this: invalid account name",
+          "th": "เราพบข้อผิดพลาดที่ต้องแก้ไข: ชื่อบัญชีไม่ถูกต้อง",
+          "zhs": "让我们来帮您解决这个问题：无效的账户名称",
+          "zht": "讓我們來幫您解決這個問題：無效的帳戶名稱",
+          "vn": "Hãy khắc phục: tên tài khoản không hợp lệ",
+          "es": "Arreglemos esto: nombre de cuenta no válido",
+          "ptbr": "Vamos corrigir isso: nome de conta inválido",
+          "ar": "دعونا نصلح هذا: اسم الحساب غير صالح\nدعونا نصلح هذا.",
+          "de": "Lassen Sie uns das beheben: ungültiger Kontoname",
+          "it": "Risolveremo questo problema: nome del conto non valido",
+          "fr": "Réparons cela : détails invalides"
+        }
+      }
+    },
+    "Demo X2 (expiry)": {
+      "Body": {
+        "original": "Dear {[firstname}},",
+        "translations": {
+          "en": "Dear {[firstname}},",
+          "th": "เรียน {{firstname}},",
+          "zhs": "亲爱的 {{firstname}},",
+          "zht": "親愛的 {{firstname}},",
+          "vn": "Kính gửi {{firstname}},",
+          "es": "Estimado/a {{firstname}},",
+          "ptbr": "Caro(a) {{firstname}},",
+          "ar": "عزيزي {{firstname}},",
+          "de": "Sehr geehrte/r {{firstname}},",
+          "it": "Caro/a {{firstname}},",
+          "fr": "Cher/Chère {{firstname}},"
+        }
+      },
+      "CTA": {
+        "original": "Start Trading",
+        "translations": {
+          "en": "Start Trading",
+          "th": "เริ่มต้นการซื้อขาย",
+          "zhs": "开始交易",
+          "zht": "開始交易",
+          "vn": "Bắt đầu giao dịch",
+          "es": "Comenzar a comerciar",
+          "ptbr": "Começar a negociar",
+          "ar": "ابدأ التداول",
+          "de": "Jetzt handeln",
+          "it": "Inizia a fare trading",
+          "fr": "Commencez à trader"
+        }
+      },
+      "Preheader": {
+        "original": "Trade with Pepperstone",
+        "translations": {
+          "en": "Trade with Pepperstone",
+          "th": "ซื้อขายกับ Pepperstone",
+          "zhs": "在Pepperstone进行交易",
+          "zht": "在Pepperstone進行交易",
+          "vn": "Giao dịch với Pepperstone",
+          "es": "Comercie con Pepperstone",
+          "ptbr": "Negocie com a Pepperstone",
+          "ar": "تداول مع Pepperstone",
+          "de": "Handeln Sie mit Pepperstone",
+          "it": "Fai trading con Pepperstone",
+          "fr": "Tradez avec Pepperstone"
+        }
+      },
+      "Subject": {
+        "original": "Your demo account is ready",
+        "translations": {
+          "en": "Your demo account is ready",
+          "th": "บัญชีทดลองของคุณพร้อมแล้ว",
+          "zhs": "您的模拟账户已准备就绪",
+          "zht": "您的模擬帳戶已準備就緒",
+          "vn": "Tài khoản demo của bạn đã sẵn sàng",
+          "es": "Su cuenta demo está lista",
+          "ptbr": "Sua conta demo está pronta",
+          "ar": "حسابك التجريبي جاهز",
+          "de": "Ihr Demokonto ist bereit",
+          "it": "Il tuo conto demo è pronto",
+          "fr": "Votre compte de démonstration est prêt"
+        }
+      }
+    },
+    "Demo X2 (non expiry)": {
+      "Body": {
+        "original": "Dear {[firstname}},",
+        "translations": {
+          "en": "Dear {[firstname}},",
+          "th": "เรียน {[firstname]},",
+          "zhs": "亲爱的 {{firstname}},",
+          "zht": "親愛的 {{firstname}},",
+          "vn": "Kính gửi {{firstname}},",
+          "es": "Estimado/a {{firstname}},",
+          "ptbr": "Caro(a) {{firstname}},",
+          "ar": "عزيزي {{firstname}},",
+          "de": "Sehr geehrte/r {{firstname}},",
+          "it": "Caro/a {{firstname}},",
+          "fr": "Cher/Chère {{firstname}},"
+        }
+      },
+      "CTA": {
+        "original": "Start Trading",
+        "translations": {
+          "en": "Start Trading",
+          "th": "เริ่มต้นการซื้อขาย",
+          "zhs": "开始交易",
+          "zht": "開始交易",
+          "vn": "Bắt đầu giao dịch",
+          "es": "Comenzar a comerciar",
+          "ptbr": "Começar a negociar",
+          "ar": "ابدأ التداول",
+          "de": "Jetzt handeln",
+          "it": "Inizia a fare trading",
+          "fr": "Commencez à trader"
+        }
+      },
+      "Preheader": {
+        "original": "Trade with Pepperstone",
+        "translations": {
+          "en": "Trade with Pepperstone",
+          "th": "เทรดกับ Pepperstone",
+          "zhs": "在Pepperstone进行交易",
+          "zht": "在Pepperstone進行交易",
+          "vn": "Giao dịch với Pepperstone",
+          "es": "Comercie con Pepperstone",
+          "ptbr": "Negocie com a Pepperstone",
+          "ar": "تداول مع Pepperstone",
+          "de": "Handeln Sie mit Pepperstone",
+          "it": "Fai trading con Pepperstone",
+          "fr": "Tradez avec Pepperstone"
+        }
+      },
+      "Subject": {
+        "original": "Your Pepperstone demo account has been created",
+        "translations": {
+          "en": "Your Pepperstone demo account has been created",
+          "th": "บัญชีทดลอง Pepperstone ของคุณพร้อมใช้งานแล้ว",
+          "zhs": "您的Pepperstone模拟账户已创建",
+          "zht": "您的Pepperstone模擬帳戶已創建",
+          "vn": "Tài khoản demo Pepperstone của bạn đã được tạo",
+          "es": "Su cuenta demo de Pepperstone ha sido creada",
+          "ptbr": "Sua conta demo da Pepperstone foi criada",
+          "ar": "تم إنشاء حساب Pepperstone التجريبي الخاص بك",
+          "de": "Ihr Pepperstone-Demokonto wurde erstellt",
+          "it": "Il tuo conto demo Pepperstone è stato creato",
+          "fr": "Votre compte de démonstration Pepperstone a été créé"
+        }
+      }
+    },
+    "DFSA Signed RDS Confirmation": {
+      "Body": {
+        "original": "Confirmation of acceptance:",
+        "translations": {
+          "en": "Confirmation of acceptance:",
+          "th": "ยืนยันการยอมรับ:",
+          "zhs": "接受确认：",
+          "zht": "接受確認：",
+          "vn": "Xác nhận chấp nhận:",
+          "es": "Confirmación de aceptación:",
+          "ptbr": "Confirmação de aceitação:",
+          "ar": "تأكيد القبول:",
+          "de": "Bestätigung der Annahme:",
+          "it": "Conferma di accettazione:",
+          "fr": "Confirmation d'acceptation :"
+        }
+      },
+      "Preheader": {
+        "original": "You’ve read, understood and agreed to our RD as part of your application...",
+        "translations": {
+          "en": "You’ve read, understood and agreed to our RD as part of your application...",
+          "th": "คุณได้อ่านทำความเข้าใจ และยอมรับ RD ของเราซึ่งเป็นส่วนหนึ่งของการสมัครของคุณ...",
+          "zhs": "您已阅读、理解并同意我们的RD作为您申请的一部分...",
+          "zht": "您已閱讀、理解並同意我們的RD作為您申請的一部分...",
+          "vn": "Bạn đã đọc, hiểu và đồng ý với RD của chúng tôi như một phần của đơn đăng ký của bạn...",
+          "es": "Has leído, entendido y aceptado nuestro RD como parte de tu solicitud...",
+          "ptbr": "Você leu, entendeu e concordou com nosso RD como parte de sua inscrição...",
+          "ar": "لقد قرأت وفهمت ووافقت على إفصاح المخاطر الخاص بنا كجزء من طلبك...",
+          "de": "Sie haben unser RD im Rahmen Ihrer Bewerbung gelesen, verstanden und akzeptiert...",
+          "it": "Hai letto, compreso e accettato il nostro RD come parte della tua domanda...",
+          "fr": "Vous avez lu, compris et accepté notre RD dans le cadre de votre demande..."
+        }
+      },
+      "Subject": {
+        "original": "Confirmation of acceptance: DIFC Retail Risk Disclosure",
+        "translations": {
+          "en": "Confirmation of acceptance: DIFC Retail Risk Disclosure",
+          "th": "ยืนยันการยอมรับ: การเปิดเผยความเสี่ยงของลูกค้ารายย่อย DIFC",
+          "zhs": "接受确认：DIFC零售风险披露",
+          "zht": "接受確認：DIFC零售風險披露",
+          "vn": "Xác nhận chấp nhận: Tiết lộ Rủi ro Bán lẻ DIFC",
+          "es": "Confirmación de aceptación: Divulgación de Riesgos Minoristas de DIFC",
+          "ptbr": "Confirmação de aceitação: Divulgação de Risco para Varejo DIFC",
+          "ar": "تأكيد القبول: إفصاح المخاطر للتجزئة في DIFC",
+          "de": "Bestätigung der Annahme: DIFC Retail Risk Disclosure",
+          "it": "Conferma di accettazione: Divulgazione dei rischi al dettaglio DIFC",
+          "fr": "Confirmation d'acceptation : Divulgation des risques de détail DIFC"
+        }
+      }
+    },
+    "IB Application Approved": {
+      "Body": {
+        "original": "Your application has been approved.",
+        "translations": {
+          "en": "Your application has been approved.",
+          "th": "ใบสมัครของคุณได้รับการอนุมัติแล้ว",
+          "zhs": "您的申请已获批准",
+          "zht": "您的申請已獲批准",
+          "vn": "Đơn đăng ký của bạn đã được phê duyệt",
+          "es": "Su solicitud ha sido aprobada",
+          "ptbr": "Sua aplicação foi aprovada",
+          "ar": "تمت الموافقة على طلبك",
+          "de": "Ihr Antrag wurde genehmigt",
+          "it": "La tua domanda è stata approvata",
+          "fr": "Votre demande a été approuvée"
+        }
+      },
+      "Preheader": {
+        "original": "Your IB application is approved",
+        "translations": {
+          "en": "Your IB application is approved",
+          "th": "ใบสมัคร IB ของคุณได้รับการอนุมัติแล้ว",
+          "zhs": "您的IB申请已获批准",
+          "zht": "您的IB申請已獲批准",
+          "vn": "Đơn đăng ký IB của bạn đã được phê duyệt",
+          "es": "Su solicitud de IB ha sido aprobada",
+          "ptbr": "Sua aplicação de IB foi aprovada",
+          "ar": "تمت الموافقة على طلبك كوسيط معرف",
+          "de": "Ihr IB-Antrag wurde genehmigt",
+          "it": "La tua domanda di IB è stata approvata",
+          "fr": "Votre demande de courtier introducteur a été approuvée"
+        }
+      },
+      "Subject": {
+        "original": "Welcome to the Pepperstone Partners Program",
+        "translations": {
+          "en": "Welcome to the Pepperstone Partners Program",
+          "th": "ยินดีต้อนรับสู่โปรแกรมพันธมิตร Pepperstone",
+          "zhs": "欢迎加入Pepperstone合作伙伴计划",
+          "zht": "歡迎加入Pepperstone合作夥伴計劃",
+          "vn": "Chào mừng bạn đến với Chương trình Đối tác Pepperstone",
+          "es": "Bienvenido al Programa de Partners de Pepperstone",
+          "ptbr": "Bem-vindo ao Programa de Parceiros da Pepperstone",
+          "ar": "مرحبًا بك في برنامج شركاء Pepperstone",
+          "de": "Willkommen im Pepperstone-Partnerprogramm",
+          "it": "Benvenuto nel Programma Partner di Pepperstone",
+          "fr": "Bienvenue dans le programme de partenariat Pepperstone"
+        }
+      }
+    },
+    "IB Application Under Review": {
+      "Body": {
+        "original": "Your application is under review",
+        "translations": {
+          "en": "Your application is under review",
+          "th": "ใบสมัครของคุณอยู่ระหว่างการตรวจสอบ",
+          "zhs": "您的申请正在审核中",
+          "zht": "您的申請正在審核中",
+          "vn": "Đơn đăng ký của bạn đang được xem xét",
+          "es": "Su solicitud está en revisión",
+          "ptbr": "Sua aplicação está em revisão",
+          "ar": "طلبك قيد المراجعة",
+          "de": "Ihr Antrag wird überprüft",
+          "it": "La tua domanda è in fase di revisione",
+          "fr": "Votre demande est en cours d'examen"
+        }
+      },
+      "Preheader": {
+        "original": "Account application received",
+        "translations": {
+          "en": "Account application received",
+          "th": "เราได้รับใบสมัครบัญชีของคุณแล้ว",
+          "zhs": "已收到账户申请",
+          "zht": "已收到帳戶申請",
+          "vn": "Đã nhận được đơn đăng ký tài khoản",
+          "es": "Solicitud de cuenta recibida",
+          "ptbr": "Aplicação de conta recebida",
+          "ar": "تم استلام طلب الحساب",
+          "de": "Kontoanmeldung erhalten",
+          "it": "Domanda di apertura del conto ricevuta",
+          "fr": "Demande de compte reçue"
+        }
+      },
+      "Subject": {
+        "original": "Your IB application with Pepperstone is under review",
+        "translations": {
+          "en": "Your IB application with Pepperstone is under review",
+          "th": "ใบสมัคร IB ของคุณกับ Pepperstone อยู่ระหว่างการตรวจสอบ",
+          "zhs": "您的Pepperstone IB申请正在审核中",
+          "zht": "您的Pepperstone IB申請正在審核中",
+          "vn": "Đơn đăng ký IB của bạn với Pepperstone đang được xem xét",
+          "es": "Su solicitud de IB con Pepperstone está en revisión",
+          "ptbr": "Sua aplicação de IB com a Pepperstone está em revisão",
+          "ar": "طلبك كوسيط معرف مع Pepperstone قيد المراجعة",
+          "de": "Ihr IB-Antrag bei Pepperstone wird überprüft",
+          "it": "La tua domanda di IB con Pepperstone è in fase di revisione",
+          "fr": "Votre demande de courtier introducteur auprès de Pepperstone est en cours d'examen"
+        }
+      }
+    },
+    "IB Application Unsuccessful": {
+      "Body": {
+        "original": "Your application has been unsuccessful",
+        "translations": {
+          "en": "Your application has been unsuccessful",
+          "th": "การสมัครของท่านไม่ได้รับการอนุมัติ",
+          "zhs": "您的申请未成功",
+          "zht": "您的申請未成功",
+          "vn": "Đơn đăng ký của bạn không thành công",
+          "es": "Su solicitud no ha tenido éxito",
+          "ptbr": "Sua aplicação não teve sucesso",
+          "ar": "لم تنجح طلبك",
+          "de": "Ihr Antrag war nicht erfolgreich",
+          "it": "La tua domanda non ha avuto successo",
+          "fr": "Votre demande n'a pas été retenue"
+        }
+      },
+      "Preheader": {
+        "original": "Your IB is application rejected",
+        "translations": {
+          "en": "Your IB is application rejected",
+          "th": "การสมัคร IB ของท่านไม่ได้รับการอนุมัติ",
+          "zhs": "您的IB申请被拒绝",
+          "zht": "您的IB申請被拒絕",
+          "vn": "Đơn đăng ký IB của bạn bị từ chối",
+          "es": "Su solicitud de IB ha sido rechazada",
+          "ptbr": "Sua aplicação de IB foi rejeitada",
+          "ar": "تم رفض طلبك كوسيط معرف",
+          "de": "Ihr IB-Antrag wurde abgelehnt",
+          "it": "La tua domanda di IB è stata respinta",
+          "fr": "Votre demande de courtier introducteur a été rejetée"
+        }
+      },
+      "Subject": {
+        "original": "Your IB application with Pepperstone has been rejected",
+        "translations": {
+          "en": "Your IB application with Pepperstone has been rejected",
+          "th": "ใบสมัครผู้แนะนำโบรคเกอร์ IB ของท่านไม่ได้รับการอนุมัติ",
+          "zhs": "您的Pepperstone IB申请已被拒绝",
+          "zht": "您的Pepperstone IB申請已被拒絕",
+          "vn": "Đơn đăng ký IB của bạn với Pepperstone đã bị từ chối",
+          "es": "Su solicitud de IB con Pepperstone ha sido rechazada",
+          "ptbr": "Sua aplicação de IB com a Pepperstone foi rejeitada",
+          "ar": "تم رفض طلبك كوسيط معرف مع Pepperstone",
+          "de": "Ihr IB-Antrag bei Pepperstone wurde abgelehnt",
+          "it": "La tua domanda di IB con Pepperstone è stata respinta",
+          "fr": "Votre demande de courtier introducteur auprès de Pepperstone a été rejetée"
+        }
+      }
+    },
+    "Labgroup User Created": {
+      "Body": {
+        "original": "My Account' User Created",
+        "translations": {
+          "en": "My Account' User Created",
+          "th": "สร้างผู้ใช้ 'บัญชีของฉัน'",
+          "zhs": "已创建“我的账户”用户",
+          "zht": "已創建“我的帳戶”用戶",
+          "vn": "Đã tạo người dùng 'Tài khoản của tôi'",
+          "es": "Usuario de 'Mi Cuenta' Creado",
+          "ptbr": "Usuário de 'Minha Conta' Criado",
+          "ar": "تم إنشاء مستخدم 'حسابي'",
+          "de": "Benutzer für 'Mein Konto' erstellt",
+          "it": "Utente di 'Il Mio Conto' Creato",
+          "fr": "Utilisateur de 'Mon Compte' Créé"
+        }
+      },
+      "CTA": {
+        "original": "Fund now",
+        "translations": {
+          "en": "Fund now",
+          "th": "เติมเงินทันที",
+          "zhs": "立即注资",
+          "zht": "立即注資",
+          "vn": "Nạp tiền ngay",
+          "es": "Financiar ahora",
+          "ptbr": "Financiar agora",
+          "ar": "تمويل الآن",
+          "de": "Jetzt aufladen",
+          "it": "Finanzia ora",
+          "fr": "Approvisionner maintenant"
+        }
+      },
+      "Preheader": {
+        "original": "We are glad to notify you that we have created a new user for you on Pepperstone's Secure Client Area.",
+        "translations": {
+          "en": "We are glad to notify you that we have created a new user for you on Pepperstone's Secure Client Area.",
+          "th": "เรายินดีที่จะแจ้งให้คุณทราบว่าเราได้สร้างผู้ใช้ใหม่สำหรับคุณในพื้นที่ลูกค้าที่ปลอดภัยของ Pepperstone",
+          "zhs": "我们很高兴通知您，我们已在Pepperstone的安全客户端区域为您创建了一个新用户。",
+          "zht": "我們很高興通知您，我們已在Pepperstone的安全客戶端區域為您創建了一個新用戶。",
+          "vn": "Chúng tôi rất vui mừng thông báo rằng chúng tôi đã tạo một người dùng mới cho bạn trên Khu vực Khách hàng An toàn của Pepperstone",
+          "es": "Nos complace informarle que hemos creado un nuevo usuario para usted en el Área de Clientes Segura de Pepperstone",
+          "ptbr": "Estamos felizes em notificá-lo que criamos um novo usuário para você na Área Segura do Cliente da Pepperstone",
+          "ar": "يسعدنا إبلاغك بأننا أنشأنا مستخدمًا جديدًا لك في منطقة العميل الآمنة لـ Pepperstone",
+          "de": "Wir freuen uns, Ihnen mitteilen zu können, dass wir einen neuen Benutzer für Sie im sicheren Kundenbereich von Pepperstone erstellt haben",
+          "it": "Siamo lieti di informarti che abbiamo creato un nuovo utente per te nell'Area Clienti Sicura di Pepperstone",
+          "fr": "Nous sommes heureux de vous informer que nous avons créé un nouvel utilisateur pour vous dans l'Espace Client Sécurisé de Pepperstone"
+        }
+      },
+      "Subject": {
+        "original": "Secure Client Area User Created",
+        "translations": {
+          "en": "Secure Client Area User Created",
+          "th": "สร้างผู้ใช้ในพื้นที่ลูกค้าที่ปลอดภัย",
+          "zhs": "已创建安全客户端区域用户",
+          "zht": "已創建安全客戶端區域用戶",
+          "vn": "Đã tạo người dùng Khu vực Khách hàng An toàn",
+          "es": "Usuario del Área de Clientes Segura Creado",
+          "ptbr": "Usuário da Área Segura do Cliente Criado",
+          "ar": "تم إنشاء مستخدم منطقة العميل الآمنة",
+          "de": "Benutzer für sicheren Kundenbereich erstellt",
+          "it": "Utente dell'Area Clienti Sicura Creato",
+          "fr": "Utilisateur de l'Espace Client Sécurisé Créé"
+        }
+      }
+    },
+    "Live Trading Account TradingVie": {
+      "Body": {
+        "original": "Great news! Your Live TradingView account is up and running",
+        "translations": {
+          "en": "Great news! Your Live TradingView account is up and running",
+          "th": "ขอแสดงความยินดี! บัญชี live TradingView ของคุณพร้อมใช้งานแล้ว",
+          "zhs": "好消息！您的 TradingView 真实账户已成功启用",
+          "zht": "好消息！您的 TradingView 真實帳戶已成功啟用",
+          "vn": "Tin vui! Tài khoản TradingView của bạn đã được kích hoạt thành công và đang hoạt động",
+          "es": "¡Buenas noticias! Tu cuenta Live TradingView está operativa",
+          "ptbr": "Ótimas notícias! Sua conta Live TradingView está ativa e funcionando",
+          "ar": "أخبار رائعة! حسابك المباشر على TradingView جاهز ويعمل",
+          "de": "Großartige Neuigkeiten! Ihr Live-TradingView-Konto ist einsatzbereit",
+          "it": "Grandi notizie! Il tuo conto Live TradingView è attivo e funzionante"
+        }
+      },
+      "CTA": {
+        "original": "Fund your account",
+        "translations": {
+          "en": "Fund your account",
+          "th": "เติมเงินในบัญชีของคุณ",
+          "zhs": "为您的账户注资",
+          "zht": "為您的帳戶注資",
+          "vn": "Nạp tiền vào tài khoản",
+          "es": "Deposita fondos en tu cuenta",
+          "ptbr": "Deposite em sua conta",
+          "ar": "تمويل حسابك",
+          "de": "Kapitalisieren Sie ihr Konto",
+          "it": "Finanzia il tuo account"
+        }
+      },
+      "Preheader": {
+        "original": "Great news! Your Live TradingView account is up and running",
+        "translations": {
+          "en": "Great news! Your Live TradingView account is up and running",
+          "th": "ขอแสดงความยินดี! บัญชี live TradingView ของคุณพร้อมใช้งานแล้ว",
+          "zhs": "好消息！您的 TradingView 真实账户已成功启用",
+          "zht": "好消息！您的 TradingView 真實帳戶已成功啟用",
+          "vn": "Tin vui! Tài khoản TradingView của bạn đã được kích hoạt thành công và đang hoạt động.",
+          "es": "¡Buenas noticias! Tu cuenta Live TradingView está operativa",
+          "ptbr": "Ótimas notícias! Sua conta Live TradingView está pronta e funcionando",
+          "ar": "أخبار رائعة! حسابك المباشر على TradingView جاهز ويعمل",
+          "de": "Großartige Neuigkeiten! Ihr Live-TradingView-Konto ist einsatzbereit",
+          "it": "Grandi notizie! Il tuo conto Live TradingView è attivo e funzionante"
+        }
+      },
+      "Subject": {
+        "original": "Your Live account is ready",
+        "translations": {
+          "en": "Your Live account is ready",
+          "th": "บัญชี Live ของคุณพร้อมแล้ว",
+          "zhs": "您的真实账户已准备就绪",
+          "zht": "您的真實帳戶已準備就緒",
+          "vn": "Tài khoản Giao dịch của bạn đã sẵn sàng",
+          "es": "Tu cuenta Live está lista",
+          "ptbr": "Sua conta Live está pronta",
+          "ar": "حسابك المباشر جاهز",
+          "de": "Ihr Live-Konto ist bereit",
+          "it": "Il tuo conto Live è pronto"
+        }
+      }
+    },
+    "Live X2 Trading Account": {
+      "Body": {
+        "original": "Dear {[firstname}},",
+        "translations": {
+          "en": "Dear {[firstname}},",
+          "th": "เรียน {{firstname}},",
+          "zhs": "亲爱的 {{firstname}},",
+          "zht": "親愛的 {{firstname}},",
+          "vn": "Kính gửi {{firstname}},",
+          "es": "Estimado/a {{firstname}},",
+          "ptbr": "Caro(a) {{firstname}},",
+          "ar": "عزيزي {{firstname}},",
+          "de": "Sehr geehrte/r {{firstname}},",
+          "it": "Caro/a {{firstname}},",
+          "fr": "Cher/Chère {{firstname}},"
+        }
+      },
+      "Preheader": {
+        "original": "Trade with Pepperstone",
+        "translations": {
+          "en": "Trade with Pepperstone",
+          "th": "ซื้อขายกับ Pepperstone",
+          "zhs": "在Pepperstone进行交易",
+          "zht": "在Pepperstone進行交易",
+          "vn": "Giao dịch với Pepperstone",
+          "es": "Comercie con Pepperstone",
+          "ptbr": "Negocie com a Pepperstone",
+          "ar": "تداول مع Pepperstone",
+          "de": "Handeln Sie mit Pepperstone",
+          "it": "Fai trading con Pepperstone",
+          "fr": "Tradez avec Pepperstone"
+        }
+      },
+      "Subject": {
+        "original": "Your live trading account is ready",
+        "translations": {
+          "en": "Your live trading account is ready",
+          "th": "บัญชีการซื้อขายจริงของคุณพร้อมแล้ว",
+          "zhs": "您的真实交易账户已准备就绪",
+          "zht": "您的真實交易帳戶已準備就緒",
+          "vn": "Tài khoản giao dịch thực của bạn đã sẵn sàng",
+          "es": "Su cuenta de trading en vivo está lista",
+          "ptbr": "Sua conta de negociação ao vivo está pronta",
+          "ar": "حساب التداول المباشر الخاص بك جاهز",
+          "de": "Ihr Live-Handelskonto ist bereit",
+          "it": "Il tuo conto di trading live è pronto",
+          "fr": "Votre compte de trading en direct est prêt"
+        }
+      }
+    },
+    "Onboarding back office": {
+      "Body": {
+        "original": "Dear {[firstname}},",
+        "translations": {
+          "en": "Dear {[firstname}},",
+          "th": "เรียน คุณ {{firstname}},",
+          "zhs": "亲爱的 {{firstname}},",
+          "zht": "親愛的 {{firstname}},",
+          "vn": "Kính gửi {{firstname}},",
+          "es": "Estimado/a {{firstname}},",
+          "ptbr": "Caro(a) {{firstname}},",
+          "ar": "عزيزي {{firstname}},",
+          "de": "Sehr geehrte/r {{firstname}},",
+          "it": "Caro/a {{firstname}},",
+          "fr": "Cher/Chère {{firstname}},"
+        }
+      },
+      "CTA": {
+        "original": "Upload your ID documents",
+        "translations": {
+          "en": "Upload your ID documents",
+          "th": "อัปโหลดเอกสารยืนยันตัวตนของคุณ",
+          "zhs": "上传您的身份证件",
+          "zht": "上傳您的身份證件",
+          "vn": "Vui lòng tải lên giấy tờ tùy thân của bạn",
+          "es": "Sube tus documentos de identificación",
+          "ptbr": "Carregar seus documentos de identificação",
+          "ar": "تحميل مستندات الهوية الخاصة بك",
+          "de": "Laden Sie Ihre Ausweisdokumente hoch",
+          "it": "Carica i tuoi documenti di identità",
+          "fr": "Téléchargez vos documents d'identité"
+        }
+      },
+      "Preheader": {
+        "original": "There was a problem with your ID documents",
+        "translations": {
+          "en": "There was a problem with your ID documents",
+          "th": "โปรดตรวจสอบเอกสารยืนยันตัวตนของคุณ",
+          "zhs": "您的身份证件存在问题",
+          "zht": "您的身份證件存在問題",
+          "vn": "Có vấn đề với giấy tờ tùy thân của bạn",
+          "es": "Hubo un problema con tus documentos de identificación",
+          "ptbr": "Houve um problema com seus documentos de identificação",
+          "ar": "كانت هناك مشكلة في مستندات الهوية الخاصة بك",
+          "de": "Es gab ein Problem mit Ihren Ausweisdokumenten",
+          "it": "C'è stato un problema con i tuoi documenti di identità",
+          "fr": "Il y a eu un problème avec vos documents d'identité"
+        }
+      },
+      "Subject": {
+        "original": "You’re one step away from activating your account",
+        "translations": {
+          "en": "You’re one step away from activating your account",
+          "th": "อีกเพียงขั้นตอนเดียว เพื่อเปิดบัญชีเทรดของคุณให้เสร็จสมบูรณ์",
+          "zhs": "您只需一步即可激活您的账户",
+          "zht": "您只需一步即可激活您的帳戶",
+          "vn": "Chỉ còn một bước nữa là bạn có thể kích hoạt tài khoản của mình",
+          "es": "Estás a un paso de activar tu cuenta",
+          "ptbr": "Você está a um passo de ativar sua conta",
+          "ar": "أنت على بعد خطوة واحدة من تفعيل حسابك",
+          "de": "Sie sind nur noch einen Schritt davon entfernt, Ihr Konto zu aktivieren",
+          "it": "Sei a un passo dall'attivare il tuo account",
+          "fr": "Vous êtes à un pas d'activer votre compte"
+        }
+      },
+      "Table header": {
+        "original": "Document Type | Issue | Action Required",
+        "translations": {
+          "en": "Document Type | Issue | Action Required",
+          "th": "ประเภทเอกสาร | รายละเอียดปัญหา | สิ่งที่ต้องดำเนินการ",
+          "zhs": "文件类型 | 问题 | 所需操作",
+          "zht": "文件類型 | 問題 | 所需操作",
+          "vn": "Loại tài liệu | Vấn đề | Hành động cần bổ sung",
+          "es": "Tipo de documento | Problema | Acción requerida",
+          "ptbr": "Tipo de documento | Problema | Ação necessária",
+          "ar": "نوع المستند | المشكلة | الإجراء المطلوب",
+          "de": "Dokumenttyp | Problem | Erforderliche Aktion",
+          "it": "Tipo di documento | Problema | Azione richiesta",
+          "fr": "Type de document | Problème | Action requise"
+        }
+      }
+    },
+    "PayID third party rejection": {
+      "Body": {
+        "original": "Your funding request could not be processed",
+        "translations": {
+          "en": "Your funding request could not be processed",
+          "th": "รายการฝากเงินทุนของคุณไม่สามารถดำเนินการได้",
+          "zhs": "您的入金请求无法处理",
+          "zht": "您的入金请求无法处理",
+          "vn": "Yêu cầu cấp vốn của bạn không thể xử lý",
+          "es": "Su solicitud de financiación no pudo ser procesada",
+          "ptbr": "Sua solicitação de financiamento não pôde ser processada",
+          "ar": "تعذر معالجة طلب التمويل الخاص بك",
+          "de": "Ihre Einzahlungsanfrage konnte nicht bearbeitet werden",
+          "it": "La tua richiesta di finanziamento non può essere elaborata",
+          "fr": "Votre demande de financement n'a pas pu être traitée"
+        }
+      },
+      "CTA": {
+        "original": "Trade now",
+        "translations": {
+          "en": "Trade now",
+          "th": "เริ่มการซื้อขายตอนนี้",
+          "zhs": "立即交易",
+          "zht": "立即交易",
+          "vn": "Giao dịch ngay",
+          "es": "Comerciar ahora",
+          "ptbr": "Negocie agora",
+          "ar": "تداول الآن",
+          "de": "Jetzt handeln",
+          "it": "Fai trading ora",
+          "fr": "Trader maintenant"
+        }
+      },
+      "Preheader": {
+        "original": "Your funding request could not be processed",
+        "translations": {
+          "en": "Your funding request could not be processed",
+          "th": "รายการฝากเงินทุนของคุณไม่สามารถดำเนินการได้",
+          "zhs": "您的入金请求无法处理",
+          "zht": "您的入金请求无法处理",
+          "vn": "Yêu cầu cấp vốn của bạn không thể xử lý",
+          "es": "Su solicitud de financiación no pudo ser procesada",
+          "ptbr": "Sua solicitação de financiamento não pôde ser processada",
+          "ar": "تعذر معالجة طلب التمويل الخاص بك",
+          "de": "Ihre Einzahlungsanfrage konnte nicht bearbeitet werden",
+          "it": "La tua richiesta di finanziamento non può essere elaborata",
+          "fr": "Votre demande de financement n'a pas pu être traitée"
+        }
+      },
+      "Subject": {
+        "original": "Your funding request could not be processed",
+        "translations": {
+          "en": "Your funding request could not be processed",
+          "th": "รายการฝากเงินทุนของคุณไม่สามารถดำเนินการได้",
+          "zhs": "您的入金请求无法处理",
+          "zht": "您的入金请求无法处理",
+          "vn": "Yêu cầu cấp vốn của bạn không thể xử lý",
+          "es": "Su solicitud de financiación no pudo ser procesada",
+          "ptbr": "Sua solicitação de financiamento não pôde ser processada",
+          "ar": "تعذر معالجة طلب التمويل الخاص بك",
+          "de": "Ihre Einzahlungsanfrage konnte nicht bearbeitet werden",
+          "it": "La tua richiesta di finanziamento non può essere elaborata",
+          "fr": "Votre demande de financement n'a pas pu être traitée"
+        }
+      }
+    },
+    "Paypal 3015": {
+      "Body": {
+        "original": "Let's fix this.",
+        "translations": {
+          "en": "Let's fix this.",
+          "th": "เราพร้อมช่วยเหลือ",
+          "zhs": "让我们来帮您解决这个问题。",
+          "zht": "讓我們來幫您解決這個問題。",
+          "vn": "Hãy khắc phục.",
+          "es": "Arreglemos esto.",
+          "ptbr": "Vamos corrigir isso.",
+          "ar": "دعونا نصلح هذا.",
+          "de": "Lassen Sie uns das beheben.",
+          "it": "Risolviamo questo problema.",
+          "fr": "Réparons cela."
+        }
+      },
+      "Preheader": {
+        "original": "Let's fix this: issue with your PayPal account",
+        "translations": {
+          "en": "Let's fix this: issue with your PayPal account",
+          "th": "เราพร้อมช่วยเหลือ คำแนะนำเกี่ยวกับบัญชี PayPal ของคุณ",
+          "zhs": "让我们来帮您解决这个问题：您的PayPal账户存在问题",
+          "zht": "讓我們來幫您解決這個問題：您的PayPal帳戶存在問題",
+          "vn": "Hãy khắc phục: vấn đề về tài khoản PayPal của bạn",
+          "es": "Arreglemos esto: problema con tu cuenta de PayPal",
+          "ptbr": "Vamos corrigir isso: problema com sua conta PayPal",
+          "ar": "دعونا نصلح هذا: مشكلة في حساب PayPal الخاص بك",
+          "de": "Lassen Sie uns das beheben: Problem mit Ihrem PayPal-Konto",
+          "it": "Risolviamo questo: problema con il tuo account PayPal",
+          "fr": "Réparons cela : problème avec votre compte PayPal"
+        }
+      },
+      "Subject": {
+        "original": "Let's fix this: issue with your PayPal account",
+        "translations": {
+          "en": "Let's fix this: issue with your PayPal account",
+          "th": "เราพร้อมช่วยเหลือ คำแนะนำเกี่ยวกับบัญชี PayPal ของคุณ",
+          "zhs": "让我们来帮您解决这个问题：您的PayPal账户存在问题",
+          "zht": "讓我們來幫您解決這個問題：您的PayPal帳戶存在問題",
+          "vn": "Hãy khắc phục: vấn đề về tài khoản PayPal của bạn",
+          "es": "Arreglemos esto: problema con tu cuenta de PayPal",
+          "ptbr": "Vamos corrigir isso: problema com sua conta PayPal",
+          "ar": "دعونا نصلح هذا: مشكلة في حساب PayPal الخاص بك",
+          "de": "Lassen Sie uns das beheben: Problem mit Ihrem PayPal-Konto",
+          "it": "Risolviamo questo: problema con il tuo account PayPal",
+          "fr": "Réparons cela : problème avec votre compte PayPal"
+        }
+      }
+    },
+    "PayPal Account Failure": {
+      "Body": {
+        "original": "Your funding request could not be processed.",
+        "translations": {
+          "en": "Your funding request could not be processed.",
+          "th": "คำร้องขอการฝากของท่านล้มเหลว",
+          "zhs": "您的入金请求未能通过处理",
+          "zht": "您的入金請求未能通過處理",
+          "vn": "Yêu cầu nạp tiền của bạn đã không được xử lý thành công.",
+          "es": "Su solicitud de depósito no ha podido ser procesada",
+          "ptbr": "Sua solicitação de financiamento não pôde ser processada.",
+          "ar": "تعذر معالجة طلب التمويل الخاص بك.",
+          "de": "Ihr Einzahlungsantrag konnte nicht bearbeitet werden",
+          "it": "Non è stato possibile elaborare la tua richiesta di deposito.",
+          "fr": "Votre demande de financement n'a pas pu être traitée."
+        }
+      },
+      "CTA": {
+        "original": "View All Funding Methods",
+        "translations": {
+          "en": "View All Funding Methods",
+          "th": "ช่องทางการฝากเงินทั้งหมดของเรา",
+          "zhs": "查看所有入金方式",
+          "zht": "查看所有入金方式",
+          "vn": "Xem tất cả phương thức nạp tiền",
+          "es": "Ver todos los métodos de depósito",
+          "ptbr": "Ver todos os métodos de financiamento",
+          "ar": "عرض جميع طرق التمويل",
+          "de": "Alle Einzahlungsmethoden anzeigen",
+          "it": "Visualizza tutti i metodi di deposito",
+          "fr": "Voir toutes les méthodes de financement"
+        }
+      },
+      "Preheader": {
+        "original": "Trade with Pepperstone",
+        "translations": {
+          "en": "Trade with Pepperstone",
+          "th": "Trade กับ Pepperstone",
+          "zhs": "在Pepperstone进行交易",
+          "zht": "在Pepperstone進行交易",
+          "vn": "Giao dịch cùng Pepperstone.",
+          "es": "Operacon Pepperstone",
+          "ptbr": "Negocie com Pepperstone",
+          "ar": "تداول مع Pepperstone",
+          "de": "Handeln Sie mit Pepperstone",
+          "it": "Fai trading con Pepperstone",
+          "fr": "Échangez avec Pepperstone"
+        }
+      },
+      "Subject": {
+        "original": "Your funding request could not be processed",
+        "translations": {
+          "en": "Your funding request could not be processed",
+          "th": "คำร้องขอการฝากของท่านล้มเหลว",
+          "zhs": "您的入金请求未能通过处理",
+          "zht": "您的入金請求未能通過處理",
+          "vn": "Yêu cầu nạp tiền của bạn đã không được xử lý thành công.",
+          "es": "Tu solicitud de depósito no ha podido ser procesada",
+          "ptbr": "Sua solicitação de financiamento não pôde ser processada",
+          "ar": "تعذر معالجة طلب التمويل الخاص بك",
+          "de": "Ihre Einzahlung konnte nicht bearbeitet werden",
+          "it": "Non è stato possibile elaborare la tua richiesta di deposito",
+          "fr": "Votre demande de financement n'a pas pu être traitée"
+        }
+      }
+    },
+    "Paypal - Declined": {
+      "Body": {
+        "original": "Let's fix this.",
+        "translations": {
+          "en": "Let's fix this.",
+          "th": "มาแก้ไขปัญหานี้ไปด้วยกัน",
+          "zhs": "让我们来帮您解决这个问题。",
+          "zht": "讓我們來幫您解決這個問題。",
+          "vn": "Hãy cùng khắc phục vấn đề này.",
+          "es": "Arreglemos esto.",
+          "ptbr": "Vamos corrigir isso.",
+          "ar": "دعونا نصلح هذا.",
+          "de": "Lassen Sie uns das beheben.",
+          "it": "Risolviamo questo problema.",
+          "fr": "Réparons cela."
+        }
+      },
+      "CTA": {
+        "original": "Resubmit withdrawal",
+        "translations": {
+          "en": "Resubmit withdrawal",
+          "th": "ส่งคำร้องการถอนงินอีกครั้ง",
+          "zhs": "重新提交出金请求",
+          "zht": "重新提交出金請求",
+          "vn": "Sau đó gửi lại yêu cầu rút tiền",
+          "es": "Volver a enviar la retirada",
+          "ptbr": "Reenviar solicitação de saque",
+          "ar": "إعادة تقديم طلب السحب",
+          "de": "Auszahlung erneut beantragen",
+          "it": "Invia nuovamente la richiesta di prelievo",
+          "fr": "Soumettre à nouveau la demande de retrait"
+        }
+      },
+      "Preheader": {
+        "original": "We’ve tried to process your withdrawal but your PayPal withdrawal has been denied due to PayPal’s internal policy.",
+        "translations": {
+          "en": "We’ve tried to process your withdrawal but your PayPal withdrawal has been denied due to PayPal’s internal policy.",
+          "th": "เราได้พยายามดำเนินการเพื่อถอนเงินของท่านผ่าน PayPal แต่เราได้รับการปฏิเสธคำร้องในการถอนเงินเนื่องจากนโยบายจากทาง PaaPal.",
+          "zhs": "我们尝试处理您的出金请求，但由于PayPal的内部政策，您的PayPal出金被拒。",
+          "zht": "我們嘗試處理您的出金請求，但由於PayPal的內部政策，您的PayPal出金被拒。",
+          "vn": "Chúng tôi đã cố gắng xử lý yêu cầu rút tiền của bạn, nhưng PayPal đã từ chối vì chính sách nội bộ của Paypal.",
+          "es": "Hemos intentado procesar su retirada, pero ésta ha sido denegada debido a la política interna de PayPal.",
+          "ptbr": "Tentamos processar seu saque, mas seu saque do PayPal foi negado devido à política interna do PayPal.",
+          "ar": "لقد حاولنا معالجة طلب السحب الخاص بك ولكن تم رفض سحب PayPal الخاص بك بسبب سياسة PayPal الداخلية.",
+          "de": "Wir haben versucht ihre Auszahlung zu bearbeiten. Leider hat PayPal ihre Auszahlung aufgrund interner Richtlinien abgelehnt.",
+          "it": "Abbiamo provato a elaborare il tuo prelievo, ma il prelievo PayPal è stato rifiutato a causa della politica interna di PayPal.",
+          "fr": "Nous avons essayé de traiter votre retrait, mais votre retrait PayPal a été refusé en raison de la politique interne de PayPal."
+        }
+      },
+      "Subject": {
+        "original": "Let's fix this: PayPal withdrawal declined",
+        "translations": {
+          "en": "Let's fix this: PayPal withdrawal declined",
+          "th": "แก้ไขปัญหา : การปฏิเสธการถอนเงินผ่าน PayPal",
+          "zhs": "让我们来帮您解决这个问题：PayPal出金被拒",
+          "zht": "讓我們來幫您解決這個問題：PayPal出金被拒",
+          "vn": "Hãy cùng khắc phục vấn đề này: Yêu cầu rút tiền qua Paypal đã bị từ chối.",
+          "es": "Arreglemos esto: Retiro de PayPal rechazado",
+          "ptbr": "Vamos corrigir isso: saque do PayPal recusado",
+          "ar": "دعونا نصلح هذا: رفض سحب PayPal",
+          "de": "Beheben wir das zusammen: PayPal-Auszahlung abgelehnt",
+          "it": "Risolviamo questo problema: prelievo PayPal rifiutato",
+          "fr": "Réparons cela : retrait PayPal refusé"
+        }
+      }
+    },
+    "Pro Professional Client Applica": {
+      "Preheader": {
+        "original": "Thank you for your Professional client application",
+        "translations": {
+          "en": "Thank you for your Professional client application",
+          "th": "ขอบคุณสำหรับการสมัครเป็นลูกค้า Pepperstone Pro",
+          "zhs": "感谢您提交专业客户申请",
+          "zht": "感謝您的專業客戶申請",
+          "vn": "Cảm ơn bạn đã đăng ký khách hàng Pro",
+          "es": "Gracias por su solicitud de cliente profesional",
+          "ptbr": "Obrigado pela sua aplicação de cliente profissional",
+          "ar": "شكرًا لك على طلبك كعميل محترف",
+          "de": "Vielen Dank für Ihren Antrag auf professionellen Kundenstatus",
+          "it": "Grazie per la tua domanda di cliente professionale",
+          "fr": "Grazie per la tua domanda di cliente professionale"
+        }
+      },
+      "Subject": {
+        "original": "Professional Client Application",
+        "translations": {
+          "en": "Professional Client Application",
+          "th": "การสมัครเป็นลูกค้า Pepperstone Pro",
+          "zhs": "专业客户申请",
+          "zht": "專業客戶申請",
+          "vn": "Đơn đăng ký Khách hàng Pro",
+          "es": "Solicitud de Cliente Profesional",
+          "ptbr": "Aplicação de Cliente Profissional",
+          "ar": "طلب عميل محترف",
+          "de": "Antrag auf professionellen Kundenstatus",
+          "it": "Domanda di Cliente Professionale",
+          "fr": "Domanda di Cliente Professionale"
+        }
+      }
+    },
+    "SCA Automatic Reset Password": {
+      "Body": {
+        "original": "We've reset your login credentials",
+        "translations": {
+          "en": "We've reset your login credentials",
+          "th": "เราได้รีเซ็ตข้อมูลการเข้าสู่ระบบของคุณ",
+          "zhs": "我们已重置您的登录凭据",
+          "zht": "我們已重設您的登入憑證",
+          "vn": "Chúng tôi đã đặt lại thông tin đăng nhập của bạn",
+          "es": "Hemos restablecido sus credenciales de inicio de sesión",
+          "ptbr": "Redefinimos suas credenciais de login",
+          "ar": "لقد قمنا بإعادة تعيين بيانات تسجيل الدخول الخاصة بك",
+          "de": "Wir haben Ihre Anmeldedaten zurückgesetzt",
+          "it": "Abbiamo reimpostato le tue credenziali di accesso",
+          "fr": "Nous avons réinitialisé vos identifiants de connexion"
+        }
+      },
+      "Preheader": {
+        "original": "Important account information...",
+        "translations": {
+          "en": "Important account information...",
+          "th": "ข้อมูลสำคัญเกี่ยวกับบัญชี",
+          "zhs": "重要的账户信息...",
+          "zht": "重要的帳戶資訊...",
+          "vn": "Thông tin tài khoản quan trọng...",
+          "es": "Información importante de la cuenta...",
+          "ptbr": "Informações importantes da conta...",
+          "ar": "معلومات حساب هامة...",
+          "de": "Wichtige Kontoinformationen...",
+          "it": "Informazioni importanti sul conto...",
+          "fr": "Informations importantes sur le compte..."
+        }
+      },
+      "Subject": {
+        "original": "Important: Your trading account",
+        "translations": {
+          "en": "Important: Your trading account",
+          "th": "การแจ้งเตือนที่สำคัญ: เกี่ยวกับบัญชีการซื้อขายของคุณ",
+          "zhs": "重要提示：您的交易账户",
+          "zht": "重要提示：您的交易帳戶",
+          "vn": "Quan trọng: Tài khoản giao dịch của bạn",
+          "es": "Importante: Su cuenta de trading",
+          "ptbr": "Importante: Sua conta de negociação",
+          "ar": "هام: حساب التداول الخاص بك",
+          "de": "Wichtig: Ihr Handelskonto",
+          "it": "Importante: Il tuo conto di trading",
+          "fr": "Important : Votre compte de trading"
+        }
+      }
+    },
+    "SCB Onboarding - REsit Quiz Rem": {
+      "Body": {
+        "original": "Hi {{{firstname}},",
+        "translations": {
+          "en": "Hi {{{firstname}},",
+          "th": "สวัสดี {{firstname}},",
+          "zhs": "您好 {{firstname}},",
+          "zht": "您好 {{firstname}},",
+          "vn": "Kính gửi {{firstname}},",
+          "es": "Hola {{firstname}},",
+          "ptbr": "Olá {{firstname}},",
+          "ar": "مرحبًا {{firstname}},",
+          "de": "Hallo {{firstname}},",
+          "it": "Ciao {{firstname}},"
+        }
+      },
+      "CTA": {
+        "original": "Resit Quiz",
+        "translations": {
+          "en": "Resit Quiz",
+          "th": "ทำแบบทดสอบใหม่",
+          "zhs": "重新参加测验",
+          "zht": "重新參加測驗",
+          "vn": "Làm lại Bài kiểm tra",
+          "es": "Volver a hacer el Cuestionario",
+          "ptbr": "Refazer Questionário",
+          "ar": "إعادة الاختبار",
+          "de": "Quiz erneut ablegen",
+          "it": "Rifare il Quiz"
+        }
+      },
+      "Preheader": {
+        "original": "{{firstname}} you can resit the Quiz today",
+        "translations": {
+          "en": "{{firstname}} you can resit the Quiz today",
+          "th": "{{firstname}} คุณสามารถทำแบบทดสอบใหม่ได้วันนี้",
+          "zhs": "{{firstname}} 您今天可以重新参加测验。",
+          "zht": "{{firstname}} 您今天可以重新參加測驗",
+          "vn": "{{firstname}} bạn có thể làm lại bài kiểm tra hôm nay",
+          "es": "{{firstname}} puedes volver a hacer el Cuestionario hoy",
+          "ptbr": "{{firstname}} você pode refazer o Questionário hoje",
+          "ar": "{{firstname}} يمكنك إعادة الاختبار اليوم",
+          "de": "{{firstname}} Sie können das Quiz heute erneut ablegen",
+          "it": "{{firstname}} puoi rifare il Quiz oggi"
+        }
+      },
+      "Subject": {
+        "original": "You can resit the Suitability Quiz today!",
+        "translations": {
+          "en": "You can resit the Suitability Quiz today!",
+          "th": "คุณสามารถทำแบบทดสอบความเหมาะสมใหม่ได้วันนี้!",
+          "zhs": "您今天可以重新参加适合性测验！",
+          "zht": "您今天可以重新參加適合性測驗！",
+          "vn": "Bạn có thể làm lại Bài kiểm tra độ phù hợp hôm nay!",
+          "es": "¡Puedes volver a hacer el Cuestionario de Idoneidad hoy!",
+          "ptbr": "Você pode refazer o Questionário de Adequação hoje!",
+          "ar": "يمكنك إعادة اختبار الملاءمة اليوم!",
+          "de": "Sie können das Eignungsquiz heute erneut ablegen!",
+          "it": "Puoi rifare il Quiz di Idoneità oggi!"
+        }
+      }
+    },
+    "SCB Pro Upgrade": {
+      "Body": {
+        "original": "Success! You’ve been classified as Pepperstone Pro",
+        "translations": {
+          "en": "Success! You’ve been classified as Pepperstone Pro",
+          "th": "ยินดีด้วย! บัญชีของคุณได้อัปเกรดเป็น Pepperstone Pro",
+          "zhs": "恭喜！您已成功升级为Pepperstone Pro 账户",
+          "zht": "恭喜！您已成功升級為 Pepperstone Pro 帳戶",
+          "vn": "Xin chúc mừng! bạn đã được nâng cấp thành Nhà giao dịch Cao cấp tại Pepperstone (Pepperstone Pro).",
+          "es": "¡Ha sido un éxito! Has sido clasificado como Pepperstone Pro",
+          "ptbr": "Sucesso! Você foi classificado como Pepperstone Pro",
+          "ar": "نجاح! لقد تم تصنيفك كـ Pepperstone Pro",
+          "de": "Geschafft! Sie wurden als Pepperstone Pro eingestuft",
+          "it": "Successo! Sei stato classificato come Pepperstone Pro",
+          "fr": "Sucesso! Você foi classificado como Pepperstone Pro",
+          "unnamed: 12": "Succès ! Vous avez été classé comme Pepperstone Pro"
+        }
+      },
+      "Preheader": {
+        "original": "You can continue trading with leverage up to 500:1",
+        "translations": {
+          "en": "You can continue trading with leverage up to 500:1",
+          "th": "คุณสามารถทำการซื้อขายด้วยเลเวอเรจได้สูงสุดถึง 1:500",
+          "zhs": "您可继续享受高达 500:1 的杠杆交易",
+          "zht": "您可繼續享受高達 500:1 的槓桿交易",
+          "vn": "bạn có thể tiếp tục giao dịch với mức đòn bẩy lên đến 500:1",
+          "es": "Puede seguir tradeando con un apalancamiento de hasta 500:1",
+          "ptbr": "Você pode continuar negociando com alavancagem de até 500:1",
+          "ar": "يمكنك الاستمرار في التداول برافعة مالية تصل إلى 500:1",
+          "de": "Sie können weiterhin mit einem Hebel von bis zu 500:1 handeln",
+          "it": "Puoi continuare a fare trading con una leva fino a 500:1",
+          "fr": "Você pode continuar negociando com alavancagem de até 500:1",
+          "unnamed: 12": "Vous pouvez continuer à trader avec un effet de levier allant jusqu'à 500:1"
+        }
+      },
+      "Subject": {
+        "original": "Success! You’ve been classified as Pepperstone Pro",
+        "translations": {
+          "en": "Success! You’ve been classified as Pepperstone Pro",
+          "th": "ยินดีด้วย! บัญชีของคุณได้อัปเกรดเป็น Pepperstone Pro",
+          "zhs": "恭喜！您已成功升级为Pepperstone Pro 账户",
+          "zht": "恭喜！您已成功升級為 Pepperstone Pro 帳戶",
+          "vn": "Xin chúc mừng! bạn đã được nâng cấp thành Nhà giao dịch Pro tại Pepperstone.",
+          "es": "¡Ha sido un éxito! Has sido clasificado como Pepperstone Pro",
+          "ptbr": "Sucesso! Você foi classificado como Pepperstone Pro",
+          "ar": "نجاح! لقد تم تصنيفك كـ Pepperstone Pro",
+          "de": "Geschafft! Sie wurden als Pepperstone Pro eingestuft",
+          "it": "Successo! Sei stato classificato come Pepperstone Pro",
+          "fr": "Sucesso! Você foi classificado como Pepperstone Pro",
+          "unnamed: 12": "Succès ! Vous avez été classé comme Pepperstone Pro"
+        }
+      }
+    },
+    "Stop Out Alert": {
+      "Body": {
+        "original": "Stop Out Notification",
+        "translations": {
+          "en": "Stop Out Notification",
+          "th": "إشعار إيقاف الخسارة",
+          "zhs": "การแจ้งเตือน Stop Out",
+          "zht": "强制平仓通知",
+          "vn": "強制平倉通知",
+          "es": "Thông báo Stop Out",
+          "ptbr": "Notificación de Stop Out",
+          "it": "Notifica di stop out"
+        }
+      },
+      "CTA": {
+        "original": "Log in to My Account",
+        "translations": {
+          "en": "Log in to My Account",
+          "th": "تسجيل الدخول إلى حسابي",
+          "zhs": "เข้าสู่บัญชี",
+          "zht": "登录账户",
+          "vn": "登入帳戶",
+          "es": "Đăng nhập vào Tài khoản của tôi",
+          "ptbr": "Acceder a Mi cuenta",
+          "it": "Accedi a Il mio account"
+        }
+      },
+      "Preheader": {
+        "original": "Important account information",
+        "translations": {
+          "en": "Important account information",
+          "th": "معلومات الحساب الهامة",
+          "zhs": "ข้อมูลสำคัญเกี่ยวกับบัญชีของคุณ",
+          "zht": "重要账户信息",
+          "vn": "重要帳戶資訊",
+          "es": "Thông tin quan trọng về tài khoản",
+          "ptbr": "Información importante sobre la cuenta",
+          "ar": "Informações importantes da conta",
+          "de": "Wichtige Kontoinformationen",
+          "it": "Informazioni importanti sull'account",
+          "fr": "Informations importantes sur le compte"
+        }
+      },
+      "Subject": {
+        "original": "Stop out notification",
+        "translations": {
+          "en": "Stop out notification",
+          "th": "توقف عن الإخطار",
+          "zhs": "การแจ้งเตือน Stop Out",
+          "zht": "强制平仓通知",
+          "vn": "強制平倉通知",
+          "es": "Thông báo Stop Out",
+          "ptbr": "Notificación de stop out",
+          "ar": "Notificação de stop-out",
+          "de": "Stop-Out-Benachrichtigung",
+          "it": "Notifica di Stop Out",
+          "fr": "Notification de stop-out"
+        }
+      }
+    },
+    "Demo Trading Account TradingVie": {
+      "Body": {
+        "original": "Great news! Your Demo TradingView account is up and running",
+        "translations": {
+          "en": "Great news! Your Demo TradingView account is up and running",
+          "th": "ขอแสดงความยินดี! บัญชี Demo TradingView ของคุณพร้อมใช้งานแล้ว",
+          "zhs": "好消息！您的 TradingView 模拟账户已成功启用",
+          "zht": "好消息！您的 TradingView 模擬帳戶已成功啟用",
+          "vn": "Tin vui! Tài khoản TradingView của Quý Khách đã được kích hoạt thành công và đang hoạt động",
+          "es": "¡Buenas noticias! Tu cuenta Demo TradingView está operativa",
+          "ptbr": "Ótimas notícias! Sua conta Demo TradingView está ativa e funcionando",
+          "ar": "أخبار رائعة! حسابك التجريبي على TradingView جاهز ويعمل",
+          "de": "Großartige Neuigkeiten! Ihr Demo-TradingView-Konto ist einsatzbereit",
+          "it": "Grandi notizie! Il tuo conto Demo TradingView è attivo e funzionante"
+        }
+      },
+      "CTA": {
+        "original": "Connect to TradingView",
+        "translations": {
+          "en": "Connect to TradingView",
+          "th": "เชื่อมต่อกับ TradingView",
+          "zhs": "连接至 TradingView",
+          "zht": "連接至 TradingView",
+          "vn": "Kết nối với TradingView",
+          "es": "Conectarse a TradingView",
+          "ptbr": "Conecte-se ao TradingView",
+          "ar": "الاتصال بـ TradingView",
+          "de": "Verbinden Sie sich mit TradingView",
+          "it": "Connettiti a TradingView"
+        }
+      },
+      "Preheader": {
+        "original": "Great news! Your Demo TradingView account is up and running",
+        "translations": {
+          "en": "Great news! Your Demo TradingView account is up and running",
+          "th": "ขอแสดงความยินดี! บัญชี Demo TradingView ของคุณพร้อมใช้งานแล้ว",
+          "zhs": "好消息！您的 TradingView 模拟账户已成功启用",
+          "zht": "好消息！您的 TradingView 模擬帳戶已成功啟用",
+          "vn": "Tin vui! Tài khoản Demo TradingView của bạn đã được kích hoạt thành công và đang hoạt động.",
+          "es": "¡Buenas noticias! Tu cuenta Demo TradingView está operativa",
+          "ptbr": "Ótimas notícias! Sua conta Demo TradingView está pronta e funcionando",
+          "ar": "أخبار رائعة! حسابك التجريبي على TradingView جاهز ويعمل",
+          "de": "Großartige Neuigkeiten! Ihr Demo-TradingView-Konto ist einsatzbereit",
+          "it": "Grandi notizie! Il tuo conto Demo TradingView è attivo e funzionante"
+        }
+      },
+      "Subject": {
+        "original": "Your Demo account is ready",
+        "translations": {
+          "en": "Your Demo account is ready",
+          "th": "บัญชี Demo ของคุณพร้อมใช้งานแล้ว",
+          "zhs": "您的模拟账户已准备就绪",
+          "zht": "您的模擬帳戶已準備就緒",
+          "vn": "Tài khoản Demo của bạn đã sẵn sàng",
+          "es": "Tu cuenta Demo está lista",
+          "ptbr": "Sua conta de demonstração está pronta",
+          "ar": "حسابك التجريبي جاهز",
+          "de": "Ihr Demokonto ist bereit",
+          "it": "Il tuo conto demo è pronto"
+        }
+      }
+    },
+    "Withdrawal Failed Generic": {
+      "Body": {
+        "original": "Let's fix this.",
+        "translations": {
+          "en": "Let's fix this.",
+          "th": "ดำเนินการแก้ไขข้อผิดพลาดนี้",
+          "zhs": "让我们来帮您解决这个问题。",
+          "zht": "讓我們來幫您解決這個問題。",
+          "vn": "Hãy cùng khắc phục vấn đề này.",
+          "es": "Arreglemos esto.",
+          "ptbr": "Vamos corrigir isso.",
+          "ar": "دعونا نصلح هذا.",
+          "de": "Beheben wir das.",
+          "it": "Risolviamo questo problema.",
+          "fr": "Réparons cela."
+        }
+      },
+      "CTA": {
+        "original": "Resubmit withdrawal",
+        "translations": {
+          "en": "Resubmit withdrawal",
+          "th": "ส่งคำร้องขอถอนเงินอีกครั้ง",
+          "zhs": "重新提交出金请求",
+          "zht": "重新提交出金請求",
+          "vn": "Hãy gửi lại yêu cầu rút tiền",
+          "es": "Volver a presentar la retirada",
+          "ptbr": "Reenviar solicitação de saque",
+          "ar": "إعادة تقديم طلب السحب",
+          "de": "Auszahlungsanfrage erneut senden",
+          "it": "Richiedi nuovamente il prelievo",
+          "fr": "Soumettre à nouveau la demande de retrait"
+        }
+      },
+      "Preheader": {
+        "original": "Unfortunately, we couldn’t process your withdrawal because...",
+        "translations": {
+          "en": "Unfortunately, we couldn’t process your withdrawal because...",
+          "th": "เราต้องขอแจ้งให้ท่านทราบว่า เราไม่สามารถดำเนินคำร้องขอการถอนเงินของท่านได้เนื่องจาก ...",
+          "zhs": "很遗憾，我们无法处理您的出金请求，因为。。。",
+          "zht": "很遺憾，我們無法處理您的出金請求，因為。。。",
+          "vn": "Rất tiếc chúng tôi không thể xử lý yêu cầu rút tiền của bạn vì...",
+          "es": "Lamentablemente, no hemos podido procesar tu retirada porque...",
+          "ptbr": "Infelizmente, não conseguimos processar seu saque porque...",
+          "ar": "للأسف، لم نتمكن من معالجة عملية السحب الخاصة بك لأن...",
+          "de": "Leider konnten wir ihre Auszahlung nicht bearbeiten, da...",
+          "it": "Purtroppo non siamo riusciti a elaborare il tuo prelievo perché...",
+          "fr": "Malheureusement, nous n'avons pas pu traiter votre retrait parce que..."
+        }
+      },
+      "Subject": {
+        "original": "Something went wrong with your withdrawal",
+        "translations": {
+          "en": "Something went wrong with your withdrawal",
+          "th": "มีบางสิ่งผิดพลาดจากคำร้องขอถอนเงินของท่าน",
+          "zhs": "您的出金请求遇到异常",
+          "zht": "您的出金請求遇到異常",
+          "vn": "Đã xảy ra sự cố với yêu cầu rút tiền tại tài khoản.",
+          "es": "Algo ha ido mal con tu retirada",
+          "ptbr": "Algo deu errado com seu saque",
+          "ar": "حدث خطأ ما في عملية السحب الخاصة بك",
+          "de": "Bei ihrer Auszahlung ist etwas schiefgelaufen",
+          "it": "Qualcosa è andato storto con il tuo prelievo",
+          "fr": "Un problème est survenu avec votre retrait"
+        }
+      }
+    },
+    "Withdrawal Neteller Invalid ID": {
+      "Body": {
+        "original": "Let's fix this.",
+        "translations": {
+          "en": "Let's fix this.",
+          "th": "ดำเนินการแก้ไขข้อผิดพลาดนี้",
+          "zhs": "让我们来帮您解决这个问题。",
+          "zht": "讓我們來幫您解決這個問題。",
+          "vn": "Hãy cùng khắc phục vấn đề này.",
+          "es": "Arreglemos esto.",
+          "ptbr": "Vamos corrigir isso.",
+          "ar": "دعونا نصلح هذا.",
+          "de": "Lassen Sie uns das beheben.",
+          "it": "Risolviamo questo problema.",
+          "fr": "Réparons cela."
+        }
+      },
+      "CTA": {
+        "original": "Resubmit withdrawal",
+        "translations": {
+          "en": "Resubmit withdrawal",
+          "th": "ืทำรายการถอนอีกครั้ง",
+          "zhs": "重新提交出金请求",
+          "zht": "重新提交出金請求",
+          "vn": "Hãy gửi lại yêu cầu rút tiền",
+          "es": "Volver a enviar la retirada",
+          "ptbr": "Reenviar solicitação de saque",
+          "de": "Auszahlungsanfrage erneut senden",
+          "it": "Richiedi nuovamente il prelievo",
+          "fr": "Soumettre à nouveau la demande de retrait"
+        }
+      },
+      "Preheader": {
+        "original": "We’ve tried to process your withdrawal but your Neteller ID doesn’t seem to be correct.",
+        "translations": {
+          "en": "We’ve tried to process your withdrawal but your Neteller ID doesn’t seem to be correct.",
+          "th": "เราได้พยายามดำเนินการถอนเงิน แต่ Neteller ID ของคุณได้แจ้งว่าเกิดข้อมูลผิดพลาด",
+          "zhs": "我们已尝试处理您的出金请求，但您的 Neteller ID 似乎不正确。",
+          "zht": "我們已嘗試處理您的出金請求，但您的 Neteller ID 似乎不正確。",
+          "vn": "Chúng tôi đã cố gắng xử lý yêu cầu rút tiền của bạn, nhưng có vẻ như tài khoản Neteller ID của bạn đã được nhập không chính xác.",
+          "es": "Hemos intentado procesar tu retirada pero tu ID de Neteller no parece ser correcto.",
+          "ptbr": "Tentamos processar seu saque, mas seu ID Neteller parece não estar correto.",
+          "ar": "لقد حاولنا معالجة عملية السحب الخاصة بك ولكن يبدو أن معرف Neteller الخاص بك لا يبدو صحيحًا.",
+          "de": "Wir haben versucht, ihre Auszahlung zu bearbeiten. Leider scheint ihre Neteller-ID nicht korrekt zu sein.",
+          "it": "Abbiamo provato a elaborare il tuo prelievo ma il tuo ID Neteller non sembra essere corretto.",
+          "fr": "Nous avons essayé de traiter votre retrait, mais votre identifiant Neteller ne semble pas correct."
+        }
+      },
+      "Subject": {
+        "original": "Let's fix this: invalid Neteller ID",
+        "translations": {
+          "en": "Let's fix this: invalid Neteller ID",
+          "th": "ข้อผิดพลาดที่ต้องแก้ไข:  Neteller ID ของคุณไม่ถูกต้อง",
+          "zhs": "让我们来帮您解决这个问题：Neteller ID无效",
+          "zht": "讓我們來幫您解決這個問題：Neteller ID 無效",
+          "vn": "Hãy cùng khắc phục vấn đề này: Thông tin ID Neteller không hợp lệ",
+          "es": "Vamos a solucionarlo: ID de Neteller no válido",
+          "ptbr": "Vamos corrigir isso: ID Neteller inválido",
+          "ar": "دعونا نصلح هذا: معرف Neteller غير صالح",
+          "de": "Beheben wir das: ungültige Neteller-ID",
+          "it": "Risolviamo questo problema: ID Neteller non valido",
+          "fr": "Réparons cela : identifiant Neteller invalide"
+        }
+      }
+    },
+    "Withdrawal Third Party": {
+      "Body": {
+        "original": "Let's fix this.",
+        "translations": {
+          "en": "Let's fix this.",
+          "th": "เราพร้อมช่วยเหลือ",
+          "zhs": "让我们来帮您解决这个问题。",
+          "zht": "讓我們來幫您解決這個問題。",
+          "vn": "Hãy cùng khắc phục vấn đề này.",
+          "es": "Vamos a arreglar esto.",
+          "ptbr": "Vamos corrigir isso",
+          "ar": "دعونا نصلح هذا",
+          "de": "Lassen Sie uns das beheben",
+          "it": "Risolviamo questo problema.",
+          "fr": "Réparons cela"
+        }
+      },
+      "CTA": {
+        "original": "Resubmit withdrawal",
+        "translations": {
+          "en": "Resubmit withdrawal",
+          "th": "ทำรายการถอนอีกครั้ง",
+          "zhs": "重新提交出金请求",
+          "zht": "重新提交出金請求",
+          "vn": "Hãy gửi lại yêu cầu rút tiền",
+          "es": "Volver a presentar la retirada",
+          "ptbr": "Reenviar solicitação de saque",
+          "ar": "إعادة تقديم طلب السحب",
+          "de": "Auszahlungsanfrage erneut senden",
+          "it": "Richiedi nuovamente il prelievo",
+          "fr": "Soumettre à nouveau la demande de retrait"
+        }
+      },
+      "Preheader": {
+        "original": "Unfortunately, due to the Anti-Money Laundering (AML) policy",
+        "translations": {
+          "en": "Unfortunately, due to the Anti-Money Laundering (AML) policy",
+          "th": "น่าเสียดาย เนื่องจากนโยบายการต่อต้านการฟอกเงิน (AML)",
+          "zhs": "很遗憾，由于反洗钱（AML）政策的要求，我们无法将您的资金转账至第三方。",
+          "zht": "很遺憾，由於反洗錢（AML）政策的要求，我們無法將您的資金轉賬至第三方。",
+          "vn": "Rất tiếc, do chính sách Chống Rửa Tiền (AML)",
+          "es": "Lamentablemente, debido a la política de lucha contra el blanqueo de dinero (AML)",
+          "ptbr": "Infelizmente, devido à política de Anti-Lavagem de Dinheiro (AML)",
+          "ar": "لسوء الحظ، بسبب سياسة مكافحة غسيل الأموال (AML)",
+          "de": "Leider können wir aufgrund der Anti-Geldwäsche (AML) Richtlinie",
+          "it": "Sfortunatamente, a causa della politica antiriciclaggio (AML).",
+          "fr": "Malheureusement, en raison de la politique de Lutte contre le Blanchiment d'Argent (AML)"
+        }
+      },
+      "Subject": {
+        "original": "Let’s fix this: invalid details",
+        "translations": {
+          "en": "Let’s fix this: invalid details",
+          "th": "ข้อผิดพลาดที่ต้องแก้ไข: รายละเอียดไม่ถูกต้อง",
+          "zhs": "让我们来帮您解决这个问题：无效信息",
+          "zht": "讓我們來幫您解決這個問題：無效信息",
+          "vn": "Hãy cùng khắc phục vấn đề này: Thông tin tài khoản không hợp lệ",
+          "es": "Vamos a arreglarlo: datos no válidos",
+          "ptbr": "Vamos corrigir isso: detalhes inválidos",
+          "ar": "دعونا نصلح هذا: تفاصيل غير صالحة",
+          "de": "Lassen Sie uns das beheben: ungültige Details",
+          "it": "Risolviamo questo problema: dettagli non validi",
+          "fr": "Réparons cela : détails invalides"
+        }
+      }
+    }
   }
 }
