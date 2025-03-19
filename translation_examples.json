@@ -1211,8 +1211,7 @@
           "ar": "نجاح! لقد تم تصنيفك كـ Pepperstone Pro",
           "de": "Geschafft! Sie wurden als Pepperstone Pro eingestuft",
           "it": "Successo! Sei stato classificato come Pepperstone Pro",
-          "fr": "Sucesso! Você foi classificado como Pepperstone Pro",
-          "unnamed: 12": "Succès ! Vous avez été classé comme Pepperstone Pro"
+          "fr": "Sucesso! Você foi classificado como Pepperstone Pro"
         }
       },
       "Preheader": {
@@ -1228,8 +1227,7 @@
           "ar": "يمكنك الاستمرار في التداول برافعة مالية تصل إلى 500:1",
           "de": "Sie können weiterhin mit einem Hebel von bis zu 500:1 handeln",
           "it": "Puoi continuare a fare trading con una leva fino a 500:1",
-          "fr": "Você pode continuar negociando com alavancagem de até 500:1",
-          "unnamed: 12": "Vous pouvez continuer à trader avec un effet de levier allant jusqu'à 500:1"
+          "fr": "Você pode continuar negociando com alavancagem de até 500:1"
         }
       },
       "Subject": {
@@ -1245,8 +1243,7 @@
           "ar": "نجاح! لقد تم تصنيفك كـ Pepperstone Pro",
           "de": "Geschafft! Sie wurden als Pepperstone Pro eingestuft",
           "it": "Successo! Sei stato classificato come Pepperstone Pro",
-          "fr": "Sucesso! Você foi classificado como Pepperstone Pro",
-          "unnamed: 12": "Succès ! Vous avez été classé comme Pepperstone Pro"
+          "fr": "Sucesso! Você foi classificado como Pepperstone Pro"
         }
       }
     },
@@ -1281,12 +1278,12 @@
         "original": "Important account information",
         "translations": {
           "en": "Important account information",
-          "th": "معلومات الحساب الهامة",
-          "zhs": "ข้อมูลสำคัญเกี่ยวกับบัญชีของคุณ",
-          "zht": "重要账户信息",
-          "vn": "重要帳戶資訊",
-          "es": "Thông tin quan trọng về tài khoản",
-          "ptbr": "Información importante sobre la cuenta",
+          "th": "ข้อมูลสำคัญเกี่ยวกับบัญชีของคุณ",
+          "zhs": "重要账户信息",
+          "zht": "重要帳戶資訊",
+          "vn": "Thông tin quan trọng về tài khoản",
+          "es": "Información importante sobre la cuenta",
+          "ptbr": "معلومات الحساب الهامة",
           "ar": "Informações importantes da conta",
           "de": "Wichtige Kontoinformationen",
           "it": "Informazioni importanti sull'account",
@@ -1297,12 +1294,12 @@
         "original": "Stop out notification",
         "translations": {
           "en": "Stop out notification",
-          "th": "توقف عن الإخطار",
-          "zhs": "การแจ้งเตือน Stop Out",
-          "zht": "强制平仓通知",
-          "vn": "強制平倉通知",
-          "es": "Thông báo Stop Out",
-          "ptbr": "Notificación de stop out",
+          "th": "การแจ้งเตือน Stop Out",
+          "zhs": "强制平仓通知",
+          "zht": "強制平倉通知",
+          "vn": "Thông báo Stop Out",
+          "es": "Notificación de stop out",
+          "ptbr": "توقف عن الإخطار",
           "ar": "Notificação de stop-out",
           "de": "Stop-Out-Benachrichtigung",
           "it": "Notifica di Stop Out",
