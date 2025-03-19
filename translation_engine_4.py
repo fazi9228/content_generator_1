@@ -694,7 +694,7 @@ with col1:
     content_type = st.selectbox(
         "Content Type",
         options=["Market Analysis", "Educational Content", "Email/Post"],
-        index=0
+        index=2
     )
 
     # Add tone selection
