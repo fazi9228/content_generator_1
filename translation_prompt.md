@@ -45,6 +45,20 @@ The translated content is for [specific audience type: casual readers/business p
 - **Technical Terms**: Many English tech and finance terms are used directly in Italian - preserve these when they are the standard (e.g., "trading", "trend", "broker").
 - **Sentence Structure**: Italian often uses longer, more complex sentences than English - restructure for natural flow rather than keeping the exact English sentence breaks.
 
+### German
+- **Formality**: Use the formal "Sie" for business and professional communications, and the informal "du" only for casual contexts or when explicitly targeting younger audiences.
+- **Compound Words**: German frequently creates compound words - use established financial compound terms rather than creating new ones (e.g., "Handelssystem" for "trading system").
+- **Technical Terms**: Many English financial and tech terms are used in German alongside German equivalents - research current usage in German financial publications to determine which is more common.
+- **Financial Vocabulary**: Use established German financial terms where they exist (e.g., "Bullenmarkt" for "bull market"), but keep English terms where they are standard in German financial contexts.
+- **Sentence Structure**: German often places verbs at the end of clauses - ensure translations follow proper German syntax while maintaining readability.
+
+### French
+- **Formality**: Use "vous" for business and professional communications, and "tu" only in very casual contexts.
+- **English Terms**: In financial contexts, French often preserves English terms - especially for market jargon (e.g., "trader", "broker", "spread"). Research current usage in French financial publications.
+- **Acronyms and Abbreviations**: Determine whether acronyms should use French equivalents (if they exist) or remain in English.
+- **Gendered Language**: French is inherently gendered - when possible, consider using inclusive language techniques for gender-neutral contexts (e.g., "utilisateur·rice" or "les personnes qui utilisent").
+- **Numbers and Units**: Use French number formatting (space as thousand separator, comma for decimals: "1 000,50").
+
 ## Examples
 
 ### Good Examples for Chinese (Simplified)
@@ -230,6 +244,82 @@ The translated content is for [specific audience type: casual readers/business p
 "Si prega di verificare il saldo del Suo conto prima di effettuare un ordine."
 
 **Why it's bad:** The translation uses an impersonal construction "Si prega di" which is unnecessarily formal for a simple instruction. A more direct "Verifichi il saldo del Suo conto" would be more appropriate for business communication.
+
+### Good Examples for German
+
+#### Good Example 1 (German - Financial Content):
+**Original:**
+"The DAX index gained 1.5% today, reaching 16,250 points after positive economic data."
+
+**Natural Translation:**
+"Der DAX legte heute um 1,5% zu und erreichte 16.250 Punkte nach positiven Wirtschaftsdaten."
+
+**Why it's good:** Preserves the index name "DAX". Uses the correct German number format with period as decimal separator. Uses natural German financial terminology with "legte zu" for "gained".
+
+#### Good Example 2 (German - Trading Content):
+**Original:**
+"Our platform allows you to trade CFDs on major indices with tight spreads."
+
+**Natural Translation:**
+"Unsere Plattform ermöglicht Ihnen den Handel mit CFDs auf wichtige Indizes mit engen Spreads."
+
+**Why it's good:** Preserves the financial terms "CFDs" and "Spreads" which are commonly used in German trading contexts. Uses the formal "Ihnen" for business communication and natural German phrasing.
+
+#### Bad Example 1 (German - Overly Translated):
+**Original:**
+"The bullish trend in tech stocks continued this quarter."
+
+**Overly Translated:**
+"Die stierbullische Tendenz bei Technologieaktien setzte sich in diesem Quartal fort."
+
+**Why it's bad:** While "stierbullisch" is technically a translation of "bullish," German financial professionals typically use the English term "bullish." A better translation would be "Der bullische Trend bei Tech-Aktien setzte sich in diesem Quartal fort."
+
+#### Bad Example 2 (German - Overly Formal):
+**Original:**
+"Set up price alerts to monitor market movements."
+
+**Overly Formal Translation:**
+"Es wird Ihnen angeraten, Preisbenachrichtigungen einzurichten, um Marktbewegungen zu überwachen."
+
+**Why it's bad:** Uses an unnecessarily complex and passive construction. A more direct approach would be better: "Richten Sie Preisalarme ein, um Marktbewegungen zu überwachen."
+
+### Good Examples for French
+
+#### Good Example 1 (French - Financial Content):
+**Original:**
+"The CAC 40 index rose by 0.8%, closing at 7,250 points despite market volatility."
+
+**Natural Translation:**
+"L'indice CAC 40 a progressé de 0,8%, clôturant à 7 250 points malgré la volatilité du marché."
+
+**Why it's good:** Preserves the index name "CAC 40." Uses the correct French number format with space as thousand separator. Uses natural French financial terminology with "a progressé" for "rose".
+
+#### Good Example 2 (French - Trading Content):
+**Original:**
+"Our traders can access real-time market data and advanced charting tools."
+
+**Natural Translation:**
+"Nos traders peuvent accéder aux données de marché en temps réel et aux outils d'analyse graphique avancés."
+
+**Why it's good:** Preserves the English term "traders" which is commonly used in French financial contexts. Uses natural French expressions for technical concepts while maintaining clarity.
+
+#### Bad Example 1 (French - Overly Translated):
+**Original:**
+"The spread between bid and ask prices has narrowed."
+
+**Overly Translated:**
+"L'écart entre les prix d'offre et de demande s'est rétréci."
+
+**Why it's bad:** While technically correct, in French financial contexts, the term "spread" is commonly used rather than "écart." A better translation would use "Le spread entre les prix bid et ask s'est resserré."
+
+#### Bad Example 2 (French - Too Literal):
+**Original:**
+"Bull markets typically last longer than bear markets."
+
+**Too Literal Translation:**
+"Les marchés taureaux durent typiquement plus longtemps que les marchés ours."
+
+**Why it's bad:** Translates "bull markets" and "bear markets" too literally. French financial professionals typically use "marchés haussiers" and "marchés baissiers" or sometimes the English terms directly.
 
 ## Instructions
 
