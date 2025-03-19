@@ -225,28 +225,18 @@ def load_translation_prompt():
 def load_translation_examples_json(target_language):
     """
     Load translation examples from the custom structured JSON file for a specific target language.
+    Uses session state to cache the data in memory.
     """
     try:
-        import json
-        import os
+        # Check if we already have the data in session state
+        if 'translation_data' not in st.session_state:
+            print("Loading translation data into memory for the first time...")
+            # Only load from file if not already in memory
+            with open("translation_examples.json", "r", encoding="utf-8") as f:
+                st.session_state.translation_data = json.load(f)
+                print("Translation data loaded successfully into memory")
         
-        # Check if file exists
-        json_file = "translation_examples.json"
-        current_dir = os.getcwd()
-        print(f"Current working directory: {current_dir}")
-        print(f"Looking for file: {os.path.join(current_dir, json_file)}")
-        
-        if not os.path.exists(json_file):
-            print(f"Translation examples file not found: {json_file}")
-            return []
-        
-        print(f"JSON file found: {json_file}")
-        
-        # Load JSON file
-        with open(json_file, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            print("JSON loaded successfully")
-            print(f"JSON structure contains keys: {list(data.keys())}")
+        data = st.session_state.translation_data
         
         # Get language code for target language
         language_code = None
@@ -340,12 +330,12 @@ def extract_translation(text):
         return code_blocks[0].strip()
     
     # Try to extract text after a translation label, capturing ALL content after the label
-    translation_match = re.search(r'(?:翻译|translation|translated text)[:：]\s*(.*)', text, re.IGNORECASE | re.DOTALL)
+    translation_match = re.search(r'(?:翻译|translation|translated text|tradução|traduzione|übersetzung|traduction|ترجمة)[:：]\s*(.*)', text, re.IGNORECASE | re.DOTALL)
     if translation_match:
         return translation_match.group(1).strip()
     
     # If the text starts with the target language name, capture ALL content after it
-    language_match = re.search(r'^(?:Chinese|Thai|Vietnamese|Spanish|Korean|Hindi)(?:\s+\((?:Simplified|Traditional)\))?[:\n](.*)', text, re.IGNORECASE | re.DOTALL)
+    language_match = re.search(r'^(?:Chinese|Thai|Vietnamese|Spanish|Portuguese|Italian|German|French|Arabic)(?:\s+\((?:Simplified|Traditional|Brazil)\))?[:\n](.*)', text, re.IGNORECASE | re.DOTALL)
     if language_match:
         return language_match.group(1).strip()
     
@@ -424,6 +414,68 @@ Examples of market phrases to understand (not translate literally):
 - "Liquidity is drying up" → means less money is available for trading
 
 For each financial term or market idiom, translate based on the underlying financial concept, not the literal words.
+
+LANGUAGE-SPECIFIC GUIDANCE:
+{
+"Chinese (Simplified)" in target_language and """
+- Use "入金" (not "存款") for "deposit" in trading contexts and "出金" for "withdrawal"
+- Default to semi-formal tone using "您" for formal business content
+- Use common English tech terms like APP, email where they're commonly understood
+- Use Arabic numerals (not Chinese characters) for numbers in business contexts
+""" or 
+"Chinese (Traditional)" in target_language and """
+- Use "入金" (not "存款") for "deposit" in trading contexts and "出金" for "withdrawal"
+- Use Traditional Chinese characters exclusively, not Simplified
+- Default to semi-formal tone using "您" for formal business content
+- Use common English tech terms like APP, email where they're commonly understood
+- Use Arabic numerals (not Chinese characters) for numbers in business contexts
+""" or 
+"Thai" in target_language and """
+- Use "คุณ" for neutral/semi-formal contexts and "ท่าน" for formal business contexts
+- Maintain common English terms used in Thai business contexts
+- Include appropriate politeness particles in conversational content
+""" or
+"Vietnamese" in target_language and """
+- Use "bạn" for casual/neutral contexts and "quý khách" for business formal contexts
+- Retain common English tech and finance terms where they're standard in Vietnamese
+- Be careful with compound words to maintain clear meaning
+""" or
+"Spanish" in target_language and """
+- Choose between "tú" (informal) and "usted" (formal) based on context
+- Use neutral Latin American Spanish vocabulary avoiding region-specific terms
+- For gender-neutral contexts, consider inclusive language techniques
+""" or
+"Portuguese (Brazil)" in target_language and """
+- Use "você" for standard business communications, "o senhor"/"a senhora" for very formal content
+- Use Brazilian Portuguese terms rather than European Portuguese
+- Maintain established financial market terms in English where they're commonly used
+- Preserve English loanwords that are standard in Brazilian financial contexts
+""" or
+"Italian" in target_language and """
+- Use the formal "Lei" for business communications, and "tu" only for casual contexts
+- For established financial terms, use Italian equivalents if they exist, but keep English terms where commonly used
+- Many tech and finance terms are used directly in Italian - preserve these when standard
+- Italian often uses longer sentences - restructure for natural flow
+""" or
+"German" in target_language and """
+- Use the formal "Sie" for business communications
+- Use established financial compound terms rather than creating new ones
+- Many English financial terms are used in German - research current usage
+- Ensure proper German syntax while maintaining readability
+""" or
+"French" in target_language and """
+- Use "vous" for business communications
+- Preserve English terms for market jargon where common in French financial contexts
+- Use French number formatting (space as thousand separator, comma for decimals)
+- Consider inclusive language techniques for gender-neutral contexts where appropriate
+""" or
+"Arabic" in target_language and """
+- Use appropriate level of formality for business communications
+- For financial terms, follow conventions used by major financial publications in Arabic
+- Numbers should be displayed using Arabic (Western) numerals for financial content
+- Maintain right-to-left formatting and proper Arabic punctuation
+"""
+}
 
 TONE INSTRUCTIONS:
 Use a{' more technical and formal' if tone == 'Technical/Formal' else ' more natural and conversational'} tone in your translation.
@@ -631,7 +683,7 @@ with col1:
     # Change from selectbox to multiselect for multiple languages
     target_languages = st.multiselect(
         "Select Target Language(s)",
-        options=["Chinese (Simplified)", "Chinese (Traditional)", "Thai", "Vietnamese", "Spanish", "Portuguese (Brazil)", "Arabic", "German", "Italian"],
+        options=["Chinese (Simplified)", "Chinese (Traditional)", "Thai", "Vietnamese", "Spanish", "Portuguese (Brazil)", "Arabic", "German", "Italian", "French"],
         default=["Chinese (Simplified)"]
     )
     
