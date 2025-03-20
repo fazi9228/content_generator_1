@@ -683,7 +683,7 @@ with col1:
     # Change from selectbox to multiselect for multiple languages
     target_languages = st.multiselect(
         "Select Target Language(s)",
-        options=["Chinese (Simplified)", "Chinese (Traditional)", "Thai", "Vietnamese", "Spanish", "Portuguese (Brazil)", "Arabic", "German", "Italian", "French"],
+        options=["Chinese (Simplified)", "Chinese (Traditional)", "Thai", "Vietnamese"],
         default=["Chinese (Simplified)"]
     )
     
